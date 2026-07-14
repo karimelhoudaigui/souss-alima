@@ -1,0 +1,209 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  TEACHER
+  STUDENT
+}
+
+enum ProgramType {
+  MEMORIZATION
+  COURSE
+}
+
+enum Riwaya {
+  HAFS
+  QALUN
+  WARSH
+  NONE
+}
+
+enum EnrollmentStatus {
+  PENDING
+  ACTIVE
+  PAUSED
+  COMPLETED
+  CANCELLED
+}
+
+enum SessionStatus {
+  PROPOSED
+  CONFIRMED
+  DONE
+  CANCELLED
+  MISSED
+}
+
+enum NotificationType {
+  SESSION_PROPOSED
+  SESSION_CONFIRMED
+  SESSION_REMINDER
+  NEW_CONTENT
+  SYSTEM
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String
+  email         String    @unique
+  passwordHash  String
+  phone         String?
+  role          Role      @default(STUDENT)
+  isActive      Boolean   @default(true)
+  resetToken    String?
+  resetTokenExp DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  enrollments     Enrollment[]
+  availabilities  Availability[]
+  studentSessions Session[]        @relation("StudentSessions")
+  teacherSessions Session[]        @relation("TeacherSessions")
+  lessonProgress  LessonProgress[]
+  notifications   Notification[]
+}
+
+model Program {
+  id          String      @id @default(cuid())
+  slug        String      @unique
+  title       String
+  description String
+  prerequisites String    @default("Entretien pédagogique initial et assiduité hebdomadaire.")
+  type        ProgramType
+  riwaya      Riwaya      @default(NONE)
+  isPublished Boolean     @default(true)
+  createdAt   DateTime    @default(now())
+
+  enrollments Enrollment[]
+  modules     Module[]
+  sessions    Session[]
+  availabilities Availability[]
+}
+
+model Enrollment {
+  id        String           @id @default(cuid())
+  userId    String
+  programId String
+  status    EnrollmentStatus @default(PENDING)
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+
+  user            User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  program         Program           @relation(fields: [programId], references: [id], onDelete: Cascade)
+  memorizationLog MemorizationLog[]
+
+  @@unique([userId, programId])
+}
+
+model Availability {
+  id          String   @id @default(cuid())
+  userId      String
+  programId   String?
+  dayOfWeek   Int?
+  date        DateTime?
+  startTime   String
+  endTime     String
+  isRecurring Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  program Program? @relation(fields: [programId], references: [id])
+}
+
+model Session {
+  id          String        @id @default(cuid())
+  studentId   String
+  teacherId   String?
+  programId   String
+  scheduledAt DateTime
+  durationMin Int           @default(20)
+  status      SessionStatus @default(PROPOSED)
+  notes       String?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  student User    @relation("StudentSessions", fields: [studentId], references: [id], onDelete: Cascade)
+  teacher User?   @relation("TeacherSessions", fields: [teacherId], references: [id])
+  program Program @relation(fields: [programId], references: [id])
+}
+
+model Module {
+  id        String @id @default(cuid())
+  programId String
+  title     String
+  order     Int
+
+  program Program  @relation(fields: [programId], references: [id], onDelete: Cascade)
+  lessons Lesson[]
+}
+
+model Lesson {
+  id          String   @id @default(cuid())
+  moduleId    String
+  title       String
+  description String?
+  videoUrl    String?
+  order       Int
+  createdAt   DateTime @default(now())
+
+  module    Module           @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  documents Document[]
+  progress  LessonProgress[]
+}
+
+model Document {
+  id       String @id @default(cuid())
+  lessonId String
+  title    String
+  fileUrl  String
+  fileType String
+
+  lesson Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+}
+
+model LessonProgress {
+  id          String    @id @default(cuid())
+  userId      String
+  lessonId    String
+  completed   Boolean   @default(false)
+  completedAt DateTime?
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lesson Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, lessonId])
+}
+
+model MemorizationLog {
+  id           String   @id @default(cuid())
+  enrollmentId String
+  surah        String
+  ayahFrom     Int?
+  ayahTo       Int?
+  juz          Int?
+  page         Int?
+  note         String?
+  createdAt    DateTime @default(now())
+
+  enrollment Enrollment @relation(fields: [enrollmentId], references: [id], onDelete: Cascade)
+}
+
+model Notification {
+  id        String           @id @default(cuid())
+  userId    String
+  type      NotificationType
+  message   String
+  link      String?
+  isRead    Boolean          @default(false)
+  createdAt DateTime         @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
