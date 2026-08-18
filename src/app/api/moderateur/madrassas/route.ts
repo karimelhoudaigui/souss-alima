@@ -36,12 +36,18 @@ export async function POST(request: NextRequest) {
       history,
       currentStatus: typeof body.currentStatus === "string" ? body.currentStatus : "",
       contact: typeof body.contact === "string" ? body.contact : "",
+      scholars: normalizeList(body.scholars),
       sources: normalizeList(body.sources),
+      image: typeof body.image === "string" ? body.image : "",
+      imageCredit: typeof body.imageCredit === "string" ? body.imageCredit : "",
       status
     });
 
     return NextResponse.json({ madrassa }, { status: 201 });
-  } catch {
-    return NextResponse.json({ error: "Impossible de publier cette madrassa." }, { status: 500 });
+  } catch (error) {
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : "Impossible de publier cette madrassa." },
+      { status: 500 }
+    );
   }
 }

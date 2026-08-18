@@ -1,9 +1,10 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { MetadataItem } from "@/components/ui";
 import { StatusBadge } from "@/components/status-badge";
-import { madrassas, scholars, themes } from "@/content/data";
-import { getAllArticles } from "@/content/store";
+import { themes } from "@/content/data";
+import { getAllArticles, getAllMadrassas, getAllScholars } from "@/content/store";
 
 export async function generateStaticParams() {
   const articles = await getAllArticles();
@@ -17,6 +18,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   if (!article) notFound();
 
   const theme = themes.find((item) => item.slug === article.theme)?.label ?? article.theme;
+  const [scholars, madrassas] = await Promise.all([getAllScholars(), getAllMadrassas()]);
   const linkedScholars = scholars.filter((scholar) => article.scholarSlugs.includes(scholar.slug));
   const linkedMadrassas = madrassas.filter((madrassa) => article.madrassaSlugs.includes(madrassa.slug));
 
@@ -35,6 +37,15 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           <StatusBadge status={article.status} />
         </div>
       </header>
+
+      {article.image ? (
+        <div className="container-page pb-10">
+          <figure className="overflow-hidden rounded-[18px] border border-line bg-subtle">
+            <Image alt="" className="h-[260px] w-full object-cover md:h-[420px]" height={840} priority sizes="(max-width: 768px) 100vw, 1200px" src={article.image} unoptimized width={2400} />
+            {article.imageCredit ? <figcaption className="border-t border-line px-4 py-3 text-xs text-muted">{article.imageCredit}</figcaption> : null}
+          </figure>
+        </div>
+      ) : null}
 
       <div className="container-page grid gap-10 pb-14 lg:grid-cols-[minmax(0,1fr)_320px]">
         <main className="max-w-3xl">

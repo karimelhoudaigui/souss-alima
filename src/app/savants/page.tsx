@@ -2,9 +2,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { FilterChip, PageHeader } from "@/components/ui";
 import { StatusBadge } from "@/components/status-badge";
-import { scholars } from "@/content/data";
+import { getAllScholars } from "@/content/store";
 
-export default function ScholarsPage() {
+export default async function ScholarsPage() {
+  const scholars = await getAllScholars();
   const grouped = scholars.reduce<Record<string, typeof scholars>>((acc, scholar) => {
     const letter = scholar.nameFr[0]?.toUpperCase() ?? "#";
     acc[letter] = [...(acc[letter] ?? []), scholar];
@@ -36,7 +37,7 @@ export default function ScholarsPage() {
                 {items.map((scholar) => (
                   <Link className="entity-row grid gap-4 md:grid-cols-[84px_1fr_auto]" href={`/savants/${scholar.slug}`} key={scholar.slug}>
                     {scholar.image ? (
-                      <Image alt="" className="h-20 w-20 rounded-[14px] object-cover object-[center_38%]" height={160} sizes="80px" src={scholar.image} width={160} />
+                      <Image alt="" className="h-20 w-20 rounded-[14px] object-cover object-[center_38%]" height={160} sizes="80px" src={scholar.image} unoptimized width={160} />
                     ) : (
                       <div className="hidden h-20 w-20 rounded-[14px] bg-subtle md:block" />
                     )}

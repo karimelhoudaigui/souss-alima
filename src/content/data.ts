@@ -60,6 +60,8 @@ export type Article = {
   tags: string[];
   scholarSlugs: string[];
   madrassaSlugs: string[];
+  image?: string;
+  imageCredit?: string;
   status: VerificationStatus;
 };
 
@@ -115,41 +117,6 @@ export const scholars: Scholar[] = [
     imageCredit: "Photo fournie : Sidi Mohammed Nazir, version optimisee haute qualite.",
     status: "sourced",
     featured: true
-  },
-  {
-    slug: "savant-exemple-tiznit",
-    nameFr: "Savant exemple de Tiznit",
-    nameAr: "عالم نموذجي من تزنيت",
-    nisba: "Exemple / a remplacer",
-    period: "Periode a documenter",
-    places: "Souss, Maroc",
-    specialties: ["qiraat", "fiqh", "nahw"],
-    madrassas: ["madrassa-exemple-anti-atlas"],
-    teachers: ["A verifier"],
-    students: ["A verifier"],
-    works: ["A completer avec sources"],
-    biography:
-      "Cette fiche sert uniquement a illustrer la structure editoriale. Elle ne doit pas etre publiee comme biographie reelle sans verification bibliographique.",
-    sources: ["Exemple a remplacer par Al-Ma'sul, catalogues, ijazat, archives familiales ou references academiques."],
-    status: "example",
-    featured: true
-  },
-  {
-    slug: "savante-exemple-taroudant",
-    nameFr: "Figure savante exemple de Taroudant",
-    nameAr: "شخصية علمية نموذجية من تارودانت",
-    nisba: "Exemple / a remplacer",
-    period: "Periode a verifier",
-    places: "Taroudant et environs",
-    specialties: ["tajwid", "tafsir"],
-    madrassas: ["madrassa-exemple-taroudant"],
-    teachers: ["A verifier"],
-    students: ["A verifier"],
-    works: ["A completer"],
-    biography:
-      "Fiche de demonstration pour tester les liens entre savants, specialites et madrassas. Les donnees doivent etre remplacees par des sources identifiees.",
-    sources: ["Reference non renseignee - a verifier."],
-    status: "example"
   }
 ];
 
@@ -166,82 +133,9 @@ export const themes: Theme[] = [
   { slug: "recherche-etudes", label: "Recherche / etudes" }
 ];
 
-export const articles: Article[] = [
-  {
-    slug: "qiraat",
-    title: "Qiraat",
-    titleAr: "القراءات",
-    theme: "qiraat",
-    author: "Equipe editoriale",
-    publishedAt: "2026-08-18",
-    readingTime: "6 min",
-    summary: "Introduction editoriale aux lectures coraniques et a leur transmission dans les traditions d'enseignement.",
-    body:
-      "Cet article est un exemple editorial. Il doit etre remplace par un texte source qui explique le sujet, ses textes de reference, ses lieux de transmission et ses relations avec les savants et madrassas documentes.",
-    sources: ["A completer avec sources."],
-    tags: ["Coran", "Transmission", "Recitation"],
-    scholarSlugs: ["savant-exemple-tiznit"],
-    madrassaSlugs: ["madrassa-exemple-anti-atlas"],
-    status: "example"
-  },
-  {
-    slug: "rasm",
-    title: "Rasm",
-    titleAr: "الرسم",
-    theme: "coran-sciences-coraniques",
-    author: "Equipe editoriale",
-    publishedAt: "2026-08-18",
-    readingTime: "5 min",
-    summary: "Article introductif sur le trace coranique, ses usages pedagogiques et ses liens avec la copie manuscrite.",
-    body:
-      "Cet article est une base de demonstration. Il devra etre enrichi par des references bibliographiques et des exemples verifies issus du Souss.",
-    sources: ["A verifier selon les usages locaux du Souss."],
-    tags: ["Manuscrit", "Mushaf", "Ecriture"],
-    scholarSlugs: ["savant-exemple-tiznit"],
-    madrassaSlugs: ["madrassa-exemple-anti-atlas"],
-    status: "example"
-  },
-  {
-    slug: "fiqh-malikite",
-    title: "Fiqh malikite",
-    titleAr: "الفقه المالكي",
-    theme: "enseignement-traditionnel",
-    author: "Equipe editoriale",
-    publishedAt: "2026-08-18",
-    readingTime: "7 min",
-    summary: "Article de cadrage sur la place du fiqh malikite dans les parcours d'enseignement traditionnels.",
-    body:
-      "Cette publication exemple montre comment un article peut servir de pont entre themes, savants, madrassas, sources et ouvrages.",
-    sources: ["A completer avec les textes effectivement enseignes localement."],
-    tags: ["Droit", "Maroc", "Malikisme"],
-    scholarSlugs: ["savante-exemple-taroudant"],
-    madrassaSlugs: ["madrassa-exemple-taroudant"],
-    status: "example"
-  }
-];
+export const articles: Article[] = [];
 
-export const travels: Travel[] = [
-  {
-    slug: "immersion-souss-exemple",
-    title: "Immersion patrimoniale dans les madrassas du Souss",
-    duration: "5 jours",
-    dates: "Dates a confirmer",
-    price: "Tarif a definir",
-    itinerary: ["Agadir", "Taroudant", "Anti-Atlas", "Tiznit"],
-    program: [
-      "Rencontre introductive sur le Souss savant",
-      "Visite de madrassas avec referents locaux",
-      "Atelier d'initiation au rasm et au dabt",
-      "Temps d'echange avec enseignants et tolba",
-      "Carnet de voyage photographique"
-    ],
-    practicalInfo:
-      "Ce voyage est une proposition exemple. Les lieux, contacts, autorisations, tarifs et conditions doivent etre confirmes avant publication.",
-    madrassaSlugs: ["madrassa-exemple-agadir", "madrassa-exemple-taroudant", "madrassa-exemple-anti-atlas"],
-    status: "example",
-    featured: true
-  }
-];
+export const travels: Travel[] = [];
 
 export const glossary = [
   { term: "Silsila", ar: "سلسلة", definition: "Chaine de transmission reliant maitres et disciples.", category: "Transmission" },

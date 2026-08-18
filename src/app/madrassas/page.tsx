@@ -58,7 +58,7 @@ export default async function MadrassasPage() {
               <Link className="entity-row" href={`/madrassas/${madrassa.slug}`} key={madrassa.slug}>
                 <div className="grid gap-4 sm:grid-cols-[112px_1fr]">
                   {madrassa.image ? (
-                    <Image alt="" className="h-24 w-full rounded-[12px] object-cover sm:w-28" height={192} sizes="(max-width: 640px) 100vw, 112px" src={madrassa.image} width={224} />
+                    <Image alt="" className="h-24 w-full rounded-[12px] object-cover sm:w-28" height={192} sizes="(max-width: 640px) 100vw, 112px" src={madrassa.image} unoptimized width={224} />
                   ) : null}
                   <div>
                     <div className="flex items-start justify-between gap-4">

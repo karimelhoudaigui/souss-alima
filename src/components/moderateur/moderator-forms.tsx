@@ -20,12 +20,14 @@ type ModeratorFormsProps = {
   totals: {
     madrassas: number;
     articles: number;
+    scholars: number;
   };
   recentMadrassas: RecentItem[];
   recentArticles: RecentItem[];
+  recentScholars: RecentItem[];
 };
 
-type ActiveContent = "madrassa" | "article";
+type ActiveContent = "madrassa" | "article" | "scholar";
 
 const initialState: SubmitState = { status: "idle", message: "" };
 
@@ -46,16 +48,17 @@ async function submitJson(endpoint: string, payload: Record<string, unknown>, mo
     headers: { "Content-Type": "application/json", "x-moderator-key": moderatorKey },
     body: JSON.stringify(payload)
   });
-  const data = await response.json() as { error?: string; madrassa?: { slug: string }; article?: { slug: string } };
+  const data = await response.json() as { error?: string; madrassa?: { slug: string }; article?: { slug: string }; scholar?: { slug: string } };
 
   if (!response.ok) throw new Error(data.error ?? "Publication impossible.");
   return data;
 }
 
-export function ModeratorForms({ totals, recentMadrassas, recentArticles }: ModeratorFormsProps) {
+export function ModeratorForms({ totals, recentMadrassas, recentArticles, recentScholars }: ModeratorFormsProps) {
   const [active, setActive] = useState<ActiveContent>("madrassa");
   const [madrassaState, setMadrassaState] = useState<SubmitState>(initialState);
   const [articleState, setArticleState] = useState<SubmitState>(initialState);
+  const [scholarState, setScholarState] = useState<SubmitState>(initialState);
   const [moderatorKey, setModeratorKey] = useState("");
 
   const activeHelp = useMemo(() => {
@@ -66,9 +69,14 @@ export function ModeratorForms({ totals, recentMadrassas, recentArticles }: Mode
       };
     }
 
-    return {
+    if (active === "article") return {
       title: "Publication article",
       items: ["Ajout dans /articles", "Fiche article publique", "Classement par theme", "Relations possibles vers savants et madrassas"]
+    };
+
+    return {
+      title: "Publication savant",
+      items: ["Ajout dans /savants", "Fiche biographique", "Relations vers madrassas", "Portrait et sources"]
     };
   }, [active]);
 
@@ -92,6 +100,9 @@ export function ModeratorForms({ totals, recentMadrassas, recentArticles }: Mode
         currentStatus: value(formData, "currentStatus"),
         contact: value(formData, "contact"),
         sources: value(formData, "sources"),
+        scholars: value(formData, "scholars"),
+        image: value(formData, "image"),
+        imageCredit: value(formData, "imageCredit"),
         status: value(formData, "status")
       }, moderatorKey);
 
@@ -120,6 +131,10 @@ export function ModeratorForms({ totals, recentMadrassas, recentArticles }: Mode
         body: value(formData, "body"),
         sources: value(formData, "sources"),
         tags: value(formData, "tags"),
+        scholarSlugs: value(formData, "scholarSlugs"),
+        madrassaSlugs: value(formData, "madrassaSlugs"),
+        image: value(formData, "image"),
+        imageCredit: value(formData, "imageCredit"),
         status: value(formData, "status")
       }, moderatorKey);
 
@@ -127,6 +142,38 @@ export function ModeratorForms({ totals, recentMadrassas, recentArticles }: Mode
       setArticleState({ status: "success", message: "Article publie.", href: `/articles/${data.article?.slug}` });
     } catch (error) {
       setArticleState({ status: "error", message: error instanceof Error ? error.message : "Erreur inconnue." });
+    }
+  }
+
+  async function onScholarSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    setScholarState({ status: "loading", message: "Publication en cours..." });
+
+    try {
+      const data = await submitJson("/api/moderateur/savants", {
+        nameFr: value(formData, "nameFr"),
+        nameAr: value(formData, "nameAr"),
+        nisba: value(formData, "nisba"),
+        period: value(formData, "period"),
+        places: value(formData, "places"),
+        specialties: value(formData, "specialties"),
+        madrassas: value(formData, "madrassas"),
+        teachers: value(formData, "teachers"),
+        students: value(formData, "students"),
+        works: value(formData, "works"),
+        biography: value(formData, "biography"),
+        sources: value(formData, "sources"),
+        image: value(formData, "image"),
+        imageCredit: value(formData, "imageCredit"),
+        status: value(formData, "status")
+      }, moderatorKey);
+
+      form.reset();
+      setScholarState({ status: "success", message: "Savant publie.", href: `/savants/${data.scholar?.slug}` });
+    } catch (error) {
+      setScholarState({ status: "error", message: error instanceof Error ? error.message : "Erreur inconnue." });
     }
   }
 
@@ -141,6 +188,9 @@ export function ModeratorForms({ totals, recentMadrassas, recentArticles }: Mode
             </TabButton>
             <TabButton active={active === "article"} count={totals.articles} onClick={() => setActive("article")}>
               Article
+            </TabButton>
+            <TabButton active={active === "scholar"} count={totals.scholars} onClick={() => setActive("scholar")}>
+              Savant
             </TabButton>
           </div>
         </section>
@@ -157,12 +207,12 @@ export function ModeratorForms({ totals, recentMadrassas, recentArticles }: Mode
 
       <section className="min-w-0 rounded-[20px] border border-line bg-surface">
         <div className="border-b border-line px-5 py-4 md:px-6">
-          <p className="metadata-label">{active === "madrassa" ? "Nouvelle entree cartographique" : "Nouvelle publication editoriale"}</p>
-          <h2 className="mt-1 text-2xl font-semibold text-ink">{active === "madrassa" ? "Publier une madrassa" : "Publier un article"}</h2>
+          <p className="metadata-label">{active === "madrassa" ? "Nouvelle entree cartographique" : active === "article" ? "Nouvelle publication editoriale" : "Nouvelle fiche biographique"}</p>
+          <h2 className="mt-1 text-2xl font-semibold text-ink">{active === "madrassa" ? "Publier une madrassa" : active === "article" ? "Publier un article" : "Publier un savant"}</h2>
         </div>
 
         <div className="p-5 md:p-6">
-          {active === "madrassa" ? <MadrassaForm onSubmit={onMadrassaSubmit} state={madrassaState} /> : <ArticleForm onSubmit={onArticleSubmit} state={articleState} />}
+          {active === "madrassa" ? <MadrassaForm onSubmit={onMadrassaSubmit} state={madrassaState} /> : active === "article" ? <ArticleForm onSubmit={onArticleSubmit} state={articleState} /> : <ScholarForm onSubmit={onScholarSubmit} state={scholarState} />}
         </div>
       </section>
 
@@ -189,7 +239,7 @@ export function ModeratorForms({ totals, recentMadrassas, recentArticles }: Mode
           </ul>
         </section>
 
-        <RecentPanel title={active === "madrassa" ? "Dernieres madrassas" : "Derniers articles"} items={active === "madrassa" ? recentMadrassas : recentArticles} />
+        <RecentPanel title={active === "madrassa" ? "Dernieres madrassas" : active === "article" ? "Derniers articles" : "Derniers savants"} items={active === "madrassa" ? recentMadrassas : active === "article" ? recentArticles : recentScholars} />
       </aside>
     </div>
   );
@@ -219,9 +269,14 @@ function MadrassaForm({ onSubmit, state }: { onSubmit: (event: FormEvent<HTMLFor
         <Field label="Enseignements / specialites, separes par ;" name="specialties" placeholder="qiraat; fiqh; rasm" />
         <TextArea label="Resume historique source" name="history" required />
         <Field label="Sources, separees par ;" name="sources" />
+        <Field label="Slugs des savants lies, separes par ;" name="scholars" placeholder="sidi-mohammed-nazir" />
         <div className="grid gap-4 md:grid-cols-2">
           <Field label="Statut actuel" name="currentStatus" placeholder="Active, historique, a verifier..." />
           <Field label="Contact public" name="contact" />
+        </div>
+        <div className="grid gap-4 md:grid-cols-2">
+          <Field label="Image" name="image" placeholder="/images/madrassas/nom.png ou https://..." />
+          <Field label="Credit image" name="imageCredit" />
         </div>
         <StatusSelect />
       </FormSection>
@@ -255,10 +310,56 @@ function ArticleForm({ onSubmit, state }: { onSubmit: (event: FormEvent<HTMLForm
         <TextArea label="Contenu de l'article" name="body" required />
         <Field label="Sources, separees par ;" name="sources" />
         <Field label="Tags, separes par ;" name="tags" placeholder="Qiraat; Manuscrits; Transmission" />
+        <div className="grid gap-4 md:grid-cols-2">
+          <Field label="Slugs des savants lies" name="scholarSlugs" placeholder="sidi-mohammed-nazir" />
+          <Field label="Slugs des madrassas liees" name="madrassaSlugs" placeholder="ecole-traditionnelle-zawiya-assa" />
+        </div>
+        <div className="grid gap-4 md:grid-cols-2">
+          <Field label="Image" name="image" placeholder="/images/articles/nom.png ou https://..." />
+          <Field label="Credit image" name="imageCredit" />
+        </div>
         <StatusSelect />
       </FormSection>
 
       <FormActions loading={state.status === "loading"} submitLabel="Publier l'article" state={state} />
+    </form>
+  );
+}
+
+function ScholarForm({ onSubmit, state }: { onSubmit: (event: FormEvent<HTMLFormElement>) => void; state: SubmitState }) {
+  return (
+    <form className="grid gap-8" onSubmit={onSubmit}>
+      <FormSection description="La fiche biographique apparait dans le repertoire des savants." title="Identite">
+        <Field label="Nom francais / translittere" name="nameFr" required />
+        <Field label="Nom arabe" name="nameAr" />
+        <div className="grid gap-4 md:grid-cols-3">
+          <Field label="Nisba / nom complet" name="nisba" />
+          <Field label="Periode" name="period" placeholder="Ne en 1981, XIIIe siecle..." />
+          <Field label="Lieux" name="places" placeholder="Souss, Tata, Assa..." />
+        </div>
+      </FormSection>
+
+      <FormSection description="Ces relations permettent aux fiches de se repondre entre elles." title="Transmission">
+        <Field label="Specialites, separees par ;" name="specialties" placeholder="qiraat; fiqh; rasm" />
+        <Field label="Slugs des madrassas liees, separes par ;" name="madrassas" placeholder="ecole-traditionnelle-zawiya-assa" />
+        <div className="grid gap-4 md:grid-cols-2">
+          <Field label="Maitres, separes par ;" name="teachers" />
+          <Field label="Eleves, separes par ;" name="students" />
+        </div>
+      </FormSection>
+
+      <FormSection description="Le texte peut etre long ; les retours a la ligne seront conserves." title="Contenu">
+        <TextArea label="Biographie" name="biography" required />
+        <Field label="Oeuvres, separees par ;" name="works" />
+        <Field label="Sources, separees par ;" name="sources" />
+        <div className="grid gap-4 md:grid-cols-2">
+          <Field label="Portrait" name="image" placeholder="/images/scholars/nom.png ou https://..." />
+          <Field label="Credit portrait" name="imageCredit" />
+        </div>
+        <StatusSelect />
+      </FormSection>
+
+      <FormActions loading={state.status === "loading"} submitLabel="Publier le savant" state={state} />
     </form>
   );
 }

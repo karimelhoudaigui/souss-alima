@@ -1,8 +1,8 @@
 import { ModeratorForms } from "@/components/moderateur/moderator-forms";
-import { getAllArticles, getAllMadrassas } from "@/content/store";
+import { getAllArticles, getAllMadrassas, getAllScholars } from "@/content/store";
 
 export default async function ModeratorPage() {
-  const [madrassas, articles] = await Promise.all([getAllMadrassas(), getAllArticles()]);
+  const [madrassas, articles, scholars] = await Promise.all([getAllMadrassas(), getAllArticles(), getAllScholars()]);
   const recentMadrassas = madrassas.slice(-4).reverse().map((madrassa) => ({
     name: madrassa.name,
     href: `/madrassas/${madrassa.slug}`,
@@ -12,6 +12,11 @@ export default async function ModeratorPage() {
     name: article.title,
     href: `/articles/${article.slug}`,
     meta: article.summary
+  }));
+  const recentScholars = scholars.slice(-4).reverse().map((scholar) => ({
+    name: scholar.nameFr,
+    href: `/savants/${scholar.slug}`,
+    meta: scholar.places
   }));
 
   return (
@@ -25,7 +30,7 @@ export default async function ModeratorPage() {
               Ajouter, verifier et publier les contenus qui alimentent la carte, les fiches madrassas et l'espace editorial.
             </p>
           </div>
-          <dl className="grid grid-cols-2 gap-4 rounded-[18px] border border-line bg-surface p-4">
+          <dl className="grid grid-cols-3 gap-4 rounded-[18px] border border-line bg-surface p-4">
             <div>
               <dt className="metadata-label">Madrassas</dt>
               <dd className="mt-1 text-3xl font-semibold text-ink">{madrassas.length}</dd>
@@ -33,6 +38,10 @@ export default async function ModeratorPage() {
             <div>
               <dt className="metadata-label">Articles</dt>
               <dd className="mt-1 text-3xl font-semibold text-ink">{articles.length}</dd>
+            </div>
+            <div>
+              <dt className="metadata-label">Savants</dt>
+              <dd className="mt-1 text-3xl font-semibold text-ink">{scholars.length}</dd>
             </div>
           </dl>
         </div>
@@ -42,7 +51,8 @@ export default async function ModeratorPage() {
           <ModeratorForms
             recentArticles={recentArticles}
             recentMadrassas={recentMadrassas}
-            totals={{ articles: articles.length, madrassas: madrassas.length }}
+            recentScholars={recentScholars}
+            totals={{ articles: articles.length, madrassas: madrassas.length, scholars: scholars.length }}
           />
         </div>
       </main>

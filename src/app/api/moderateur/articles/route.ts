@@ -32,11 +32,18 @@ export async function POST(request: NextRequest) {
       body: bodyText,
       sources: normalizeList(body.sources),
       tags: normalizeList(body.tags),
+      scholarSlugs: normalizeList(body.scholarSlugs),
+      madrassaSlugs: normalizeList(body.madrassaSlugs),
+      image: typeof body.image === "string" ? body.image : "",
+      imageCredit: typeof body.imageCredit === "string" ? body.imageCredit : "",
       status
     });
 
     return NextResponse.json({ article }, { status: 201 });
-  } catch {
-    return NextResponse.json({ error: "Impossible de publier cet article." }, { status: 500 });
+  } catch (error) {
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : "Impossible de publier cet article." },
+      { status: 500 }
+    );
   }
 }

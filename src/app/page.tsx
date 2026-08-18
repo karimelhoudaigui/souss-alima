@@ -1,12 +1,11 @@
 import Link from "next/link";
-import { scholars } from "@/content/data";
-import { getAllArticles, getAllMadrassas } from "@/content/store";
+import { getAllArticles, getAllMadrassas, getAllScholars } from "@/content/store";
 import { StatusBadge } from "@/components/status-badge";
 
 const regions = ["Tiznit", "Taroudant", "Agadir", "Anti-Atlas", "Souss"];
 
 export default async function HomePage() {
-  const [articles, madrassas] = await Promise.all([getAllArticles(), getAllMadrassas()]);
+  const [articles, madrassas, scholars] = await Promise.all([getAllArticles(), getAllMadrassas(), getAllScholars()]);
 
   return (
     <div>

@@ -3,8 +3,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { StatusBadge } from "@/components/status-badge";
 import { MetadataItem } from "@/components/ui";
-import { scholars } from "@/content/data";
-import { getAllMadrassas } from "@/content/store";
+import { getAllMadrassas, getAllScholars } from "@/content/store";
 
 export async function generateStaticParams() {
   const madrassas = await getAllMadrassas();
@@ -16,6 +15,7 @@ export default async function MadrassaPage({ params }: { params: Promise<{ slug:
   const madrassas = await getAllMadrassas();
   const madrassa = madrassas.find((item) => item.slug === slug);
   if (!madrassa) notFound();
+  const scholars = await getAllScholars();
   const linkedScholars = scholars.filter((scholar) => madrassa.scholars.includes(scholar.slug));
   const sources = madrassa.sources?.length ? madrassa.sources : [];
 
@@ -44,7 +44,7 @@ export default async function MadrassaPage({ params }: { params: Promise<{ slug:
       <div className="container-page">
         {madrassa.image ? (
           <figure className="overflow-hidden rounded-[18px] border border-line bg-subtle">
-            <Image alt="" className="h-[280px] w-full object-cover md:h-[420px]" height={840} priority sizes="(max-width: 768px) 100vw, 1200px" src={madrassa.image} width={2400} />
+            <Image alt="" className="h-[280px] w-full object-cover md:h-[420px]" height={840} priority sizes="(max-width: 768px) 100vw, 1200px" src={madrassa.image} unoptimized width={2400} />
             {madrassa.imageCredit ? <figcaption className="border-t border-line px-4 py-3 text-xs text-muted">{madrassa.imageCredit}</figcaption> : null}
           </figure>
         ) : (
@@ -92,7 +92,7 @@ export default async function MadrassaPage({ params }: { params: Promise<{ slug:
                   <span className="text-sm text-faint">01</span>
                   <div>
                     <p className="text-sm font-medium text-ink">Source non renseignee</p>
-                    <p className="mt-1 text-sm leading-6 text-muted">Cette fiche est un exemple. Les references doivent etre ajoutees avant publication.</p>
+                    <p className="mt-1 text-sm leading-6 text-muted">Cette fiche doit etre completee avec des references avant validation editoriale.</p>
                   </div>
                 </div>
               )}
