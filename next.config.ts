@@ -11,6 +11,7 @@ const nextConfig: NextConfig = {
         output: "export" as const,
         basePath: "/souss-alima",
         assetPrefix: "/souss-alima/",
+        trailingSlash: true,
         images: {
           unoptimized: true
         }
