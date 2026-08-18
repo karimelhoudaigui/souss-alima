@@ -175,6 +175,50 @@
         "Publications Facebook locales : sepulture d'al-Hudayki, Sidi Belqasim Afilal et activite recente de Sidi al-Husayn Zuki"
       ],
       "status": "sourced"
+    },
+    {
+      "slug": "zawiya-ibn-hmida",
+      "name": "Madrassa de la Zawiya Ibn Hmida",
+      "nameAr": "المؤسسة القرآنية العلمية العتيقة زاوية سيدي محمد بن احميدة",
+      "village": "Zaouiat Ben Hmida / Bir Kouat",
+      "commune": "Zaouiat Ben Hmida",
+      "province": "Essaouira",
+      "lat": 31.7548,
+      "lng": -9.3716,
+      "specialties": [
+        "Qur'an",
+        "hifz",
+        "tajwid",
+        "qiraat",
+        "sept lectures",
+        "Shatibiyya",
+        "fiqh",
+        "tafsir",
+        "hadith",
+        "usul al-fiqh",
+        "faraid",
+        "nahw",
+        "balagha",
+        "internat",
+        "restauration",
+        "bibliotheque",
+        "enseignement general"
+      ],
+      "history": "Etablissement coranique et scientifique traditionnel situe dans la commune de Zaouiat Ben Hmida, province d'Essaouira, region Marrakech-Safi, dans le secteur de Bir Kouat. Les sources situees autour de la zawiya la presentent comme une institution active de l'enseignement traditionnel, a environ 60 km de la ville d'Essaouira et proche de la route nationale Essaouira-Safi. Le reportage Hespress/MAP de mars 2025 documente une ecole accueillant environ 160 etudiants, issus de differentes communes de la province, avec une presence feminine notable. L'etablissement dispose de salles de cours, d'un internat, d'un restaurant, de locaux administratifs et sanitaires ainsi que d'une bibliotheque contenant des ouvrages religieux, culturels et scientifiques. L'enseignement associe memorisation du Qur'an, sciences islamiques, fiqh, tafsir et tajwid, avec des disciplines generales telles que les mathematiques, les langues, les sciences et l'histoire. Les qiraat sont documentees par la presence de tafsir et qiraat dans les examens d'enseignement traditionnel et par des contenus publics autour de la Shatibiyya, Hirz al-Amani wa-Wajh al-Tahani fi al-Qiraat al-Sab'. Les sources attestent egalement un role de rayonnement lie aux etudiants africains, notamment originaires de Guinee-Conakry. Les coordonnees sont placees au niveau de Zaouiat Ben Hmida / Bir Kouat et doivent etre confirmees sur site pour le portail exact.",
+      "currentStatus": "Active - activite publique documentee en 2025 et 2026",
+      "contact": "Directeur/responsable documente : al-Hajj Abd al-Aziz ibn Muhammadan ibn Muhammad al-Muqaddam / الحاج عبد العزيز بن محمدان بن محمد المقدم, egalement naqib des zawiyas Ragraga au Maroc.",
+      "scholars": [],
+      "image": "/images/madrassas/zawiya-ibn-hmida-hq.jpg",
+      "imageCredit": "Photo fournie : entree de la Zawiya Ibn Hmida, version agrandie pour affichage web.",
+      "sources": [
+        "Hespress/MAP, 12 mars 2025 : reportage sur l'ecole coranique de Zawiya Ibn Hmida, ses effectifs, son internat, sa restauration, sa bibliotheque et son programme.",
+        "Ma3lama : presentation patrimoniale de Zaouiat Ben Hmida et localisation autour de Bir Kouat.",
+        "Page publique Facebook de l'etablissement : direction par al-Hajj Abd al-Aziz al-Muqaddam et publications recentes.",
+        "Publication Facebook de l'ecole : contenu autour du matn al-Shatibiyya, Hirz al-Amani wa-Wajh al-Tahani fi al-Qiraat al-Sab'.",
+        "Blog de l'enseignement traditionnel : examens 2019-2020 incluant tafsir et qiraat ainsi que matieres traditionnelles.",
+        "Reportage Achewa9e3TV et publications de l'ecole : etudiants africains, notamment de Guinee-Conakry."
+      ],
+      "status": "sourced"
     }
   ],
   "articles": []
