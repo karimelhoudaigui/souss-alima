@@ -117,6 +117,42 @@ export const scholars: Scholar[] = [
     imageCredit: "Photo fournie : Sidi Mohammed Nazir, version optimisee haute qualite.",
     status: "sourced",
     featured: true
+  },
+  {
+    slug: "sidi-mohammed-amgour-al-baamrani",
+    nameFr: "Sidi al-Hajj Mohammed Amgour al-Baamrani",
+    nameAr: "سيدي الحاج محمد أمگور الباعمراني",
+    nisba: "Connu sous le surnom al-Driyush / الدريوش",
+    period: "Ne en 1956 - actif en 2026",
+    places: "Tlat Imagern, Ait Baamrane, Lakhsas, Sidi Ifni, Azrou",
+    specialties: ["Qur'an", "hifz", "Warsh an Nafi", "qiraat", "al-Makki a confirmer", "talaqqi", "enseignement coranique"],
+    madrassas: [],
+    teachers: [
+      "Sidi al-Hasan al-Bouhali",
+      "Sidi Ahmad Ou Ali",
+      "Sidi Abid b. Hammad",
+      "Sidi al-Hajj Muhammad Boutougha",
+      "Sidi Muhammad b. Ali Khath",
+      "Sidi Ibrahim b. al-Hasan al-Hilali",
+      "Sidi Hasan Asban",
+      "Sidi Ibrahim al-Noumri",
+      "Sidi Ibrahim b. al-Arabi al-Milki al-Masoudi",
+      "Sidi al-Hajj Muhammad Tawfiq al-Tajajti"
+    ],
+    students: ["Anciens eleves de la Madrassa coranique d'Azrou", "Abd al-Sadiq al-Nasiri, temoignage public a confirmer"],
+    works: ["Transmission orale du Qur'an et de la riwaya de Warsh", "Enseignement coranique a la Madrassa Azrou"],
+    biography:
+      "Sidi al-Hajj Mohammed Amgour al-Baamrani, connu sous le surnom d'al-Driyush, est un muqri du pays Ait Baamrane, ne en 1956 a Tlat Imagern, dans la tribu Ait Yakhlef. Les notices publiques le presentent comme une figure de l'enseignement coranique, particulierement associee a la riwaya de Warsh.\n\nApres avoir memorise le Qur'an aupres de plusieurs fuqaha du Souss, il poursuivit sa formation en qiraat aupres de maitres etablis notamment a Lakhsas, Tngarfa, al-Mnizla, Bankmoud, Sidi Said Oumsaoud et Toughzift. Une notice mentionne egalement la lecture dite al-Makki dans sa formation ; cette information est conservee comme element a preciser avant d'etre assimilee explicitement a Ibn Kathir.\n\nSon itineraire d'enseignement le relie a l'ecole Sidi Ali Ousaid, a Lakhsas, puis a la Grande Mosquee de Sidi Ifni. Vers 1999, il rejoint la Madrassa coranique d'Azrou, ou plusieurs publications locales le presentent comme muqri, enseignant, cheikh de l'ecole et imam de la mosquee d'Azrou. Son activite a Azrou est encore attestee par des publications publiques en 2026.\n\nDes temoignages d'anciens eleves indiquent que des khatmat completes du Qur'an ont ete accomplies sous sa direction. Ces temoignages confirment une transmission personnelle et prolongee, tout en restant a distinguer d'un registre institutionnel ou d'une ijaza formelle documentee.",
+    sources: [
+      "Publications Facebook publiques autour de Sidi al-Hajj Mohammed Amgour al-Baamrani, notamment notices de Muhammad Shakir et pages locales.",
+      "Notice fournie : fonctions documentees a la Madrassa coranique d'Azrou, enseignement du Qur'an, role d'imam et activite encore attestee en 2026.",
+      "Notice fournie : reseau de maitres de Qur'an et de qiraat dans le Souss et le pays Ait Baamrane.",
+      "Temoignage public d'Abd al-Sadiq al-Nasiri mentionnant une khatma accomplie sous sa direction."
+    ],
+    image: "/images/scholars/mohammed-amgour-hq.jpg",
+    imageCredit: "Photo fournie : Sidi al-Hajj Mohammed Amgour al-Baamrani, version optimisee haute qualite.",
+    status: "sourced",
+    featured: true
   }
 ];
 
