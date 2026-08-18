@@ -1,6 +1,5 @@
 import { mkdir, readFile, rename, writeFile } from "node:fs/promises";
 import path from "node:path";
-import { unstable_noStore as noStore } from "next/cache";
 import {
   articles as staticArticles,
   madrassas as staticMadrassas,
@@ -342,9 +341,15 @@ function splitList(value: string | string[] | undefined) {
   return value.split(";").map((item) => item.trim()).filter(Boolean);
 }
 
+async function markSupabaseReadAsDynamic() {
+  if (process.env.GITHUB_ACTIONS === "true") return;
+  const { unstable_noStore: noStore } = await import("next/cache");
+  noStore();
+}
+
 export async function getAllMadrassas() {
   if (hasSupabasePublicConfig() && process.env.GITHUB_ACTIONS !== "true") {
-    noStore();
+    await markSupabaseReadAsDynamic();
     const madrassas = await getSupabaseMadrassas();
     if (madrassas) return madrassas;
   }
@@ -355,7 +360,7 @@ export async function getAllMadrassas() {
 
 export async function getAllArticles() {
   if (hasSupabasePublicConfig() && process.env.GITHUB_ACTIONS !== "true") {
-    noStore();
+    await markSupabaseReadAsDynamic();
     const articles = await getSupabaseArticles();
     if (articles) return articles;
   }
@@ -366,7 +371,7 @@ export async function getAllArticles() {
 
 export async function getAllScholars() {
   if (hasSupabasePublicConfig() && process.env.GITHUB_ACTIONS !== "true") {
-    noStore();
+    await markSupabaseReadAsDynamic();
     const scholars = await getSupabaseScholars();
     if (scholars) return scholars;
   }

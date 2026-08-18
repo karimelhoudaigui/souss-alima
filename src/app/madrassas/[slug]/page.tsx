@@ -5,6 +5,8 @@ import { StatusBadge } from "@/components/status-badge";
 import { MetadataItem } from "@/components/ui";
 import { getAllMadrassas, getAllScholars } from "@/content/store";
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   const madrassas = await getAllMadrassas();
   return madrassas.map((madrassa) => ({ slug: madrassa.slug }));

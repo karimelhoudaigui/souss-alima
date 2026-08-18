@@ -4,8 +4,11 @@ import { MetadataItem } from "@/components/ui";
 import { StatusBadge } from "@/components/status-badge";
 import { madrassas, travels } from "@/content/data";
 
+export const dynamicParams = false;
+
 export function generateStaticParams() {
-  return travels.map((travel) => ({ slug: travel.slug }));
+  const params = travels.map((travel) => ({ slug: travel.slug }));
+  return params.length ? params : [{ slug: "_" }];
 }
 
 export default async function TravelPage({ params }: { params: Promise<{ slug: string }> }) {

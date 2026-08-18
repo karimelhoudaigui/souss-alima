@@ -6,9 +6,12 @@ import { StatusBadge } from "@/components/status-badge";
 import { themes } from "@/content/data";
 import { getAllArticles, getAllMadrassas, getAllScholars } from "@/content/store";
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   const articles = await getAllArticles();
-  return articles.map((article) => ({ slug: article.slug }));
+  const params = articles.map((article) => ({ slug: article.slug }));
+  return params.length ? params : [{ slug: "_" }];
 }
 
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
