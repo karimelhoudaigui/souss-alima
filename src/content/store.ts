@@ -10,6 +10,7 @@ import {
   type VerificationStatus
 } from "@/content/data";
 import { getSupabaseAdminClient, getSupabasePublicClient, hasSupabasePublicConfig } from "@/lib/supabase";
+import { mapArticleRow, type ArticleRow } from "@/lib/content-mappers";
 
 type LegacyArticle = Article & {
   importance?: string;
@@ -100,25 +101,6 @@ type MadrassaRow = {
   featured: boolean | null;
 };
 
-type ArticleRow = {
-  slug: string;
-  title: string;
-  title_ar?: string | null;
-  excerpt: string;
-  theme: string;
-  author: string;
-  published_at: string;
-  reading_time: number;
-  content: string;
-  sources: string[];
-  tags: string[];
-  scholar_slugs: string[];
-  madrassa_slugs: string[];
-  image: string | null;
-  image_credit: string | null;
-  status: VerificationStatus;
-};
-
 type ScholarRow = {
   slug: string;
   name: string;
@@ -191,27 +173,6 @@ function mapMadrassa(row: MadrassaRow): Madrassa {
   };
 }
 
-function mapArticle(row: ArticleRow): Article {
-  return {
-    slug: row.slug,
-    title: row.title,
-    titleAr: row.title_ar ?? "",
-    theme: row.theme,
-    author: row.author,
-    publishedAt: row.published_at,
-    readingTime: `${row.reading_time} min`,
-    summary: row.excerpt,
-    body: row.content,
-    sources: row.sources ?? [],
-    tags: row.tags ?? [],
-    scholarSlugs: row.scholar_slugs ?? [],
-    madrassaSlugs: row.madrassa_slugs ?? [],
-    image: row.image ?? undefined,
-    imageCredit: row.image_credit ?? undefined,
-    status: row.status
-  };
-}
-
 function mapScholar(row: ScholarRow): Scholar {
   return {
     slug: row.slug,
@@ -266,7 +227,7 @@ async function getSupabaseArticles() {
     return null;
   }
 
-  return (data as ArticleRow[]).map(mapArticle);
+  return (data as ArticleRow[]).map(mapArticleRow);
 }
 
 async function getSupabaseScholars() {
@@ -482,7 +443,7 @@ export async function createArticle(input: ArticleInput) {
       .single();
 
     if (error) throw new Error(error.message);
-    return mapArticle(data as ArticleRow);
+    return mapArticleRow(data as ArticleRow);
   }
 
   const store = await readStore();

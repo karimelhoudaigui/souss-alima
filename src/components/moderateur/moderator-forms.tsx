@@ -60,7 +60,7 @@ function uniqueSlug(title: string) {
 function pathFor(type: ActiveContent, slug: string) {
   if (type === "madrassa") return `/madrassas/${slug}`;
   if (type === "scholar") return `/savants/${slug}`;
-  return `/articles/${slug}`;
+  return `/articles/lecture?slug=${slug}`;
 }
 
 function fileExt(file: File) {
