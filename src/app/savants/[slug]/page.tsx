@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { MetadataItem } from "@/components/ui";
 import { StatusBadge } from "@/components/status-badge";
 import { getAllMadrassas, getAllScholars } from "@/content/store";
+import { publicAsset } from "@/lib/assets";
 
 export const dynamicParams = false;
 
@@ -46,7 +47,7 @@ export default async function ScholarPage({ params }: { params: Promise<{ slug: 
       {scholar.image ? (
         <div className="container-page pb-10">
           <figure className="mx-auto max-w-3xl overflow-hidden rounded-[18px] border border-line bg-subtle">
-            <Image alt="" className="h-auto max-h-[760px] w-full object-contain" height={1600} priority sizes="(max-width: 768px) 100vw, 768px" src={scholar.image} unoptimized width={1200} />
+            <Image alt="" className="h-auto max-h-[760px] w-full object-contain" height={1600} priority sizes="(max-width: 768px) 100vw, 768px" src={publicAsset(scholar.image) ?? ""} unoptimized width={1200} />
             {scholar.imageCredit ? <figcaption className="border-t border-line px-4 py-3 text-xs text-muted">{scholar.imageCredit}</figcaption> : null}
           </figure>
         </div>

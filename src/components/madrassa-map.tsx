@@ -7,6 +7,7 @@ import Map, { Marker, NavigationControl, Popup } from "react-map-gl/maplibre";
 import type { StyleSpecification } from "maplibre-gl";
 import { MapPin, School, X } from "lucide-react";
 import type { VerificationStatus } from "@/content/data";
+import { publicAsset } from "@/lib/assets";
 
 export type MadrassaMapItem = {
   id: string;
@@ -159,7 +160,7 @@ export function MadrassaMap({ madrassas, className = "" }: MadrassaMapProps) {
                   alt={selected.name}
                   className="mb-3 h-32 w-full rounded-[14px] object-cover"
                   height={128}
-                  src={selected.image}
+                  src={publicAsset(selected.image) ?? ""}
                   unoptimized
                   width={288}
                 />

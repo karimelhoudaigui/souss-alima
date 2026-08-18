@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { StatusBadge } from "@/components/status-badge";
 import { MetadataItem } from "@/components/ui";
 import { getAllMadrassas, getAllScholars } from "@/content/store";
+import { publicAsset } from "@/lib/assets";
 
 export const dynamicParams = false;
 
@@ -46,7 +47,7 @@ export default async function MadrassaPage({ params }: { params: Promise<{ slug:
       <div className="container-page">
         {madrassa.image ? (
           <figure className="overflow-hidden rounded-[18px] border border-line bg-subtle">
-            <Image alt="" className="h-[280px] w-full object-cover md:h-[420px]" height={840} priority sizes="(max-width: 768px) 100vw, 1200px" src={madrassa.image} unoptimized width={2400} />
+            <Image alt="" className="h-[280px] w-full object-cover md:h-[420px]" height={840} priority sizes="(max-width: 768px) 100vw, 1200px" src={publicAsset(madrassa.image) ?? ""} unoptimized width={2400} />
             {madrassa.imageCredit ? <figcaption className="border-t border-line px-4 py-3 text-xs text-muted">{madrassa.imageCredit}</figcaption> : null}
           </figure>
         ) : (

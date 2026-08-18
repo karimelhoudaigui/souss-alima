@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowUpRight, BookOpen, MapPin, Search, Sparkles } from "lucide-react";
 import { StatusBadge } from "@/components/status-badge";
 import { getAllScholars } from "@/content/store";
+import { publicAsset } from "@/lib/assets";
 
 function excerpt(text: string) {
   return text.split("\n").find(Boolean)?.slice(0, 210) ?? "";
@@ -93,7 +94,7 @@ function ScholarCard({ prominent = false, scholar }: { prominent?: boolean; scho
             className="h-full w-full object-cover object-[center_58%] transition duration-500 group-hover:scale-[1.03]"
             fill
             sizes={prominent ? "(max-width: 768px) 100vw, 240px" : "(max-width: 768px) 100vw, 33vw"}
-            src={scholar.image}
+            src={publicAsset(scholar.image) ?? ""}
             unoptimized
           />
         ) : (

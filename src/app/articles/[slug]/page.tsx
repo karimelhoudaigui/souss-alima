@@ -5,6 +5,7 @@ import { MetadataItem } from "@/components/ui";
 import { StatusBadge } from "@/components/status-badge";
 import { themes } from "@/content/data";
 import { getAllArticles, getAllMadrassas, getAllScholars } from "@/content/store";
+import { publicAsset } from "@/lib/assets";
 
 export const dynamicParams = false;
 
@@ -44,7 +45,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
       {article.image ? (
         <div className="container-page pb-10">
           <figure className="overflow-hidden rounded-[18px] border border-line bg-subtle">
-            <Image alt="" className="h-[260px] w-full object-cover md:h-[420px]" height={840} priority sizes="(max-width: 768px) 100vw, 1200px" src={article.image} unoptimized width={2400} />
+            <Image alt="" className="h-[260px] w-full object-cover md:h-[420px]" height={840} priority sizes="(max-width: 768px) 100vw, 1200px" src={publicAsset(article.image) ?? ""} unoptimized width={2400} />
             {article.imageCredit ? <figcaption className="border-t border-line px-4 py-3 text-xs text-muted">{article.imageCredit}</figcaption> : null}
           </figure>
         </div>
