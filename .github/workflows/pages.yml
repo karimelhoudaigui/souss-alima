@@ -16,6 +16,9 @@ concurrency:
 
 jobs:
   deploy:
+    env:
+      NEXT_PUBLIC_SUPABASE_URL: https://ptdxwxmrfdupmdgvdnyh.supabase.co
+      NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: sb_publishable_Ub7ziNILMhsEUteqaYLQxQ_hbJWFRsV
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

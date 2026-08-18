@@ -26,9 +26,6 @@ export function Nav() {
         </nav>
 
         <div className="hidden items-center gap-2 md:flex">
-          <Link className="rounded-[10px] px-3 py-2 text-sm text-muted transition duration-150 hover:bg-subtle hover:text-ink" href="/moderateur">
-            Editorial
-          </Link>
           <Link className="rounded-[10px] px-3 py-2 text-sm text-muted transition duration-150 hover:bg-subtle hover:text-ink" href="/contribuer">
             Contribuer
           </Link>
@@ -42,7 +39,7 @@ export function Nav() {
             Menu
           </summary>
           <div className="absolute right-0 mt-2 w-[min(86vw,320px)] rounded-[16px] border border-line bg-surface p-2 shadow-[0_18px_50px_rgba(23,23,23,0.08)]">
-            {[...primaryLinks, ["Editorial", "/moderateur"], ["Contribuer", "/contribuer"], ["Contact", "/contact"]].map(([label, href]) => (
+            {[...primaryLinks, ["Contribuer", "/contribuer"], ["Contact", "/contact"]].map(([label, href]) => (
               <Link className="block rounded-[10px] px-3 py-3 text-sm text-ink hover:bg-subtle" href={href} key={href}>
                 {label}
               </Link>

@@ -1,5 +1,14 @@
 import { ModeratorForms } from "@/components/moderateur/moderator-forms";
 import { getAllArticles, getAllMadrassas, getAllScholars } from "@/content/store";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Administration | Souss Alima",
+  robots: {
+    index: false,
+    follow: false
+  }
+};
 
 export default async function ModeratorPage() {
   const [madrassas, articles, scholars] = await Promise.all([getAllMadrassas(), getAllArticles(), getAllScholars()]);

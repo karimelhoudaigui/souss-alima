@@ -1,8 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState, type FormEvent, type InputHTMLAttributes } from "react";
+import { useEffect, useState, type ChangeEvent, type FormEvent, type InputHTMLAttributes, type ReactNode } from "react";
+import { ImagePlus, Lock, LogOut, UploadCloud } from "lucide-react";
 import { themes } from "@/content/data";
+import { mediaBucket, supabaseBrowser } from "@/lib/supabase-browser";
 
 type SubmitState = {
   status: "idle" | "loading" | "success" | "error";
@@ -30,230 +32,233 @@ type ModeratorFormsProps = {
 type ActiveContent = "madrassa" | "article" | "scholar";
 
 const initialState: SubmitState = { status: "idle", message: "" };
-
-const workflow = [
-  ["1", "Identifier", "Relever le sujet, les lieux/personnes cites et les sources."],
-  ["2", "Structurer", "Saisir uniquement les donnees verifiables."],
-  ["3", "Publier", "Le contenu devient visible immediatement."],
-  ["4", "Relier", "Connecter ensuite l'article aux madrassas, savants, oeuvres et sources."]
-];
+const allowedImageTypes = ["image/jpeg", "image/png", "image/webp", "image/gif"];
 
 function value(formData: FormData, key: string) {
   return String(formData.get(key) ?? "").trim();
 }
 
-async function submitJson(endpoint: string, payload: Record<string, unknown>, moderatorKey: string) {
-  const response = await fetch(endpoint, {
-    method: "POST",
-    headers: { "Content-Type": "application/json", "x-moderator-key": moderatorKey },
-    body: JSON.stringify(payload)
-  });
-  const data = await response.json() as { error?: string; madrassa?: { slug: string }; article?: { slug: string }; scholar?: { slug: string } };
+function listValue(formData: FormData, key: string) {
+  return value(formData, key).split(";").map((item) => item.trim()).filter(Boolean);
+}
 
-  if (!response.ok) throw new Error(data.error ?? "Publication impossible.");
-  return data;
+function slugify(input: string) {
+  return input
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "")
+    .slice(0, 80);
+}
+
+function uniqueSlug(title: string) {
+  const base = slugify(title) || "contenu";
+  return `${base}-${Date.now().toString(36)}`;
+}
+
+function pathFor(type: ActiveContent, slug: string) {
+  if (type === "madrassa") return `/madrassas/${slug}`;
+  if (type === "scholar") return `/savants/${slug}`;
+  return `/articles/${slug}`;
+}
+
+function fileExt(file: File) {
+  return file.name.split(".").pop()?.toLowerCase() || "jpg";
+}
+
+async function uploadPrimaryImage(files: FileList | null, type: ActiveContent, slug: string) {
+  const file = files?.[0];
+  if (!file) return "";
+  if (!allowedImageTypes.includes(file.type)) throw new Error("Format image non accepte. Utilise JPG, PNG, WebP ou GIF.");
+
+  const storagePath = `${type}s/${slug}/cover.${fileExt(file)}`;
+  const { error } = await supabaseBrowser.storage.from(mediaBucket).upload(storagePath, file, {
+    cacheControl: "3600",
+    upsert: true,
+    contentType: file.type
+  });
+
+  if (error) throw new Error(error.message);
+  return supabaseBrowser.storage.from(mediaBucket).getPublicUrl(storagePath).data.publicUrl;
 }
 
 export function ModeratorForms({ totals, recentMadrassas, recentArticles, recentScholars }: ModeratorFormsProps) {
   const [active, setActive] = useState<ActiveContent>("madrassa");
-  const [madrassaState, setMadrassaState] = useState<SubmitState>(initialState);
-  const [articleState, setArticleState] = useState<SubmitState>(initialState);
-  const [scholarState, setScholarState] = useState<SubmitState>(initialState);
-  const [moderatorKey, setModeratorKey] = useState("");
+  const [state, setState] = useState<SubmitState>(initialState);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [sessionEmail, setSessionEmail] = useState<string | null>(null);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [authMessage, setAuthMessage] = useState("Connexion requise.");
 
-  const activeHelp = useMemo(() => {
-    if (active === "madrassa") {
-      return {
-        title: "Publication madrassa",
-        items: ["Ajout dans /madrassas", "Marqueur sur la carte", "Fiche publique", "Presence dans la homepage"]
-      };
-    }
+  useEffect(() => {
+    supabaseBrowser.auth.getSession().then(({ data }) => {
+      const currentEmail = data.session?.user.email ?? null;
+      setSessionEmail(currentEmail);
+      if (currentEmail) void checkAdmin(currentEmail);
+    });
 
-    if (active === "article") return {
-      title: "Publication article",
-      items: ["Ajout dans /articles", "Fiche article publique", "Classement par theme", "Relations possibles vers savants et madrassas"]
-    };
+    const { data: listener } = supabaseBrowser.auth.onAuthStateChange((_event, session) => {
+      const currentEmail = session?.user.email ?? null;
+      setSessionEmail(currentEmail);
+      if (currentEmail) void checkAdmin(currentEmail);
+      else {
+        setIsAdmin(false);
+        setAuthMessage("Connexion requise.");
+      }
+    });
 
-    return {
-      title: "Publication savant",
-      items: ["Ajout dans /savants", "Fiche biographique", "Relations vers madrassas", "Portrait et sources"]
-    };
-  }, [active]);
+    return () => listener.subscription.unsubscribe();
+  }, []);
 
-  async function onMadrassaSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const form = event.currentTarget;
-    const formData = new FormData(form);
-    setMadrassaState({ status: "loading", message: "Publication en cours..." });
-
-    try {
-      const data = await submitJson("/api/moderateur/madrassas", {
-        name: value(formData, "name"),
-        nameAr: value(formData, "nameAr"),
-        village: value(formData, "village"),
-        commune: value(formData, "commune"),
-        province: value(formData, "province"),
-        lat: value(formData, "lat"),
-        lng: value(formData, "lng"),
-        specialties: value(formData, "specialties"),
-        history: value(formData, "history"),
-        currentStatus: value(formData, "currentStatus"),
-        contact: value(formData, "contact"),
-        sources: value(formData, "sources"),
-        scholars: value(formData, "scholars"),
-        image: value(formData, "image"),
-        imageCredit: value(formData, "imageCredit"),
-        status: value(formData, "status")
-      }, moderatorKey);
-
-      form.reset();
-      setMadrassaState({ status: "success", message: "Madrassa publiee.", href: `/madrassas/${data.madrassa?.slug}` });
-    } catch (error) {
-      setMadrassaState({ status: "error", message: error instanceof Error ? error.message : "Erreur inconnue." });
-    }
+  async function checkAdmin(currentEmail: string) {
+    const { data, error } = await supabaseBrowser.from("admin_emails").select("email").ilike("email", currentEmail).maybeSingle();
+    setIsAdmin(Boolean(data && !error));
+    setAuthMessage(data && !error ? "Acces administrateur confirme." : "Compte connecte, mais non autorise pour l'administration.");
   }
 
-  async function onArticleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function signIn(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const form = event.currentTarget;
-    const formData = new FormData(form);
-    setArticleState({ status: "loading", message: "Publication en cours..." });
-
-    try {
-      const data = await submitJson("/api/moderateur/articles", {
-        title: value(formData, "title"),
-        titleAr: value(formData, "titleAr"),
-        theme: value(formData, "theme"),
-        author: value(formData, "author"),
-        publishedAt: value(formData, "publishedAt"),
-        readingTime: value(formData, "readingTime"),
-        summary: value(formData, "summary"),
-        body: value(formData, "body"),
-        sources: value(formData, "sources"),
-        tags: value(formData, "tags"),
-        scholarSlugs: value(formData, "scholarSlugs"),
-        madrassaSlugs: value(formData, "madrassaSlugs"),
-        image: value(formData, "image"),
-        imageCredit: value(formData, "imageCredit"),
-        status: value(formData, "status")
-      }, moderatorKey);
-
-      form.reset();
-      setArticleState({ status: "success", message: "Article publie.", href: `/articles/${data.article?.slug}` });
-    } catch (error) {
-      setArticleState({ status: "error", message: error instanceof Error ? error.message : "Erreur inconnue." });
-    }
+    setAuthMessage("Connexion en cours...");
+    const { error } = await supabaseBrowser.auth.signInWithPassword({ email, password });
+    setAuthMessage(error ? error.message : "Connexion reussie.");
   }
 
-  async function onScholarSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const form = event.currentTarget;
-    const formData = new FormData(form);
-    setScholarState({ status: "loading", message: "Publication en cours..." });
-
-    try {
-      const data = await submitJson("/api/moderateur/savants", {
-        nameFr: value(formData, "nameFr"),
-        nameAr: value(formData, "nameAr"),
-        nisba: value(formData, "nisba"),
-        period: value(formData, "period"),
-        places: value(formData, "places"),
-        specialties: value(formData, "specialties"),
-        madrassas: value(formData, "madrassas"),
-        teachers: value(formData, "teachers"),
-        students: value(formData, "students"),
-        works: value(formData, "works"),
-        biography: value(formData, "biography"),
-        sources: value(formData, "sources"),
-        image: value(formData, "image"),
-        imageCredit: value(formData, "imageCredit"),
-        status: value(formData, "status")
-      }, moderatorKey);
-
-      form.reset();
-      setScholarState({ status: "success", message: "Savant publie.", href: `/savants/${data.scholar?.slug}` });
-    } catch (error) {
-      setScholarState({ status: "error", message: error instanceof Error ? error.message : "Erreur inconnue." });
-    }
+  async function signUp() {
+    setAuthMessage("Creation du compte...");
+    const { error } = await supabaseBrowser.auth.signUp({ email, password });
+    setAuthMessage(error ? error.message : "Compte cree. Verifie l'email si Supabase demande une confirmation.");
   }
+
+  async function signOut() {
+    await supabaseBrowser.auth.signOut();
+  }
+
+  const activeRecent = active === "madrassa" ? recentMadrassas : active === "article" ? recentArticles : recentScholars;
 
   return (
-    <div className="grid gap-8 xl:grid-cols-[260px_minmax(0,1fr)_320px]">
+    <div className="grid gap-8 xl:grid-cols-[280px_minmax(0,1fr)_300px]">
       <aside className="space-y-6">
         <section className="rounded-[18px] border border-line bg-surface p-4">
-          <p className="metadata-label">Publication</p>
-          <div className="mt-4 grid gap-2">
-            <TabButton active={active === "madrassa"} count={totals.madrassas} onClick={() => setActive("madrassa")}>
-              Madrassa
-            </TabButton>
-            <TabButton active={active === "article"} count={totals.articles} onClick={() => setActive("article")}>
-              Article
-            </TabButton>
-            <TabButton active={active === "scholar"} count={totals.scholars} onClick={() => setActive("scholar")}>
-              Savant
-            </TabButton>
-          </div>
+          <p className="metadata-label">Acces prive</p>
+          {sessionEmail ? (
+            <div className="mt-4">
+              <p className="text-sm font-medium text-ink">{sessionEmail}</p>
+              <p className={`mt-2 text-xs leading-5 ${isAdmin ? "text-muted" : "text-red-600"}`}>{authMessage}</p>
+              <button className="mt-4 flex items-center gap-2 rounded-[12px] border border-line px-3 py-2 text-sm text-muted hover:bg-subtle" onClick={signOut} type="button">
+                <LogOut className="h-4 w-4" aria-hidden="true" />
+                Deconnexion
+              </button>
+            </div>
+          ) : (
+            <form className="mt-4 grid gap-3" onSubmit={signIn}>
+              <Field label="Email administrateur" name="email" onChange={(event) => setEmail(event.target.value)} required type="email" value={email} />
+              <Field label="Mot de passe" name="password" onChange={(event) => setPassword(event.target.value)} required type="password" value={password} />
+              <button className="button-primary w-full" type="submit">Se connecter</button>
+              <button className="rounded-[12px] border border-line px-3 py-2 text-sm font-medium text-ink hover:bg-subtle" onClick={signUp} type="button">
+                Creer le compte admin
+              </button>
+              <p className="text-xs leading-5 text-muted">{authMessage}</p>
+            </form>
+          )}
         </section>
 
         <section className="rounded-[18px] border border-line bg-surface p-4">
-          <p className="metadata-label">Acces</p>
-          <label className="mt-4 block">
-            <span className="text-sm font-medium text-ink">Code moderateur</span>
-            <input className="input mt-2" onChange={(event) => setModeratorKey(event.target.value)} placeholder="MODERATOR_KEY" type="password" value={moderatorKey} />
-          </label>
-          <p className="mt-3 text-xs leading-5 text-muted">En production, ce code doit etre configure et obligatoire.</p>
+          <p className="metadata-label">Publier</p>
+          <div className="mt-4 grid gap-2">
+            <TabButton active={active === "madrassa"} count={totals.madrassas} onClick={() => setActive("madrassa")}>Madrassa</TabButton>
+            <TabButton active={active === "article"} count={totals.articles} onClick={() => setActive("article")}>Article</TabButton>
+            <TabButton active={active === "scholar"} count={totals.scholars} onClick={() => setActive("scholar")}>Savant</TabButton>
+          </div>
         </section>
       </aside>
 
       <section className="min-w-0 rounded-[20px] border border-line bg-surface">
         <div className="border-b border-line px-5 py-4 md:px-6">
-          <p className="metadata-label">{active === "madrassa" ? "Nouvelle entree cartographique" : active === "article" ? "Nouvelle publication editoriale" : "Nouvelle fiche biographique"}</p>
-          <h2 className="mt-1 text-2xl font-semibold text-ink">{active === "madrassa" ? "Publier une madrassa" : active === "article" ? "Publier un article" : "Publier un savant"}</h2>
+          <p className="metadata-label">Administration</p>
+          <h2 className="mt-1 text-2xl font-semibold text-ink">
+            {active === "madrassa" ? "Publier une madrassa" : active === "article" ? "Publier un article" : "Publier un savant"}
+          </h2>
         </div>
-
         <div className="p-5 md:p-6">
-          {active === "madrassa" ? <MadrassaForm onSubmit={onMadrassaSubmit} state={madrassaState} /> : active === "article" ? <ArticleForm onSubmit={onArticleSubmit} state={articleState} /> : <ScholarForm onSubmit={onScholarSubmit} state={scholarState} />}
+          {!isAdmin ? (
+            <div className="flex min-h-80 flex-col items-center justify-center rounded-[16px] border border-dashed border-line bg-subtle p-8 text-center">
+              <Lock className="h-8 w-8 text-faint" aria-hidden="true" />
+              <p className="mt-4 text-base font-medium text-ink">Interface reservee aux administrateurs.</p>
+              <p className="mt-2 max-w-md text-sm leading-6 text-muted">Connecte-toi avec l'email autorise pour afficher les formulaires de publication.</p>
+            </div>
+          ) : active === "madrassa" ? (
+            <MadrassaForm state={state} onState={setState} />
+          ) : active === "article" ? (
+            <ArticleForm state={state} onState={setState} />
+          ) : (
+            <ScholarForm state={state} onState={setState} />
+          )}
         </div>
       </section>
 
       <aside className="space-y-6">
         <section className="rounded-[18px] border border-line bg-surface p-4">
-          <p className="metadata-label">Workflow</p>
-          <div className="mt-4 space-y-4">
-            {workflow.map(([number, title, text]) => (
-              <div className="grid grid-cols-[28px_1fr] gap-3" key={number}>
-                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-subtle text-xs font-medium text-muted">{number}</span>
-                <div>
-                  <p className="text-sm font-medium text-ink">{title}</p>
-                  <p className="mt-1 text-xs leading-5 text-muted">{text}</p>
-                </div>
-              </div>
-            ))}
+          <p className="metadata-label">Images</p>
+          <div className="mt-4 flex items-start gap-3">
+            <ImagePlus className="mt-0.5 h-5 w-5 text-brand" aria-hidden="true" />
+            <p className="text-sm leading-6 text-muted">Ajoute une photo principale au moment de publier. Elle est stockee dans Supabase Storage et reutilisee par la page publique.</p>
           </div>
         </section>
-
-        <section className="rounded-[18px] border border-line bg-surface p-4">
-          <p className="metadata-label">{activeHelp.title}</p>
-          <ul className="mt-4 space-y-2 text-sm leading-6 text-muted">
-            {activeHelp.items.map((item) => <li key={item}>{item}</li>)}
-          </ul>
-        </section>
-
-        <RecentPanel title={active === "madrassa" ? "Dernieres madrassas" : active === "article" ? "Derniers articles" : "Derniers savants"} items={active === "madrassa" ? recentMadrassas : active === "article" ? recentArticles : recentScholars} />
+        <RecentPanel title="Dernieres publications" items={activeRecent} />
       </aside>
     </div>
   );
 }
 
-function MadrassaForm({ onSubmit, state }: { onSubmit: (event: FormEvent<HTMLFormElement>) => void; state: SubmitState }) {
+function MadrassaForm({ onState, state }: { onState: (state: SubmitState) => void; state: SubmitState }) {
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    const name = value(formData, "name");
+    const slug = uniqueSlug(name);
+    onState({ status: "loading", message: "Publication en cours..." });
+
+    try {
+      const uploadedImage = await uploadPrimaryImage(form.imageFile.files, "madrassa", slug);
+      const image = uploadedImage || value(formData, "image") || null;
+      const { error } = await supabaseBrowser.from("madrassas").insert({
+        slug,
+        name,
+        name_ar: value(formData, "nameAr") || null,
+        village: value(formData, "village") || null,
+        commune: value(formData, "commune"),
+        province: value(formData, "province"),
+        lat: Number(value(formData, "lat")),
+        lng: Number(value(formData, "lng")),
+        specialties: listValue(formData, "specialties"),
+        history: value(formData, "history"),
+        current_status: value(formData, "currentStatus") || null,
+        contact: value(formData, "contact") || null,
+        scholars: listValue(formData, "scholars"),
+        sources: listValue(formData, "sources"),
+        image,
+        image_credit: value(formData, "imageCredit") || null,
+        status: value(formData, "status") || "to_verify",
+        featured: false
+      });
+      if (error) throw new Error(error.message);
+      form.reset();
+      onState({ status: "success", message: "Madrassa publiee dans Supabase.", href: pathFor("madrassa", slug) });
+    } catch (error) {
+      onState({ status: "error", message: error instanceof Error ? error.message : "Publication impossible." });
+    }
+  }
+
   return (
     <form className="grid gap-8" onSubmit={onSubmit}>
-      <FormSection description="Ce bloc identifie la madrassa dans les listes et dans la fiche publique." title="Identite">
+      <FormSection title="Identite">
         <Field label="Nom francais / translittere" name="name" required />
         <Field label="Nom arabe" name="nameAr" />
       </FormSection>
-
-      <FormSection description="Ces champs alimentent la carte. Les coordonnees doivent etre verifiees." title="Localisation">
+      <FormSection title="Localisation">
         <div className="grid gap-4 md:grid-cols-3">
           <Field label="Village / quartier" name="village" />
           <Field label="Commune" name="commune" required />
@@ -264,32 +269,65 @@ function MadrassaForm({ onSubmit, state }: { onSubmit: (event: FormEvent<HTMLFor
           <Field label="Longitude" name="lng" required step="any" type="number" />
         </div>
       </FormSection>
-
-      <FormSection description="Ces champs restent descriptifs. Les articles servent maintenant a traiter les grands sujets editoriaux." title="Contenu">
-        <Field label="Enseignements / specialites, separes par ;" name="specialties" placeholder="qiraat; fiqh; rasm" />
-        <TextArea label="Resume historique source" name="history" required />
+      <FormSection title="Contenu et media">
+        <Field label="Enseignements, separes par ;" name="specialties" />
+        <TextArea label="Presentation historique sourcee" name="history" required />
         <Field label="Sources, separees par ;" name="sources" />
-        <Field label="Slugs des savants lies, separes par ;" name="scholars" placeholder="sidi-mohammed-nazir" />
+        <Field label="Slugs des savants lies, separes par ;" name="scholars" />
+        <ImageField />
+        <Field label="URL image existante" name="image" placeholder="Optionnel si une photo est envoyee" />
+        <Field label="Credit image" name="imageCredit" />
         <div className="grid gap-4 md:grid-cols-2">
-          <Field label="Statut actuel" name="currentStatus" placeholder="Active, historique, a verifier..." />
+          <Field label="Statut actuel" name="currentStatus" />
           <Field label="Contact public" name="contact" />
-        </div>
-        <div className="grid gap-4 md:grid-cols-2">
-          <Field label="Image" name="image" placeholder="/images/madrassas/nom.png ou https://..." />
-          <Field label="Credit image" name="imageCredit" />
         </div>
         <StatusSelect />
       </FormSection>
-
-      <FormActions loading={state.status === "loading"} submitLabel="Publier la madrassa" state={state} />
+      <FormActions loading={state.status === "loading"} state={state} submitLabel="Publier la madrassa" />
     </form>
   );
 }
 
-function ArticleForm({ onSubmit, state }: { onSubmit: (event: FormEvent<HTMLFormElement>) => void; state: SubmitState }) {
+function ArticleForm({ onState, state }: { onState: (state: SubmitState) => void; state: SubmitState }) {
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    const title = value(formData, "title");
+    const slug = uniqueSlug(title);
+    onState({ status: "loading", message: "Publication en cours..." });
+
+    try {
+      const uploadedImage = await uploadPrimaryImage(form.imageFile.files, "article", slug);
+      const { error } = await supabaseBrowser.from("articles").insert({
+        slug,
+        title,
+        title_ar: value(formData, "titleAr") || null,
+        theme: value(formData, "theme") || "recherche-etudes",
+        author: value(formData, "author") || "Equipe editoriale",
+        published_at: value(formData, "publishedAt") || new Date().toISOString().slice(0, 10),
+        reading_time: Number(value(formData, "readingTime").match(/\d+/)?.[0] ?? 5),
+        excerpt: value(formData, "summary"),
+        content: value(formData, "body"),
+        sources: listValue(formData, "sources"),
+        tags: listValue(formData, "tags"),
+        scholar_slugs: listValue(formData, "scholarSlugs"),
+        madrassa_slugs: listValue(formData, "madrassaSlugs"),
+        image: uploadedImage || value(formData, "image") || null,
+        image_credit: value(formData, "imageCredit") || null,
+        status: value(formData, "status") || "to_verify"
+      });
+      if (error) throw new Error(error.message);
+      form.reset();
+      onState({ status: "success", message: "Article publie dans Supabase.", href: pathFor("article", slug) });
+    } catch (error) {
+      onState({ status: "error", message: error instanceof Error ? error.message : "Publication impossible." });
+    }
+  }
+
   return (
     <form className="grid gap-8" onSubmit={onSubmit}>
-      <FormSection description="Un article est une publication editoriale, classee par theme." title="Publication">
+      <FormSection title="Publication">
         <Field label="Titre francais" name="title" required />
         <Field label="Titre arabe" name="titleAr" />
         <label className="block">
@@ -299,78 +337,122 @@ function ArticleForm({ onSubmit, state }: { onSubmit: (event: FormEvent<HTMLForm
           </select>
         </label>
         <div className="grid gap-4 md:grid-cols-3">
-          <Field label="Auteur" name="author" placeholder="Equipe editoriale" />
+          <Field label="Auteur" name="author" />
           <Field label="Date" name="publishedAt" type="date" />
           <Field label="Temps de lecture" name="readingTime" placeholder="8 min" />
         </div>
       </FormSection>
-
-      <FormSection description="Le resume apparait dans les listes. Le contenu compose la page article." title="Contenu">
+      <FormSection title="Contenu et media">
         <TextArea label="Resume court" name="summary" required />
         <TextArea label="Contenu de l'article" name="body" required />
         <Field label="Sources, separees par ;" name="sources" />
-        <Field label="Tags, separes par ;" name="tags" placeholder="Qiraat; Manuscrits; Transmission" />
+        <Field label="Tags, separes par ;" name="tags" />
         <div className="grid gap-4 md:grid-cols-2">
-          <Field label="Slugs des savants lies" name="scholarSlugs" placeholder="sidi-mohammed-nazir" />
-          <Field label="Slugs des madrassas liees" name="madrassaSlugs" placeholder="ecole-traditionnelle-zawiya-assa" />
+          <Field label="Slugs des savants lies" name="scholarSlugs" />
+          <Field label="Slugs des madrassas liees" name="madrassaSlugs" />
         </div>
-        <div className="grid gap-4 md:grid-cols-2">
-          <Field label="Image" name="image" placeholder="/images/articles/nom.png ou https://..." />
-          <Field label="Credit image" name="imageCredit" />
-        </div>
+        <ImageField />
+        <Field label="URL image existante" name="image" />
+        <Field label="Credit image" name="imageCredit" />
         <StatusSelect />
       </FormSection>
-
-      <FormActions loading={state.status === "loading"} submitLabel="Publier l'article" state={state} />
+      <FormActions loading={state.status === "loading"} state={state} submitLabel="Publier l'article" />
     </form>
   );
 }
 
-function ScholarForm({ onSubmit, state }: { onSubmit: (event: FormEvent<HTMLFormElement>) => void; state: SubmitState }) {
+function ScholarForm({ onState, state }: { onState: (state: SubmitState) => void; state: SubmitState }) {
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    const name = value(formData, "nameFr");
+    const slug = uniqueSlug(name);
+    onState({ status: "loading", message: "Publication en cours..." });
+
+    try {
+      const uploadedImage = await uploadPrimaryImage(form.imageFile.files, "scholar", slug);
+      const { error } = await supabaseBrowser.from("scholars").insert({
+        slug,
+        name,
+        arabic_name: value(formData, "nameAr") || null,
+        nisba: value(formData, "nisba") || null,
+        period: value(formData, "period") || null,
+        places: value(formData, "places") || null,
+        specialties: listValue(formData, "specialties"),
+        madrassa_slugs: listValue(formData, "madrassas"),
+        teachers: listValue(formData, "teachers"),
+        students: listValue(formData, "students"),
+        works: listValue(formData, "works"),
+        biography: value(formData, "biography"),
+        sources: listValue(formData, "sources"),
+        image: uploadedImage || value(formData, "image") || null,
+        image_credit: value(formData, "imageCredit") || null,
+        status: value(formData, "status") || "to_verify",
+        featured: false
+      });
+      if (error) throw new Error(error.message);
+      form.reset();
+      onState({ status: "success", message: "Savant publie dans Supabase.", href: pathFor("scholar", slug) });
+    } catch (error) {
+      onState({ status: "error", message: error instanceof Error ? error.message : "Publication impossible." });
+    }
+  }
+
   return (
     <form className="grid gap-8" onSubmit={onSubmit}>
-      <FormSection description="La fiche biographique apparait dans le repertoire des savants." title="Identite">
+      <FormSection title="Identite">
         <Field label="Nom francais / translittere" name="nameFr" required />
         <Field label="Nom arabe" name="nameAr" />
         <div className="grid gap-4 md:grid-cols-3">
           <Field label="Nisba / nom complet" name="nisba" />
-          <Field label="Periode" name="period" placeholder="Ne en 1981, XIIIe siecle..." />
-          <Field label="Lieux" name="places" placeholder="Souss, Tata, Assa..." />
+          <Field label="Periode" name="period" />
+          <Field label="Lieux" name="places" />
         </div>
       </FormSection>
-
-      <FormSection description="Ces relations permettent aux fiches de se repondre entre elles." title="Transmission">
-        <Field label="Specialites, separees par ;" name="specialties" placeholder="qiraat; fiqh; rasm" />
-        <Field label="Slugs des madrassas liees, separes par ;" name="madrassas" placeholder="ecole-traditionnelle-zawiya-assa" />
+      <FormSection title="Transmission et media">
+        <Field label="Specialites, separees par ;" name="specialties" />
+        <Field label="Slugs des madrassas liees, separes par ;" name="madrassas" />
         <div className="grid gap-4 md:grid-cols-2">
           <Field label="Maitres, separes par ;" name="teachers" />
           <Field label="Eleves, separes par ;" name="students" />
         </div>
-      </FormSection>
-
-      <FormSection description="Le texte peut etre long ; les retours a la ligne seront conserves." title="Contenu">
         <TextArea label="Biographie" name="biography" required />
         <Field label="Oeuvres, separees par ;" name="works" />
         <Field label="Sources, separees par ;" name="sources" />
-        <div className="grid gap-4 md:grid-cols-2">
-          <Field label="Portrait" name="image" placeholder="/images/scholars/nom.png ou https://..." />
-          <Field label="Credit portrait" name="imageCredit" />
-        </div>
+        <ImageField label="Portrait principal" />
+        <Field label="URL portrait existante" name="image" />
+        <Field label="Credit portrait" name="imageCredit" />
         <StatusSelect />
       </FormSection>
-
-      <FormActions loading={state.status === "loading"} submitLabel="Publier le savant" state={state} />
+      <FormActions loading={state.status === "loading"} state={state} submitLabel="Publier le savant" />
     </form>
   );
 }
 
-function FormSection({ children, description, title }: { children: React.ReactNode; description: string; title: string }) {
+function ImageField({ label = "Photo principale" }: { label?: string }) {
+  const [fileName, setFileName] = useState("");
+
+  function onChange(event: ChangeEvent<HTMLInputElement>) {
+    setFileName(event.target.files?.[0]?.name ?? "");
+  }
+
+  return (
+    <label className="block rounded-[16px] border border-dashed border-line bg-subtle p-4">
+      <span className="flex items-center gap-2 text-sm font-medium text-ink">
+        <UploadCloud className="h-4 w-4 text-brand" aria-hidden="true" />
+        {label}
+      </span>
+      <input className="mt-3 block w-full text-sm text-muted file:mr-4 file:rounded-[10px] file:border-0 file:bg-ink file:px-3 file:py-2 file:text-sm file:font-medium file:text-white" name="imageFile" accept="image/jpeg,image/png,image/webp,image/gif" onChange={onChange} type="file" />
+      {fileName ? <span className="mt-2 block text-xs text-muted">{fileName}</span> : null}
+    </label>
+  );
+}
+
+function FormSection({ children, title }: { children: ReactNode; title: string }) {
   return (
     <section className="grid gap-4 border-b border-line pb-8 last:border-b-0 last:pb-0 lg:grid-cols-[190px_1fr]">
-      <div>
-        <h3 className="text-sm font-semibold text-ink">{title}</h3>
-        <p className="mt-2 text-xs leading-5 text-muted">{description}</p>
-      </div>
+      <h3 className="text-sm font-semibold text-ink">{title}</h3>
       <div className="grid gap-4">{children}</div>
     </section>
   );
@@ -425,7 +507,7 @@ function SubmitMessage({ state }: { state: SubmitState }) {
   );
 }
 
-function TabButton({ active, children, count, onClick }: { active: boolean; children: React.ReactNode; count: number; onClick: () => void }) {
+function TabButton({ active, children, count, onClick }: { active: boolean; children: ReactNode; count: number; onClick: () => void }) {
   return (
     <button className={`flex items-center justify-between rounded-[12px] px-3 py-2 text-left text-sm transition ${active ? "bg-ink text-white" : "text-muted hover:bg-subtle hover:text-ink"}`} onClick={onClick} type="button">
       <span>{children}</span>
