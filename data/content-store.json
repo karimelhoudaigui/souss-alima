@@ -1,0 +1,181 @@
+{
+  "madrassas": [
+    {
+      "slug": "madrassa-ikdi",
+      "name": "Madrassa Ikdi",
+      "nameAr": "المدرسة العلمية العتيقة إكضي",
+      "village": "Assif Oudrar / Ikdi",
+      "commune": "Ait Issafen",
+      "province": "Tiznit",
+      "lat": 29.548,
+      "lng": -9.073,
+      "specialties": [
+        "Qur'an",
+        "sciences religieuses",
+        "fiqh malikite",
+        "enseignement traditionnel",
+        "bibliotheque",
+        "rayonnement international"
+      ],
+      "history": "Ecole traditionnelle active situee dans la zone d'Assif Oudrar, commune d'Ait Issafen, cercle d'Anzi, province de Tiznit. Le ministere des Habous la recense parmi les etablissements d'enseignement traditionnel avec les cycles primaire, college et secondaire. Les sources recentes associent la direction a Sidi Abd Allah Rays. La madrassa est documentee pour son activite scientifique autour du fiqh malikite, notamment une rencontre nationale consacree a Fath al-Fattah ala Mukhtasar Khalil. Une bibliotheque equipee, cataloguee et amenagee a ete inauguree en mai 2024. En novembre 2025, une rencontre en ligne avec d'anciens etudiants marocains et etrangers a documente son rayonnement international. Elle participait encore en mars 2026 aux activites coraniques des ecoles traditionnelles autour d'Anzi. Coordonnees placees au niveau de la zone d'Ait Issafen / Anzi et a confirmer sur site.",
+      "currentStatus": "Active - derniere activite publique documentee en 2026",
+      "contact": "Responsable documente : Sidi Abd Allah Rays / عبد الله ريس",
+      "scholars": [],
+      "image": "/images/madrassas/ikdi-hq.png",
+      "imageCredit": "Photo fournie : Ikdi, version optimisee haute qualite.",
+      "sources": [
+        "Ministere des Habous : fiche de l'ecole Ikdi a Tiznit",
+        "Ahdatsouss, novembre 2025 : rencontre des anciens eleves d'Ikdi",
+        "Alalam24, 2023 : cinquieme rencontre scientifique nationale de la madrassa Ikdi",
+        "Fondation Faail Khair, 12 mai 2024 : inauguration de la bibliotheque d'Ikdi",
+        "TizPress, mars 2026 : rassemblement coranique des ecoles traditionnelles autour d'Anzi"
+      ],
+      "status": "sourced"
+    },
+    {
+      "slug": "ecole-ibn-al-qadi-qiraat",
+      "name": "Ecole Ibn al-Qadi des qiraat",
+      "nameAr": "مدرسة ابن القاضي للقراءات",
+      "village": "Hay Chmaou",
+      "commune": "Sale",
+      "province": "Sale",
+      "lat": 34.053,
+      "lng": -6.784,
+      "specialties": [
+        "qiraat",
+        "sept lectures",
+        "methode marocaine",
+        "alwah",
+        "ramziyyat",
+        "rasm",
+        "dabt",
+        "mutun des qiraat"
+      ],
+      "history": "Institut specialise dans les lectures coraniques, situe a Sale, Hay Chmaou, et rattache a l'Association Imam Abu Shuayb al-Dukkali pour la memorisation du Coran et l'enseignement de ses sciences. L'etablissement a ete inaugure le 2 octobre 2011. Sa mission historique est explicitement centree sur les qiraat, les sciences des qiraat, le rasm, le dabt et les traditions marocaines de transmission coranique. Le cursus de fondation decrit une organisation en annee preparatoire, cycle fondamental et cycle final, pour une duree totale de cinq ans ; cette structure reste a confirmer pour l'organisation actuelle. L'activite recente est tres solide : en juin 2025, l'ecole a organise un majlis de recitation du Coran entier selon les sept lectures, avec les 14 riwayat reparties entre 14 etudiants, sous la supervision de Muhammad al-Sahabi. La page publique annonce aussi des inscriptions pour le cycle 2026-2027. Coordonnees placees au niveau du quartier Hay Chmaou / route de Mehdia, a confirmer sur site.",
+      "currentStatus": "Active - inscriptions 2026-2027 annoncees",
+      "contact": "Cheikh associe : Muhammad ibn al-Sharif al-Sahabi ; direction mentionnee en 2025 : Yahya al-Madghari",
+      "scholars": [],
+      "image": "/images/madrassas/ibn-al-qadi-hq.png",
+      "imageCredit": "Photo fournie : Ibn al-Qadi, version optimisee haute qualite.",
+      "sources": [
+        "Page publique Facebook de l'Ecole Ibn al-Qadi des qiraat : adresse et annonces",
+        "Assabil, 2011 : inauguration et presentation du projet pedagogique",
+        "Alqadia Presse, juin 2025 : majlis des sept lectures et remise d'ijazat"
+      ],
+      "status": "sourced"
+    },
+    {
+      "slug": "madrassa-tinkert",
+      "name": "Madrassa Tinkert",
+      "nameAr": "مدرسة تنكرت العتيقة",
+      "village": "Tinkert",
+      "commune": "Ifrane Atlas Saghir",
+      "province": "Guelmim",
+      "lat": 29.022,
+      "lng": -9.505,
+      "specialties": [
+        "Qur'an",
+        "hifz",
+        "nahw",
+        "sarf",
+        "fiqh malikite",
+        "usul al-fiqh",
+        "tafsir",
+        "hadith",
+        "adab",
+        "balagha",
+        "internat"
+      ],
+      "history": "Ecole traditionnelle pluriseculaire situee au douar Tinkert, commune d'Ifrane Atlas Saghir, province de Guelmim. La tradition locale lui attribue une origine tres ancienne, parfois au Ve siecle de l'Hegire, mais l'existence historiquement plus solide est attestee au moins au IXe siecle h. par la presence de Sidi Muhammad Abaragh al-Ifrani vers 920 H. La madrassa est associee a l'histoire intellectuelle du Souss, notamment a Muhammad al-Mukhtar al-Susi, qui y aurait etudie plusieurs annees. Depuis 1994, elle est fortement liee a l'enseignement de Mawlud al-Sariri, connu pour le fiqh malikite, les usul al-fiqh et les sciences de la langue arabe. L'orientation pedagogique documentee comprend le Qur'an, le nahw, le sarf, le fiqh, le tafsir et le hadith, avec une place particuliere pour les usul al-fiqh. La madrassa combine enseignement traditionnel et enseignement scolaire reglemente sous supervision des Habous, avec cycles permettant de poursuivre jusqu'au baccalaureat puis a l'universite. Une annonce recente 2025-2026 confirme le recrutement pour l'enseignement traditionnel, la memorisation du Coran et les mutun religieux. L'hebergement etudiant est documente par une construction moderne adjacente a l'ecole ancienne. Les etudiants etrangers sont historiquement documentes, mais les conditions actuelles doivent etre confirmees. Coordonnees placees au niveau du douar Tinkert / Ifrane Atlas Saghir et a confirmer sur site.",
+      "currentStatus": "Active - inscriptions 2025-2026 documentees",
+      "contact": "Cheikh associe : Mawlud al-Sariri / مولود السريري",
+      "scholars": [],
+      "image": "/images/madrassas/tinkert-hq.png",
+      "imageCredit": "Photo fournie : Tinkert, version optimisee haute qualite.",
+      "sources": [
+        "Page publique Facebook de l'ecole Tinkert : adresse et annonces",
+        "Howiya Press : presentation historique et pedagogique de l'ecole Tinkert",
+        "Machahid : article sur Tinkert, al-Mukhtar al-Susi et Mawlud al-Sariri",
+        "Canal Telegram Tinkert School : cours de Mawlud al-Sariri",
+        "Annonce Facebook 2025-2026 : inscriptions et formation traditionnelle"
+      ],
+      "status": "sourced"
+    },
+    {
+      "slug": "ecole-traditionnelle-zawiya-assa",
+      "name": "Ecole traditionnelle de la Zawiya d'Assa",
+      "nameAr": "مدرسة زاوية أسا الخاصة للتعليم العتيق",
+      "village": "Zawiya d'Assa",
+      "commune": "Assa",
+      "province": "Assa-Zag",
+      "lat": 28.609,
+      "lng": -9.429,
+      "specialties": [
+        "Qur'an",
+        "alwah",
+        "rasm",
+        "dabt",
+        "qiraat",
+        "sept lectures",
+        "jam wa-l-irdaf",
+        "fiqh malikite",
+        "nahw",
+        "sarf",
+        "internat",
+        "restauration",
+        "bourse mensuelle"
+      ],
+      "history": "Etablissement d'enseignement traditionnel situe a Assa, dans la province d'Assa-Zag et la region Guelmim-Oued Noun. L'ecole est dirigee ou supervisee par le cheikh Mohamed Nadhir, محمد نظير, et dispense un enseignement coranique et traditionnel fonde notamment sur les alwah. Son programme documente comprend le Qur'an, le rasm et le dabt, les sept qiraat selon la methode marocaine du jam wa-l-irdaf, le fiqh malikite, le nahw et le sarf. Le cheikh Sidi Mubarak Ait Oulbir y est presente comme cheikh des qiraat. Parmi les textes etudies publiquement figurent al-Durar al-Lawami d'Ibn Barri, le Murshid Muin d'Ibn Ashir, l'Ajurrumiyya, la Manzuma d'al-Zawawi et l'Alfiyya d'Ibn Malik. Pour l'annee scolaire 2026-2027, l'etablissement annonce des admissions du cinquieme niveau primaire a la troisieme annee du college. Hebergement, restauration, fournitures scolaires et bourse mensuelle sont annonces comme pris en charge gratuitement par l'association gestionnaire. Coordonnees placees au niveau de la ville d'Assa et a confirmer sur site.",
+      "currentStatus": "Active - admissions 2026-2027 annoncees",
+      "contact": "Responsable documente : Mohamed Nadhir / محمد نظير ; cheikh des qiraat : Sidi Mubarak Ait Oulbir",
+      "scholars": [],
+      "image": "/images/madrassas/zawiya-assa-hq.png",
+      "imageCredit": "Photo fournie : Zawiya d'Assa, version optimisee haute qualite.",
+      "sources": [
+        "Donnees fournies : annonce 2026-2027 de l'etablissement",
+        "Donnees fournies : programme public Qur'an, rasm, dabt, qiraat, fiqh malikite, nahw et sarf",
+        "Donnees fournies : prise en charge annoncee de l'hebergement, restauration, fournitures et bourse mensuelle"
+      ],
+      "status": "sourced"
+    },
+    {
+      "slug": "imam-al-hudayki-afilal",
+      "name": "Madrassa de l'Imam al-Hudayki",
+      "nameAr": "المدرسة العتيقة الإمام الحضيكي",
+      "village": "Afilal",
+      "commune": "Afella Ighir",
+      "province": "Tiznit",
+      "lat": 29.714,
+      "lng": -8.953,
+      "specialties": [
+        "Qur'an",
+        "hifz",
+        "sciences religieuses",
+        "hadith",
+        "isnad",
+        "Sahih al-Bukhari",
+        "al-Muwatta",
+        "fiqh",
+        "zawiya",
+        "bibliotheque historique",
+        "lieu de memoire"
+      ],
+      "history": "Situee au douar Afilal, commune d'Afella Ighir, cercle de Tafraout, province de Tiznit, la madrassa de l'Imam al-Hudayki est une ancienne madrassa atiqa et zawiya scientifique du Souss. Elle est etroitement associee a l'Imam Abu Abd Allah Muhammad ibn Ahmad al-Hudayki, mort en 1189 H / 1775, qui y enseigna et contribua a en faire un centre important de transmission scientifique. La documentation historique lie l'ecole a l'enseignement du hadith, a la transmission par isnad, au Sahih al-Bukhari, au Muwatta de Malik, au fiqh, a l'activite d'ecriture et a une formation religieuse et spirituelle. L'ecole possedait historiquement une bibliotheque constituee notamment d'ouvrages rapportes par al-Hudayki au cours de ses voyages scientifiques, sans que l'etat actuel de cette collection soit confirme. La zawiya d'Afilal est egalement presentee comme lieu de sepulture de l'Imam al-Hudayki et de Sidi Belqasim Afilal. Aujourd'hui, l'activite pedagogique recente est attestee autour de Sidi al-Husayn Zuki, fqih de la madrassa, associe a l'enseignement du Qur'an et des sciences religieuses pendant environ vingt ans. Les qiraat actuelles, l'internat, les inscriptions et les conditions d'accueil restent a confirmer directement aupres de l'etablissement. Coordonnees placees au niveau d'Afella Ighir / Afilal et a confirmer sur site.",
+      "currentStatus": "Activite pedagogique recente attestee - conditions d'accueil a verifier",
+      "contact": "Fqih actuel documente : Sidi al-Husayn Zuki / سيدي الحسين زوكي",
+      "scholars": [],
+      "image": "/images/madrassas/imam-al-hudayki-afilal-hq.png",
+      "imageCredit": "Photo fournie : Afilal, version optimisee haute qualite.",
+      "sources": [
+        "Page Facebook de l'ecole : localisation au douar Afilal, commune d'Afella Ighir, cercle de Tafraout, province de Tiznit",
+        "Archive.org : etude consacree au Tabaqat d'al-Hudayki et a son enseignement a la Zawiya d'Afilal",
+        "Al-Mukhtar al-Susi, Souss al-Alima : mention de l'ecole al-Hudaykiyya",
+        "Al9anat : histoire de l'ecole et enseignement du hadith, Sahih al-Bukhari et al-Muwatta",
+        "Arrabita Mohammadia : bibliotheque historique d'al-Hudayki a l'ecole d'Afilal",
+        "Publications Facebook locales : sepulture d'al-Hudayki, Sidi Belqasim Afilal et activite recente de Sidi al-Husayn Zuki"
+      ],
+      "status": "sourced"
+    }
+  ],
+  "articles": []
+}

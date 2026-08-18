@@ -1,0 +1,117 @@
+import Link from "next/link";
+import Image from "next/image";
+import { notFound } from "next/navigation";
+import { MetadataItem } from "@/components/ui";
+import { StatusBadge } from "@/components/status-badge";
+import { scholars } from "@/content/data";
+import { getAllMadrassas } from "@/content/store";
+
+export function generateStaticParams() {
+  return scholars.map((scholar) => ({ slug: scholar.slug }));
+}
+
+export default async function ScholarPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const scholar = scholars.find((item) => item.slug === slug);
+  if (!scholar) notFound();
+
+  const madrassas = await getAllMadrassas();
+  const linkedMadrassas = madrassas.filter((madrassa) => scholar.madrassas.includes(madrassa.slug));
+
+  return (
+    <article>
+      <header className="container-page py-8 md:py-12">
+        <Link className="text-sm font-medium text-muted hover:text-ink" href="/savants">← Tous les savants</Link>
+        <div className="mt-8 grid gap-6 lg:grid-cols-[1fr_340px] lg:items-end">
+          <div>
+            <p className="arabic-title" dir="rtl" lang="ar">{scholar.nameAr}</p>
+            <h1 className="mt-3 text-4xl font-semibold tracking-[-0.025em] text-ink md:text-6xl">{scholar.nameFr}</h1>
+            <p className="mt-4 text-base text-muted">{scholar.nisba}</p>
+            <div className="mt-5">
+              <StatusBadge status={scholar.status} />
+            </div>
+          </div>
+          <dl className="grid grid-cols-2 gap-5 border-t border-line pt-5 lg:border-t-0 lg:pt-0">
+            <MetadataItem label="Periode" value={scholar.period} />
+            <MetadataItem label="Region" value={scholar.places} />
+            <MetadataItem label="Portrait" value={scholar.image ? "Renseigne" : "Non renseigne"} />
+            <MetadataItem label="Sources" value={`${scholar.sources.length} entree`} />
+          </dl>
+        </div>
+      </header>
+
+      {scholar.image ? (
+        <div className="container-page pb-10">
+          <figure className="mx-auto max-w-3xl overflow-hidden rounded-[18px] border border-line bg-subtle">
+            <Image alt="" className="h-auto max-h-[760px] w-full object-contain" height={1600} priority sizes="(max-width: 768px) 100vw, 768px" src={scholar.image} width={1200} />
+            {scholar.imageCredit ? <figcaption className="border-t border-line px-4 py-3 text-xs text-muted">{scholar.imageCredit}</figcaption> : null}
+          </figure>
+        </div>
+      ) : null}
+
+      <div className="container-page grid gap-10 pb-14 lg:grid-cols-[minmax(0,1fr)_320px]">
+        <main className="max-w-3xl">
+          <section className="border-b border-line pb-9">
+            <h2 className="section-title">Biographie</h2>
+            <div className="body-copy mt-4 whitespace-pre-line">{scholar.biography}</div>
+          </section>
+
+          <section className="border-b border-line py-9">
+            <h2 className="section-title">Formation et transmission</h2>
+            <div className="mt-6 grid gap-6 md:grid-cols-2">
+              <div>
+                <h3 className="text-sm font-medium text-ink">Maitres</h3>
+                <ul className="mt-3 space-y-2 text-sm text-muted">
+                  {scholar.teachers.map((item) => <li key={item}>{item}</li>)}
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-sm font-medium text-ink">Eleves</h3>
+                <ul className="mt-3 space-y-2 text-sm text-muted">
+                  {scholar.students.map((item) => <li key={item}>{item}</li>)}
+                </ul>
+              </div>
+            </div>
+            <p className="caption mt-5">La visualisation des relations maitre → disciple sera connectee a la future silsila.</p>
+          </section>
+
+          <section className="border-b border-line py-9">
+            <h2 className="section-title">Madrassas liees</h2>
+            <div className="mt-4 flex flex-wrap gap-3">
+              {linkedMadrassas.map((madrassa) => (
+                <Link className="relation-link" href={`/madrassas/${madrassa.slug}`} key={madrassa.slug}>{madrassa.name}</Link>
+              ))}
+            </div>
+          </section>
+
+          <section className="border-b border-line py-9">
+            <h2 className="section-title">Oeuvres</h2>
+            <ul className="mt-4 divide-y divide-line border-y border-line">
+              {scholar.works.map((work) => <li className="py-3 text-sm text-muted" key={work}>{work}</li>)}
+            </ul>
+          </section>
+
+          <section className="pt-9">
+            <h2 className="section-title">Sources</h2>
+            <div className="mt-5 divide-y divide-line border-y border-line">
+              {scholar.sources.map((source, index) => (
+                <div className="grid gap-3 py-4 md:grid-cols-[44px_1fr]" key={source}>
+                  <span className="text-sm text-faint">{String(index + 1).padStart(2, "0")}</span>
+                  <p className="text-sm leading-6 text-muted">{source}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        </main>
+
+        <aside className="h-fit border-t border-line pt-6 lg:sticky lg:top-24 lg:border-t-0 lg:pt-0">
+          <dl className="grid gap-6">
+            <MetadataItem label="Specialites" value={scholar.specialties.join(" · ")} />
+            <MetadataItem label="Lieux" value={scholar.places} />
+            <MetadataItem label="Verification" value={<StatusBadge status={scholar.status} />} />
+          </dl>
+        </aside>
+      </div>
+    </article>
+  );
+}

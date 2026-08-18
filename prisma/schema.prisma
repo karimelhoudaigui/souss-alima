@@ -7,203 +7,254 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum Role {
-  ADMIN
-  TEACHER
-  STUDENT
+enum VerificationStatus {
+  EXAMPLE
+  TO_VERIFY
+  SOURCED
 }
 
-enum ProgramType {
-  MEMORIZATION
-  COURSE
-}
-
-enum Riwaya {
-  HAFS
-  QALUN
-  WARSH
-  NONE
-}
-
-enum EnrollmentStatus {
-  PENDING
+enum MadrassaStatus {
   ACTIVE
-  PAUSED
-  COMPLETED
-  CANCELLED
+  HERITAGE_ONLY
+  UNKNOWN
 }
 
-enum SessionStatus {
-  PROPOSED
-  CONFIRMED
-  DONE
-  CANCELLED
-  MISSED
+enum ContributionStatus {
+  PENDING
+  APPROVED
+  REJECTED
 }
 
-enum NotificationType {
-  SESSION_PROPOSED
-  SESSION_CONFIRMED
-  SESSION_REMINDER
-  NEW_CONTENT
-  SYSTEM
+model Scholar {
+  id              String             @id @default(cuid())
+  slug            String             @unique
+  nameFr          String
+  nameAr          String
+  transliteration String?
+  nisba           String?
+  birthDate       String?
+  deathDate       String?
+  birthPlace      String?
+  deathPlace      String?
+  biography       String
+  portraitUrl     String?
+  verification    VerificationStatus @default(TO_VERIFY)
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+
+  articleLinks ArticleScholar[]
+  madrassas    ScholarMadrassa[]
+  sources      ScholarSource[]
+  teachers     ScholarRelation[]  @relation("ScholarStudents")
+  students     ScholarRelation[]  @relation("ScholarTeachers")
+  works        Work[]
 }
 
-model User {
-  id            String    @id @default(cuid())
-  name          String
-  email         String    @unique
-  passwordHash  String
-  phone         String?
-  role          Role      @default(STUDENT)
-  isActive      Boolean   @default(true)
-  resetToken    String?
-  resetTokenExp DateTime?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-
-  enrollments     Enrollment[]
-  availabilities  Availability[]
-  studentSessions Session[]        @relation("StudentSessions")
-  teacherSessions Session[]        @relation("TeacherSessions")
-  lessonProgress  LessonProgress[]
-  notifications   Notification[]
-}
-
-model Program {
-  id          String      @id @default(cuid())
-  slug        String      @unique
-  title       String
-  description String
-  prerequisites String    @default("Entretien pédagogique initial et assiduité hebdomadaire.")
-  type        ProgramType
-  riwaya      Riwaya      @default(NONE)
-  isPublished Boolean     @default(true)
-  createdAt   DateTime    @default(now())
-
-  enrollments Enrollment[]
-  modules     Module[]
-  sessions    Session[]
-  availabilities Availability[]
-}
-
-model Enrollment {
-  id        String           @id @default(cuid())
-  userId    String
-  programId String
-  status    EnrollmentStatus @default(PENDING)
-  createdAt DateTime         @default(now())
-  updatedAt DateTime         @updatedAt
-
-  user            User              @relation(fields: [userId], references: [id], onDelete: Cascade)
-  program         Program           @relation(fields: [programId], references: [id], onDelete: Cascade)
-  memorizationLog MemorizationLog[]
-
-  @@unique([userId, programId])
-}
-
-model Availability {
-  id          String   @id @default(cuid())
-  userId      String
-  programId   String?
-  dayOfWeek   Int?
-  date        DateTime?
-  startTime   String
-  endTime     String
-  isRecurring Boolean  @default(true)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  program Program? @relation(fields: [programId], references: [id])
-}
-
-model Session {
-  id          String        @id @default(cuid())
-  studentId   String
-  teacherId   String?
-  programId   String
-  scheduledAt DateTime
-  durationMin Int           @default(20)
-  status      SessionStatus @default(PROPOSED)
-  notes       String?
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
-
-  student User    @relation("StudentSessions", fields: [studentId], references: [id], onDelete: Cascade)
-  teacher User?   @relation("TeacherSessions", fields: [teacherId], references: [id])
-  program Program @relation(fields: [programId], references: [id])
-}
-
-model Module {
+model ScholarRelation {
   id        String @id @default(cuid())
-  programId String
+  teacherId String
+  studentId String
+  note      String?
+
+  teacher Scholar @relation("ScholarTeachers", fields: [teacherId], references: [id], onDelete: Cascade)
+  student Scholar @relation("ScholarStudents", fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@unique([teacherId, studentId])
+}
+
+model Madrassa {
+  id            String             @id @default(cuid())
+  slug          String             @unique
+  nameFr        String
+  nameAr        String?
+  village       String?
+  commune       String?
+  province      String?
+  latitude      Float?
+  longitude     Float?
+  history       String?
+  currentStatus MadrassaStatus     @default(UNKNOWN)
+  tolbaCount    Int?
+  contactName   String?
+  contactEmail  String?
+  contactPhone  String?
+  photoUrl      String?
+  verification  VerificationStatus @default(TO_VERIFY)
+  createdAt     DateTime           @default(now())
+  updatedAt     DateTime           @updatedAt
+
+  articleLinks ArticleMadrassa[]
+  scholars     ScholarMadrassa[]
+}
+
+model Travel {
+  id            String             @id @default(cuid())
+  slug          String             @unique
+  title         String
+  duration      String
+  dates         String?
+  price         String?
+  itinerary     Json
+  program       Json
+  practicalInfo String
+  gallery       Json?
+  verification  VerificationStatus @default(TO_VERIFY)
+  createdAt     DateTime           @default(now())
+  updatedAt     DateTime           @updatedAt
+}
+
+model Source {
+  id         String   @id @default(cuid())
+  title      String
+  author     String?
+  sourceType String
+  citation   String
+  url        String?
+  notes      String?
+  createdAt  DateTime @default(now())
+
+  articleLinks ArticleSource[]
+  scholars     ScholarSource[]
+}
+
+model ScholarSource {
+  scholarId String
+  sourceId  String
+  note      String?
+
+  scholar Scholar @relation(fields: [scholarId], references: [id], onDelete: Cascade)
+  source  Source  @relation(fields: [sourceId], references: [id], onDelete: Cascade)
+
+  @@id([scholarId, sourceId])
+}
+
+model Work {
+  id        String @id @default(cuid())
+  scholarId String
   title     String
-  order     Int
+  notes     String?
 
-  program Program  @relation(fields: [programId], references: [id], onDelete: Cascade)
-  lessons Lesson[]
+  articleLinks ArticleWork[]
+  scholar      Scholar       @relation(fields: [scholarId], references: [id], onDelete: Cascade)
 }
 
-model Lesson {
-  id          String   @id @default(cuid())
-  moduleId    String
-  title       String
-  description String?
-  videoUrl    String?
-  order       Int
-  createdAt   DateTime @default(now())
+model ScholarMadrassa {
+  scholarId  String
+  madrassaId String
+  role       String?
 
-  module    Module           @relation(fields: [moduleId], references: [id], onDelete: Cascade)
-  documents Document[]
-  progress  LessonProgress[]
+  scholar  Scholar  @relation(fields: [scholarId], references: [id], onDelete: Cascade)
+  madrassa Madrassa @relation(fields: [madrassaId], references: [id], onDelete: Cascade)
+
+  @@id([scholarId, madrassaId])
 }
 
-model Document {
-  id       String @id @default(cuid())
-  lessonId String
-  title    String
-  fileUrl  String
-  fileType String
+model Theme {
+  id    String @id @default(cuid())
+  slug  String @unique
+  label String
 
-  lesson Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  articles ArticleTheme[]
 }
 
-model LessonProgress {
-  id          String    @id @default(cuid())
-  userId      String
-  lessonId    String
-  completed   Boolean   @default(false)
-  completedAt DateTime?
+model Article {
+  id           String             @id @default(cuid())
+  slug         String             @unique
+  title        String
+  titleAr      String?
+  summary      String
+  body         String
+  author       String?
+  publishedAt  DateTime?
+  readingTime  String?
+  verification VerificationStatus @default(TO_VERIFY)
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
 
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  lesson Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
-
-  @@unique([userId, lessonId])
+  themes    ArticleTheme[]
+  sources   ArticleSource[]
+  scholars  ArticleScholar[]
+  madrassas ArticleMadrassa[]
+  works     ArticleWork[]
+  tags      ArticleTag[]
 }
 
-model MemorizationLog {
-  id           String   @id @default(cuid())
-  enrollmentId String
-  surah        String
-  ayahFrom     Int?
-  ayahTo       Int?
-  juz          Int?
-  page         Int?
-  note         String?
-  createdAt    DateTime @default(now())
+model ArticleTheme {
+  articleId String
+  themeId   String
 
-  enrollment Enrollment @relation(fields: [enrollmentId], references: [id], onDelete: Cascade)
+  article Article @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  theme   Theme   @relation(fields: [themeId], references: [id], onDelete: Cascade)
+
+  @@id([articleId, themeId])
 }
 
-model Notification {
-  id        String           @id @default(cuid())
-  userId    String
-  type      NotificationType
-  message   String
-  link      String?
-  isRead    Boolean          @default(false)
-  createdAt DateTime         @default(now())
+model ArticleSource {
+  articleId String
+  sourceId  String
+  note      String?
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  article Article @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  source  Source  @relation(fields: [sourceId], references: [id], onDelete: Cascade)
+
+  @@id([articleId, sourceId])
+}
+
+model ArticleScholar {
+  articleId String
+  scholarId String
+  note      String?
+
+  article Article @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  scholar Scholar @relation(fields: [scholarId], references: [id], onDelete: Cascade)
+
+  @@id([articleId, scholarId])
+}
+
+model ArticleMadrassa {
+  articleId  String
+  madrassaId String
+  note       String?
+
+  article  Article  @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  madrassa Madrassa @relation(fields: [madrassaId], references: [id], onDelete: Cascade)
+
+  @@id([articleId, madrassaId])
+}
+
+model ArticleWork {
+  articleId String
+  workId    String
+  note      String?
+
+  article Article @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  work    Work    @relation(fields: [workId], references: [id], onDelete: Cascade)
+
+  @@id([articleId, workId])
+}
+
+model ArticleTag {
+  id        String @id @default(cuid())
+  articleId String
+  label     String
+
+  article Article @relation(fields: [articleId], references: [id], onDelete: Cascade)
+}
+
+model GlossaryTerm {
+  id         String @id @default(cuid())
+  termFr     String
+  termAr     String?
+  definition String
+  theme      String?
+}
+
+model Contribution {
+  id        String             @id @default(cuid())
+  name      String
+  email     String
+  topic     String
+  payload   Json
+  status    ContributionStatus @default(PENDING)
+  createdAt DateTime           @default(now())
 }
