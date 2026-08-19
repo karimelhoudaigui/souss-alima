@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { ArticleDetail } from "@/components/articles/article-detail";
 import { getAllArticles, getAllMadrassas, getAllScholars } from "@/content/store";
 
-export const dynamicParams = false;
+export const dynamicParams = true;
 
 export async function generateStaticParams() {
   const articles = await getAllArticles();

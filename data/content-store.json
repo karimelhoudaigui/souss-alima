@@ -20,7 +20,9 @@
       "history": "Ecole traditionnelle active situee dans la zone d'Assif Oudrar, commune d'Ait Issafen, cercle d'Anzi, province de Tiznit. Le ministere des Habous la recense parmi les etablissements d'enseignement traditionnel avec les cycles primaire, college et secondaire. Les sources recentes associent la direction a Sidi Abd Allah Rays. La madrassa est documentee pour son activite scientifique autour du fiqh malikite, notamment une rencontre nationale consacree a Fath al-Fattah ala Mukhtasar Khalil. Une bibliotheque equipee, cataloguee et amenagee a ete inauguree en mai 2024. En novembre 2025, une rencontre en ligne avec d'anciens etudiants marocains et etrangers a documente son rayonnement international. Elle participait encore en mars 2026 aux activites coraniques des ecoles traditionnelles autour d'Anzi. Coordonnees placees au niveau de la zone d'Ait Issafen / Anzi et a confirmer sur site.",
       "currentStatus": "Active - derniere activite publique documentee en 2026",
       "contact": "Responsable documente : Sidi Abd Allah Rays / عبد الله ريس",
-      "scholars": [],
+      "scholars": [
+        "abdallah-rais-al-rasmuki"
+      ],
       "image": "/images/madrassas/ikdi-hq.png",
       "imageCredit": "Photo fournie : Ikdi, version optimisee haute qualite.",
       "sources": [
@@ -89,7 +91,9 @@
       "history": "Ecole traditionnelle pluriseculaire situee au douar Tinkert, commune d'Ifrane Atlas Saghir, province de Guelmim. La tradition locale lui attribue une origine tres ancienne, parfois au Ve siecle de l'Hegire, mais l'existence historiquement plus solide est attestee au moins au IXe siecle h. par la presence de Sidi Muhammad Abaragh al-Ifrani vers 920 H. La madrassa est associee a l'histoire intellectuelle du Souss, notamment a Muhammad al-Mukhtar al-Susi, qui y aurait etudie plusieurs annees. Depuis 1994, elle est fortement liee a l'enseignement de Mawlud al-Sariri, connu pour le fiqh malikite, les usul al-fiqh et les sciences de la langue arabe. L'orientation pedagogique documentee comprend le Qur'an, le nahw, le sarf, le fiqh, le tafsir et le hadith, avec une place particuliere pour les usul al-fiqh. La madrassa combine enseignement traditionnel et enseignement scolaire reglemente sous supervision des Habous, avec cycles permettant de poursuivre jusqu'au baccalaureat puis a l'universite. Une annonce recente 2025-2026 confirme le recrutement pour l'enseignement traditionnel, la memorisation du Coran et les mutun religieux. L'hebergement etudiant est documente par une construction moderne adjacente a l'ecole ancienne. Les etudiants etrangers sont historiquement documentes, mais les conditions actuelles doivent etre confirmees. Coordonnees placees au niveau du douar Tinkert / Ifrane Atlas Saghir et a confirmer sur site.",
       "currentStatus": "Active - inscriptions 2025-2026 documentees",
       "contact": "Cheikh associe : Mawlud al-Sariri / مولود السريري",
-      "scholars": [],
+      "scholars": [
+        "mouloud-al-sariri"
+      ],
       "image": "/images/madrassas/tinkert-hq.png",
       "imageCredit": "Photo fournie : Tinkert, version optimisee haute qualite.",
       "sources": [
@@ -219,7 +223,268 @@
         "Reportage Achewa9e3TV et publications de l'ecole : etudiants africains, notamment de Guinee-Conakry."
       ],
       "status": "sourced"
+    },
+    {
+      "slug": "madrassa-ikounka",
+      "name": "Madrassa scientifique traditionnelle d'Ikounka",
+      "nameAr": "المدرسة العلمية العتيقة إكونكا",
+      "village": "Ikounka",
+      "commune": "Imi Mqorn",
+      "province": "Chtouka Ait Baha",
+      "lat": 30.217,
+      "lng": -9.215,
+      "specialties": [
+        "Qur'an",
+        "hifz",
+        "enseignement traditionnel",
+        "sciences religieuses",
+        "fiqh",
+        "nahw",
+        "sarf",
+        "tahzabt",
+        "bibliotheque",
+        "zawiya",
+        "transmission familiale",
+        "patrimoine savant"
+      ],
+      "history": "La Madrassa scientifique traditionnelle d'Ikounka, situee a Imi Mqorn dans la province de Chtouka Ait Baha, compte parmi les anciennes institutions savantes du Souss. La tradition de l'etablissement fait remonter son existence a une periode anterieure au VIIIe siecle de l'Hegire ; cette anciennete est a conserver comme tradition documentee de l'ecole, sans fixer pour l'instant une annee de fondation precise. Les sources contemporaines rattachent l'etablissement au ministere des Habous et l'associent au faqih Sidi al-Hajj al-Husayn Abu al-Haqq al-Sahili al-Baamrani, presente comme cheikh, faqih et amid de la madrassa. Plusieurs publications indiquent son arrivee a Ikounka en 1398 H / 1977, donnee a confirmer par source primaire. L'ecole est documentee comme un centre actif de formation coranique et de sciences traditionnelles, ayant forme de nombreux etudiants devenus imams, fuqaha et enseignants. En 2021, une bibliotheque d'environ 300 ouvrages et references y est documentee, avec une salle de lecture et du materiel de travail. L'activite recente reste forte : publications en 2026, participation des etudiants au moussem de Lalla Ta'lat, pratique de la lecture collective traditionnelle tahzabt et annonces d'admission pour l'annee 2026-2027. Les coordonnees sont placees au niveau d'Imi Mqorn / Ikounka et doivent etre confirmees sur site pour le point exact.",
+      "currentStatus": "Active - activite publique et admissions 2026-2027 documentees",
+      "contact": "Cheikh associe : Sidi al-Hajj al-Husayn Abu al-Haqq al-Sahili al-Baamrani / سيدي الحاج الحسين أبو الحق الساحلي الباعمراني ; contacts annonces en 2026 : +212 770 768 686 / +212 762 032 509",
+      "scholars": [],
+      "image": "/images/madrassas/ikounka-hq.jpg",
+      "imageCredit": "Photo fournie : etudiants de la Madrassa Ikounka, version optimisee haute qualite pour affichage web.",
+      "sources": [
+        "Ministere des Habous : fiche de l'ecole Ikounka a Imi Mqorn, Chtouka Ait Baha.",
+        "Page publique Facebook de l'ecole : activites recentes, memoire scientifique d'Ikounka et publications 2026.",
+        "Publications biographiques autour de Sidi al-Hajj al-Husayn Abu al-Haqq : cheikh, faqih et amid de la madrassa.",
+        "References fournies a al-Mukhtar al-Susi, al-Ma'sul, vol. XVII, p. 262, a verifier directement.",
+        "Akhbar Al Aan, 2021 : bibliotheque d'Ikounka, environ 300 ouvrages et references, 140 etudiants beneficiaires mentionnes pour cette periode.",
+        "Annonce publique d'inscription 2026-2027 : contacts +212 770 768 686 et +212 762 032 509.",
+        "Contenus publics 2026 : participation des etudiants au moussem de Lalla Ta'lat et lecture collective tahzabt."
+      ],
+      "status": "sourced"
+    },
+    {
+      "slug": "madrassa-sidi-wakkak-aglou",
+      "name": "Madrassa scientifique traditionnelle Sidi Wakkak d'Aglou",
+      "nameAr": "المدرسة العلمية العتيقة سيدي وكاك أكلو",
+      "village": "Douar Zawiya Sidi Wakkak",
+      "commune": "Aglou",
+      "province": "Tiznit",
+      "lat": 29.817,
+      "lng": -9.815,
+      "specialties": [
+        "Qur'an",
+        "hifz",
+        "qiraat",
+        "sept lectures",
+        "fiqh malikite",
+        "nahw",
+        "sciences linguistiques",
+        "faraid",
+        "tawqit",
+        "astronomie traditionnelle",
+        "lawha",
+        "internat",
+        "bibliotheque",
+        "zawiya",
+        "ribat historique",
+        "manuscrits"
+      ],
+      "history": "La Madrassa scientifique traditionnelle Sidi Wakkak d'Aglou, egalement connue comme l'ecole d'Aglou, la madrassa al-Wakkakiyya, la Zawiya Sidi Wakkak ou le ribat d'Aglou, est l'une des plus anciennes institutions savantes documentees du Maroc. Les sources historiques situent sa fondation au debut du Ve siecle de l'Hegire, soit au XIe siecle, par le savant Wakkak ibn Zallu al-Lamti. L'etablissement est associe a la diffusion du malikisme dans le Souss et au lien majeur entre Abu Imran al-Fasi, Wakkak ibn Zallu et Abd Allah ibn Yasin, figure religieuse centrale du mouvement almoravide. La madrassa est documentee comme un centre d'enseignement du Qur'an, des qiraat et des sept lectures, avec une transmission contemporaine liee a Sidi Muhammad Wasmih, presente comme enseignant du Coran et des qiraat ainsi que superviseur de l'ecole. Les matieres historiquement attestees incluent aussi le fiqh malikite, le nahw, les sciences linguistiques, les faraid, le tawqit et l'astronomie traditionnelle. La documentation mentionne un internat, des espaces d'enseignement, une bibliotheque et un patrimoine manuscrit ancien dont l'etat actuel reste a approfondir. L'activite religieuse et sociale de la zawiya demeure documentee en 2026, notamment par des lectures collectives et des mawasim. Coordonnees placees au niveau de Zawiya Sidi Wakkak / Aglou et a confirmer sur site.",
+      "currentStatus": "Active - activite publique documentee en 2026",
+      "contact": "Responsable contemporain documente : Sidi Muhammad Wasmih / سيدي محمد واسميح ; telephone public fiable non retrouve avec certitude.",
+      "scholars": [],
+      "image": "/images/madrassas/sidi-wakkak-aglou-hq.png",
+      "imageCredit": "Photo fournie : Sidi Wakkak d'Aglou, version restauree et optimisee haute qualite.",
+      "sources": [
+        "Ministere des Habous : fiche de l'ecole sous le nom المدرسة العلمية العتيقة سيدي وكاك, Douar Zawiya Sidi Wakkak, commune Aglou, province de Tiznit.",
+        "Ma3lama : notice sur le ribat de Wakkak ibn Zallu al-Lamti a Aglou et sa fondation au debut du Ve siecle H.",
+        "Hespress, 2015 : reportage sur Sidi Wakkak, son anciennete, ses infrastructures et sa memoire manuscrite.",
+        "TizPress : documentation sur l'enseignement du Qur'an, des qiraat, du fiqh, du nahw, des faraid et du tawqit.",
+        "Page publique de la madrassa : activite contemporaine, lectures collectives et role de Sidi Muhammad Wasmih.",
+        "Documentation fournie : liens historiques avec Abd Allah ibn Yasin, les qiraat et les figures savantes de l'ecole."
+      ],
+      "status": "sourced"
+    },
+    {
+      "slug": "madrassa-sidi-ali-amashu",
+      "name": "Madrassa traditionnelle Sidi Ali Amaachou",
+      "nameAr": "مدرسة سيدي علي امعاشو للتعليم العتيق",
+      "village": "Douar al-Maashat",
+      "commune": "Had Draa",
+      "province": "Essaouira",
+      "lat": 31.58611,
+      "lng": -9.54397,
+      "specialties": [
+        "Qur'an",
+        "hifz",
+        "khatma",
+        "qiraat",
+        "sept lectures",
+        "dix lectures",
+        "turuq nafi'iennes",
+        "rasm",
+        "tajwid",
+        "Warsh",
+        "enseignement traditionnel",
+        "enseignement primaire",
+        "renovation 2021",
+        "Chiadma"
+      ],
+      "history": "La Madrassa traditionnelle Sidi Ali Amaachou, connue aussi sous les formes Sidi Ali Maachou, Sidi Ali Amashu, Madrassa al-Maashat ou مدرسة المعاشات, est un etablissement d'enseignement traditionnel situe au douar al-Maashat, commune de Had Draa, province d'Essaouira, dans l'aire culturelle des Chiadma. L'ecole ne doit pas etre presentee comme fondee en 2021 : cette date correspond a la reouverture officielle apres reconstruction et rehabilitation, documentee le 10 octobre 2021, alors que l'existence de l'etablissement est anterieure et apparait deja dans la documentation institutionnelle de l'enseignement atiq. Lors de cette reouverture, la presse locale mentionnait plus de 125 etudiants et un enseignement organise notamment autour des niveaux primaires, avec le projet de developper la suite du parcours. L'activite publique recente reste documentee en 2026, notamment par des rencontres pedagogiques et religieuses. La fiche est importante pour les qiraat : l'ecole est associee a la memorisation du Qur'an, aux khatmat, a l'enseignement du rasm et a une transmission contemporaine des lectures coraniques. Le shaykh Abd Allah Ayysh al-Shyazmi y est presente comme fqih, muqri et shaykh des qiraat ; les sources le relient a la transmission des sept lectures, des dix petites et des dix grandes, ainsi qu'aux turuq nafi'iennes et a la methode marocaine. Hassan al-Raji est documente comme superviseur institutionnel de l'etablissement et membre du Conseil scientifique local d'Essaouira. En juin 2025, l'ecole est liee a une activite scientifique autour de l'imam Warsh et du choix marocain de sa riwaya, avec la participation du Conseil scientifique local d'Essaouira, de la delegation provinciale des Affaires islamiques et de l'Institut Mohammed VI des qiraat. Les coordonnees sont placees au niveau public de Douar Lamaachat, pres de Had Draa, et doivent etre confirmees sur site pour le point exact du batiment.",
+      "currentStatus": "Active - activite publique documentee en 2026",
+      "contact": "Page Facebook officielle : https://www.facebook.com/EcoleSidiAliMaachou/ ; telephone : +212 680-186392 ; adresse : دوار المعاشات - جماعة حدالدرى - إقليم الصويرة, Essaouira, Morocco.",
+      "scholars": [
+        "abdallah-ayysh-al-shyazmi"
+      ],
+      "image": "/images/madrassas/sidi-ali-amashu-hq.jpg",
+      "imageCredit": "Photo fournie : etudiants de la Madrassa Sidi Ali Amaachou, version optimisee haute qualite pour affichage web.",
+      "sources": [
+        "Page Facebook officielle : https://www.facebook.com/EcoleSidiAliMaachou/",
+        "Adresse fournie : دوار المعاشات - جماعة حدالدرى - إقليم الصويرة, Essaouira, Morocco.",
+        "SchoolAndCollegeListings : fiche publique de la Madrassa Sidi Ali Amaachou avec adresse Douar al-Maashat, Had Draa, Essaouira.",
+        "Mapcarta / GeoNames : Douar Lamaachat, Essaouira Province, latitude 31.58611, longitude -9.54397.",
+        "Al-Intifada, 14 janvier 2026 : activite du 11 janvier 2026 a la Madrassa Sidi Ali Amaachou.",
+        "Almostakbal24, 11 octobre 2021 : reouverture officielle apres reconstruction et rehabilitation, plus de 125 etudiants annonces.",
+        "Ministere des Habous : mention de l'etablissement avant 2021 dans les donnees de l'enseignement atiq.",
+        "Hespress, 2024 : Abd Allah Ayysh presente comme shaykh des qiraat et enseignant de l'enseignement traditionnel a la Madrassa al-Maashat d'Essaouira.",
+        "Bayane Marrakech, juin 2025 : evenement autour de Warsh avec le Conseil scientifique local d'Essaouira, la delegation des Affaires islamiques et l'Institut Mohammed VI des qiraat.",
+        "Documentation fournie : Hassan al-Raji comme superviseur institutionnel ; Abd Allah Ayysh comme fqih, muqri et shaykh des qiraat."
+      ],
+      "status": "sourced"
     }
   ],
-  "articles": []
+  "articles": [],
+  "scholars": [
+    {
+      "slug": "abdallah-ayysh-al-shyazmi",
+      "nameFr": "Shaykh Abd Allah Ayysh al-Shyazmi",
+      "nameAr": "الشيخ عبد الله عيش الشياظمي",
+      "nisba": "Abd Allah ibn Umar ibn Salih Ayysh, al-Shyazmi ; aussi appele al-Ashrawi",
+      "period": "Ne vers 1954 - certaines sources donnent 1953 - actif dans les sources recentes",
+      "places": "Douar al-Tabiya, Hadd al-Dra, province d'Essaouira, pays Chiadma",
+      "specialties": [
+        "Qur'an",
+        "Warsh",
+        "qiraat",
+        "sept lectures",
+        "dix petites",
+        "dix grandes",
+        "turuq nafi'iennes",
+        "jam",
+        "ifrad",
+        "jam wa-l-irdaf",
+        "ramziyyat marocaines",
+        "rasm",
+        "dabt",
+        "tajwid",
+        "Shatibiyya",
+        "Durra",
+        "Tayyibat al-Nashr",
+        "fiqh malikite",
+        "nahw",
+        "faraid"
+      ],
+      "madrassas": [
+        "madrassa-sidi-ali-amashu"
+      ],
+      "teachers": [
+        "al-Hajj Umar ibn Salih",
+        "Abu Bakr al-Tahrawi",
+        "Ahmad al-Qastallani",
+        "Abd al-Razzaq al-Kariya",
+        "Ahmad al-Kantri al-Krifi al-Raji",
+        "al-Hajj al-Tahir al-Hariri al-Abdi"
+      ],
+      "students": [
+        "Abd Allah al-Susi",
+        "Hasan Akyad",
+        "Husayn Amjahid",
+        "Abd al-Aziz al-Tahrawi",
+        "Abd al-Rahim Nasir",
+        "Muhammad al-Qarmudi",
+        "Nusayba Amstak",
+        "Abd Allah al-Marrakushi",
+        "Abd al-Karim Hamdush",
+        "Abd Allah al-Aribi",
+        "Ahmad al-Muritani",
+        "Ahmad Ahwaz al-Susi"
+      ],
+      "works": [
+        "Transmission des sept qiraat par ifrad et jam",
+        "Transmission des dix petites et des dix grandes",
+        "Methode marocaine du jam wa-l-irdaf",
+        "Ramziyyat marocaines",
+        "Presentation et revision scientifique de l'ouvrage Abhath wa dirasat fi al-rasm wa-l-tajwid wa-l-qiraat"
+      ],
+      "biography": "Shaykh Abd Allah Ayysh al-Shyazmi est un muqri marocain originaire du pays des Chiadma, dans la province d'Essaouira. Les notices les plus detaillees le rattachent au douar al-Tabiya, commune de Hadd al-Dra. Sa date de naissance est donnee autour de 1954, avec certaines sources indiquant 1953.\n\nSon premier apprentissage coranique se fait aupres de son pere, al-Hajj Umar ibn Salih, chez qui il memorise le Qur'an selon la riwaya de Warsh. Il poursuit ensuite sa formation aupres de plusieurs maitres, notamment Abu Bakr al-Tahrawi, Ahmad al-Qastallani, Abd al-Razzaq al-Kariya, Ahmad al-Kantri al-Krifi al-Raji et al-Hajj al-Tahir al-Hariri al-Abdi.\n\nLa source biographique la plus detaillee insiste sur son long compagnonnage avec Ahmad al-Kantri al-Krifi al-Raji, aupres duquel il aurait etudie les sept qiraat, avec leurs differents wajh, par ifrad et par jam, pendant dix-huit ans. Aupres d'al-Hajj al-Tahir al-Hariri al-Abdi, il aurait ensuite etudie les dix petites et les dix grandes, egalement par ifrad et par jam.\n\nIl est particulierement important pour Al-Maghrib al-Alim parce qu'il represente une transmission contemporaine de la methode marocaine des ramziyyat et du jam wa-l-irdaf. Les sources locales de qiraat soulignent sa maitrise des systemes symboliques maghrebo-andalous, des voies nafi'iennes, des sept lectures, des dix petites et des dix grandes.\n\nSon institution principale documentee est la Madrassa Sidi Ali Amashu pour l'enseignement traditionnel, dans la region de Hadd al-Dra, province d'Essaouira, ou il est presente comme faqih, muqri et enseignant des qiraat. Il a ete honore en mars 2024 par le ministere marocain des Habous lors de Laylat al-Qur'an, comme muqri maitrisant les dix lectures selon la methode marocaine.\n\nParmi les textes associes a son enseignement figurent notamment al-Durar al-Lawami d'Ibn Barri, Mawrid al-Zam'an d'al-Kharraz, al-Shatibiyya, al-Durra, Tayyibat al-Nashr et Aqilat Atrab al-Qasaid, auxquels s'ajoutent des textes du cursus traditionnel en fiqh, grammaire, langue et faraid. Les informations sur certains details biographiques anciens et sur des fonctions de jury doivent encore etre confirmees par archives officielles.",
+      "sources": [
+        "Ministere marocain des Habous : hommage lors de Laylat al-Qur'an 2024 pour sa maitrise des dix lectures selon la methode marocaine.",
+        "Notice biographique fournie : origine, formation, maitres, eleves et specialites.",
+        "Sources specialisees de qiraat citees dans la notice : enseignement des dix grandes et petites a la Madrassa Sidi Ali Amashu.",
+        "Hespress, 2024 : mention comme cheikh des qiraat et professeur d'enseignement traditionnel a Essaouira.",
+        "Documentation fournie : participation scientifique autour de l'ouvrage Abhath wa dirasat fi al-rasm wa-l-tajwid wa-l-qiraat."
+      ],
+      "image": "/images/scholars/abdallah-ayysh-al-shyazmi-hq.png",
+      "imageCredit": "Photo fournie : Shaykh Abd Allah Ayysh al-Shyazmi, version restauree et optimisee haute qualite.",
+      "status": "sourced",
+      "featured": true
+    },
+    {
+      "slug": "muhammad-nait-abdallah-al-sisi",
+      "nameFr": "Shaykh Muhammad Nait Abd Allah al-Sisi al-Susi",
+      "nameAr": "الشيخ محمد نيت عبد الله الصيصي السوسي",
+      "nisba": "Muhammad ibn Ahmad ibn Mhamed ibn Abd Allah al-Sisi al-Susi ; aussi al-Tafrawti al-Susi",
+      "period": "Ne le 2 aout 1970 - vivant et actif en 2026",
+      "places": "Tazka, environs de Tafraout, province de Tiznit ; Zawiyat al-Khanig ; Sidi Mokhtar, province de Chichaoua",
+      "specialties": [
+        "Qur'an",
+        "enseignement traditionnel",
+        "fiqh",
+        "mutun",
+        "sira",
+        "sciences religieuses",
+        "education spirituelle",
+        "predication",
+        "Conseil scientifique",
+        "direction de madrassa"
+      ],
+      "madrassas": [
+        "madrassa-zawiyat-al-khanig",
+        "madrassa-sidi-mokhtar"
+      ],
+      "teachers": [
+        "Muhammad Mubarak Jamil - relation d'etude et suhba scientifique a documenter plus precisement"
+      ],
+      "students": [
+        "Etudiants et anciens eleves de la Madrassa-Zawiya Sidi Mokhtar",
+        "Anciens etudiants des cercles de mutun et de sciences religieuses a Zawiyat al-Khanig"
+      ],
+      "works": [
+        "Cours et interventions autour de la sira et des caracteres du Prophete a travers l'Alfiyya d'al-Iraqi",
+        "Commentaire de al-Nasiha al-Hilaliyya d'Ahmad ibn Abd al-Aziz al-Hilali",
+        "Interventions du Conseil local des oulemas de Chichaoua",
+        "Contribution a la transmission du Qur'an et aux activites coraniques de la Madrassa Sidi Mokhtar",
+        "Intervention sur les compositions versifiees des savants marocains au service du Qur'an"
+      ],
+      "biography": "Shaykh Muhammad Nait Abd Allah al-Sisi al-Susi, dont le nom developpe est rapporte sous la forme Muhammad ibn Ahmad ibn Mhamed ibn Abd Allah al-Sisi al-Susi, est un faqih et enseignant marocain issu de la tradition savante du Souss. Les sources le designent aussi comme Muhammad Nait Abd Allah, Muhammad Ait Abd Allah, al-Sisi, et al-Tafrawti al-Susi. Il est originaire de Tazka, village des environs de Tafraout dans la province de Tiznit, ce qui donne a son parcours une importance particuliere pour la cartographie des circulations savantes entre le Souss et les autres reseaux de madrassas marocaines.\n\nLes notices retrouvees donnent comme date de naissance le 2 aout 1970. Elles rapportent qu'il perdit son pere lorsqu'il avait environ un an et qu'il fut eleve par sa mere dans un environnement religieux. Certaines notices contiennent une incoherence dans la conversion en annee hegire ; pour cette raison, la plateforme conserve la date du 2 aout 1970 comme repere documente et laisse la datation hegire a verifier.\n\nSon itineraire s'inscrit pleinement dans le systeme traditionnel des madaris atiqa du Sud marocain. Une source liee a la Madrassa de Zawiyat al-Khanig, dans la province de Chichaoua, conserve le souvenir de Muhammad Nait Abd Allah al-Sisi dans ses premieres annees d'enseignement des mutun et des sciences a la fin des annees 1990. Cette etape doit etre conservee dans le graphe documentaire comme une relation d'enseignement anterieure a son role majeur a Sidi Mokhtar.\n\nUne relation savante importante le relie a Shaykh Muhammad Mubarak Jamil. Dans un temoignage recent, Muhammad Nait Abd Allah evoque lui-meme les debuts de son parcours et sa premiere rencontre avec ce faqih, situee a la fin des annees 1990. D'autres publications decrivent ensuite une compagnie scientifique prolongee durant la premiere decennie du XXIe siecle. Pour rester prudent, la fiche retient une relation d'etude et de suhba scientifique, sans parler pour l'instant d'ijaza precise tant que les textes lus et les chaines de transmission n'ont pas ete identifies.\n\nLe coeur de sa biographie contemporaine se trouve a la Madrassa-Zawiya Sidi Mokhtar pour l'enseignement traditionnel, dans la province de Chichaoua. Les notices soussies le decrivent comme faqih et superviseur de l'etablissement, ou il avait deja accompli vingt-cinq annees d'enseignement et d'education au moment de la diffusion de certaines biographies. Des publications de 2026 parlent desormais d'une presence de plus d'un quart de siecle dans cette institution.\n\nIl est aujourd'hui designe selon les sources comme faqih de l'ecole, directeur, superviseur de l'etablissement et parfois doyen ou responsable scientifique. La presse le presentait encore ainsi en novembre 2025, et les activites de l'etablissement en 2026 confirment qu'il reste a sa tete. Il ne faut donc pas le presenter comme un simple directeur administratif : les temoignages d'anciens etudiants insistent sur son enseignement des sciences religieuses et des disciplines traditionnelles, ainsi que sur l'empreinte pedagogique laissee a plusieurs generations d'etudiants.\n\nPlusieurs enseignements publics lui sont attribues. On retrouve notamment une serie de cours consacree a la sira et aux caracteres du Prophete, a travers l'Alfiyya d'al-Iraqi, ainsi que des interventions sur les dix premiers jours de Dhu al-Hijja. Une autre trace documente la cloture d'un commentaire de al-Nasiha al-Hilaliyya d'Ahmad ibn Abd al-Aziz al-Hilali, texte relevant de l'education spirituelle et morale. Ces elements correspondent au profil traditionnel du faqih-mudarris, qui enseigne plusieurs disciplines et mutun plutot qu'une specialite universitaire unique.\n\nUne donnee tres solide concerne son appartenance au Conseil local des oulemas de la province de Chichaoua. En mai 2025, le ministere des Habous le mentionne comme intervenant dans une rencontre consacree aux efforts du Royaume du Maroc au service du Qur'an, sous l'angle de la transmission, de l'interpretation et de la diffusion. Son intervention portait sur la contribution des savants marocains au service du Qur'an a travers leurs compositions versifiees. Il intervient egalement dans les activites du conseil autour de la sira, des questions religieuses et des celebrations coraniques.\n\nSon rapport au Qur'an est documente par plusieurs traces officielles et institutionnelles. Le ministere des Habous le citait deja en 2013 dans le cadre du travail consacre au mushaf mahdari et a la tradition marocaine de transmission coranique, en mentionnant des materiaux recueillis aupres du faqih Muhammad Ait Abd Allah a l'ecole de Sidi Mokhtar. En 2026, son etablissement a organise le premier Multaqa Sufara al-Furqan, consacre aux etudiants et etudiantes ayant acheve la memorisation du Qur'an.\n\nIl faut cependant rester prudent sur les qiraat. Pour l'instant, la documentation disponible permet de l'inscrire fermement comme faqih, enseignant traditionnel, homme du Qur'an et responsable de madrassa. En revanche, aucune source suffisamment precise n'a encore ete stabilisee pour affirmer chez lui l'enseignement de la Shatibiyya, des sept qiraat, des dix lectures, un sanad de qiraat ou une ijaza specifique dans les lectures. La fiche conserve donc les qiraat comme un point a verifier, sans fabriquer une specialisation.\n\nLa Madrassa-Zawiya Sidi Mokhtar, a laquelle sa biographie doit etre reliee, est situee dans le quartier de la Zawiya, commune de Sidi Mokhtar, province de Chichaoua. L'etablissement fait remonter son origine a 1010 H autour de la zawiya de Sidi Mokhtar, puis a integre en 2007 le systeme organise de l'enseignement atiq supervise par le ministere. En 2021, les sources mentionnaient neuf salles de classe, une bibliotheque, un internat de plus de cent etudiants, vingt-neuf chambres, un refectoire et un corps enseignant de dix-sept professeurs ; ces chiffres sont conserves comme donnees historiques et non comme effectifs actuels de 2026.\n\nPour Al-Maghrib al-Alim, Muhammad Nait Abd Allah al-Sisi al-Susi constitue une figure de circulation contemporaine : il relie Tazka, Tafraout et le Souss a Zawiyat al-Khanig, a la Madrassa Sidi Mokhtar, au Conseil scientifique local de Chichaoua et a plus de vingt-cinq annees d'enseignement traditionnel. Les donnees qui restent a rechercher pour completer encore sa fiche sont son cursus exact madrassa par madrassa, la liste detaillee de tous ses maitres, les mutun etudies, ses eventuelles ijazat et asanid, ainsi qu'une confirmation directe ou une infirmation de toute formation specialisee en qiraat.",
+      "sources": [
+        "El Wajiha, novembre 2025 : presentation comme faqih de la Madrassa Sidi Mokhtar et membre du Conseil local des oulemas de Chichaoua.",
+        "Notice biographique fournie : identite, origine a Tazka pres de Tafraout, naissance le 2 aout 1970 et parcours savant.",
+        "Pages et publications Ma'arif Soussiyya : notices sur Muhammad Nait Abd Allah al-Tafrawti al-Susi et sa presence a Sidi Mokhtar.",
+        "Page de la Madrassa de Zawiyat al-Khanig : souvenir de ses premieres annees d'enseignement des mutun et des sciences a la fin des annees 1990.",
+        "Temoignage video fourni : relation avec Muhammad Mubarak Jamil et evocation des debuts de son parcours.",
+        "Ministere des Habous, mai 2025 : intervention dans la rencontre sur les efforts du Royaume du Maroc au service du Qur'an.",
+        "Ministere des Habous, 2013 : materiaux recueillis aupres du faqih Muhammad Ait Abd Allah dans le cadre du mushaf mahdari.",
+        "Sada TV, 2026 : activite coranique de la Madrassa Sidi Mokhtar autour des etudiants ayant acheve la memorisation du Qur'an.",
+        "Sabah Marrakech : presentation historique de la Madrassa-Zawiya Sidi Mokhtar et donnees d'infrastructure a traiter comme historiques.",
+        "Documentation fournie : prudence requise sur les qiraat, faute de source precise sur Shatibiyya, sept lectures, dix lectures, sanad ou ijaza specialisee."
+      ],
+      "image": "/images/scholars/muhammad-nait-abdallah-al-sisi-hq.png",
+      "imageCredit": "Photo fournie : Shaykh Muhammad Nait Abd Allah al-Sisi al-Susi, version restauree et optimisee haute qualite.",
+      "status": "sourced",
+      "featured": true
+    }
+  ]
 }

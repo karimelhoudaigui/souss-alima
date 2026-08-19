@@ -6,8 +6,8 @@ export default function AboutPage() {
     <div>
       <PageHeader
         kicker="A propos"
-        title="Documenter le Souss savant avec precision"
-        description="Souss Alima rassemble progressivement des informations sur les madaris, les savants, les articles editoriaux et les sources qui permettent de les verifier."
+        title="Documenter le Maroc savant avec precision"
+        description="Al-Maghrib al-'Alim rassemble progressivement des informations sur les madaris, les savants, les articles editoriaux et les sources qui permettent de les verifier."
         narrow
       />
       <article className="container-text pb-14">

@@ -6,7 +6,7 @@ import { StatusBadge } from "@/components/status-badge";
 import { getAllMadrassas, getAllScholars } from "@/content/store";
 import { publicAsset } from "@/lib/assets";
 
-export const dynamicParams = false;
+export const dynamicParams = true;
 
 export async function generateStaticParams() {
   const scholars = await getAllScholars();
@@ -24,13 +24,13 @@ export default async function ScholarPage({ params }: { params: Promise<{ slug: 
 
   return (
     <article>
-      <header className="container-page py-8 md:py-12">
-        <Link className="text-sm font-medium text-muted hover:text-ink" href="/savants">← Tous les savants</Link>
+      <header className="container-page border-b border-line py-8 md:py-12">
+        <Link className="ui-sans text-sm font-medium text-muted hover:text-ink" href="/savants">← Tous les savants</Link>
         <div className="mt-8 grid gap-6 lg:grid-cols-[1fr_340px] lg:items-end">
           <div>
             <p className="arabic-title" dir="rtl" lang="ar">{scholar.nameAr}</p>
-            <h1 className="mt-3 text-4xl font-semibold tracking-[-0.025em] text-ink md:text-6xl">{scholar.nameFr}</h1>
-            <p className="mt-4 text-base text-muted">{scholar.nisba}</p>
+            <h1 className="mt-3 text-4xl font-medium text-ink md:text-6xl">{scholar.nameFr}</h1>
+            <p className="ui-sans mt-4 text-base text-muted">{scholar.nisba}</p>
             <div className="mt-5">
               <StatusBadge status={scholar.status} />
             </div>
@@ -46,7 +46,7 @@ export default async function ScholarPage({ params }: { params: Promise<{ slug: 
 
       {scholar.image ? (
         <div className="container-page pb-10">
-          <figure className="mx-auto max-w-3xl overflow-hidden rounded-[18px] border border-line bg-subtle">
+          <figure className="mx-auto max-w-3xl border-b border-line bg-subtle">
             <Image alt="" className="h-auto max-h-[760px] w-full object-contain" height={1600} priority sizes="(max-width: 768px) 100vw, 768px" src={publicAsset(scholar.image) ?? ""} unoptimized width={1200} />
             {scholar.imageCredit ? <figcaption className="border-t border-line px-4 py-3 text-xs text-muted">{scholar.imageCredit}</figcaption> : null}
           </figure>
@@ -62,28 +62,31 @@ export default async function ScholarPage({ params }: { params: Promise<{ slug: 
 
           <section className="border-b border-line py-9">
             <h2 className="section-title">Formation et transmission</h2>
-            <div className="mt-6 grid gap-6 md:grid-cols-2">
+            <div className="mt-6 grid gap-0 border-y border-line md:grid-cols-2">
               <div>
-                <h3 className="text-sm font-medium text-ink">Maitres</h3>
-                <ul className="mt-3 space-y-2 text-sm text-muted">
-                  {scholar.teachers.map((item) => <li key={item}>{item}</li>)}
+                <h3 className="metadata-label py-3">Maitres</h3>
+                <ul className="divide-y divide-line text-sm text-muted">
+                  {scholar.teachers.map((item) => <li className="py-3" key={item}>{item}</li>)}
                 </ul>
               </div>
-              <div>
-                <h3 className="text-sm font-medium text-ink">Eleves</h3>
-                <ul className="mt-3 space-y-2 text-sm text-muted">
-                  {scholar.students.map((item) => <li key={item}>{item}</li>)}
+              <div className="md:border-l md:border-line md:pl-6">
+                <h3 className="metadata-label py-3">Eleves</h3>
+                <ul className="divide-y divide-line text-sm text-muted">
+                  {scholar.students.map((item) => <li className="py-3" key={item}>{item}</li>)}
                 </ul>
               </div>
             </div>
-            <p className="caption mt-5">La visualisation des relations maitre → disciple sera connectee a la future silsila.</p>
+            <p className="caption mt-5">La representation des filiations sera reliee progressivement aux fiches verifiees.</p>
           </section>
 
           <section className="border-b border-line py-9">
             <h2 className="section-title">Madrassas liees</h2>
-            <div className="mt-4 flex flex-wrap gap-3">
+            <div className="mt-4 grid gap-3 border-y border-line py-4">
               {linkedMadrassas.map((madrassa) => (
-                <Link className="relation-link" href={`/madrassas/${madrassa.slug}`} key={madrassa.slug}>{madrassa.name}</Link>
+                <Link className="grid gap-1 md:grid-cols-[150px_1fr]" href={`/madrassas/${madrassa.slug}`} key={madrassa.slug}>
+                  <span className="metadata-label">A etudie / enseigne</span>
+                  <span className="text-sm font-medium text-ink hover:text-brand">{madrassa.name}</span>
+                </Link>
               ))}
             </div>
           </section>
@@ -91,7 +94,7 @@ export default async function ScholarPage({ params }: { params: Promise<{ slug: 
           <section className="border-b border-line py-9">
             <h2 className="section-title">Oeuvres</h2>
             <ul className="mt-4 divide-y divide-line border-y border-line">
-              {scholar.works.map((work) => <li className="py-3 text-sm text-muted" key={work}>{work}</li>)}
+              {scholar.works.map((work) => <li className="grid gap-2 py-4 text-sm text-muted md:grid-cols-[72px_1fr]" key={work}><span className="metadata-label">Oeuvre</span><span>{work}</span></li>)}
             </ul>
           </section>
 
@@ -99,8 +102,8 @@ export default async function ScholarPage({ params }: { params: Promise<{ slug: 
             <h2 className="section-title">Sources</h2>
             <div className="mt-5 divide-y divide-line border-y border-line">
               {scholar.sources.map((source, index) => (
-                <div className="grid gap-3 py-4 md:grid-cols-[44px_1fr]" key={source}>
-                  <span className="text-sm text-faint">{String(index + 1).padStart(2, "0")}</span>
+                <div className="grid gap-3 py-5 md:grid-cols-[72px_1fr]" key={source}>
+                  <span className="metadata-label">SRC {String(index + 1).padStart(2, "0")}</span>
                   <p className="text-sm leading-6 text-muted">{source}</p>
                 </div>
               ))}
@@ -109,7 +112,7 @@ export default async function ScholarPage({ params }: { params: Promise<{ slug: 
         </main>
 
         <aside className="h-fit border-t border-line pt-6 lg:sticky lg:top-24 lg:border-t-0 lg:pt-0">
-          <dl className="grid gap-6">
+          <dl className="grid gap-6 border-l border-line pl-5">
             <MetadataItem label="Specialites" value={scholar.specialties.join(" · ")} />
             <MetadataItem label="Lieux" value={scholar.places} />
             <MetadataItem label="Verification" value={<StatusBadge status={scholar.status} />} />

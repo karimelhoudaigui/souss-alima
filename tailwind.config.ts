@@ -5,18 +5,18 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#FAFAF9",
-        surface: "#FFFFFF",
-        subtle: "#F5F5F4",
-        line: "#E7E5E4",
-        ink: "#171717",
-        muted: "#737373",
-        faint: "#A3A3A3",
+        background: "#F5F3EE",
+        surface: "#FFFEFA",
+        subtle: "#E9E3D8",
+        line: "#D8CDBC",
+        ink: "#17130F",
+        muted: "#655D51",
+        faint: "#958878",
         brand: {
-          DEFAULT: "#165B4B",
-          hover: "#10463B",
-          soft: "#E7F1EE",
-          line: "#BCD8D1"
+          DEFAULT: "#123F36",
+          hover: "#0D3029",
+          soft: "#E4E1D7",
+          line: "#9C8C72"
         }
       }
     }

@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { Archive, BookOpen, Map, Network, ScrollText, Users } from "lucide-react";
+import { Archive, BookOpen, Map, ScrollText, Users } from "lucide-react";
 import { StatusBadge } from "@/components/status-badge";
 import { getAllArticles, getAllMadrassas, getAllScholars } from "@/content/store";
+import { publicAsset } from "@/lib/assets";
 
 const pillars = [
   ["Madrassas", "Recenser les ecoles traditionnelles, leur localisation, leur histoire et leurs enseignements.", Map, "/madrassas"],
@@ -18,44 +19,38 @@ const aims = [
 
 export default async function HomePage() {
   const [articles, madrassas, scholars] = await Promise.all([getAllArticles(), getAllMadrassas(), getAllScholars()]);
+  const heroImage = publicAsset("/images/brand/atlasal-maghrib.jpg") ?? "";
 
   return (
-    <div>
-      <section className="container-page py-12 md:py-20">
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_380px] lg:items-end">
-          <div>
-            <p className="page-kicker">Plateforme documentaire patrimoniale</p>
-            <h1 className="mt-4 max-w-5xl text-[3.2rem] font-semibold leading-[0.98] text-ink md:text-[6.4rem]">
-              Explorer le Souss savant.
-            </h1>
-            <p className="mt-6 max-w-3xl text-xl leading-9 text-ink">
-              Une cartographie documentee des madrassas, savants, oeuvres et publications liees au patrimoine scientifique traditionnel du Souss.
-            </p>
-            <p className="mt-4 max-w-2xl text-base leading-7 text-muted">
-              Souss Alima construit progressivement une base documentaire ou chaque fiche peut etre reliee a des lieux, biographies, textes, sources et reseaux de transmission.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link className="button-primary" href="/madrassas">Explorer la carte</Link>
-              <Link className="rounded-[12px] border border-line px-4 py-2.5 text-sm font-medium text-ink transition hover:bg-subtle" href="/contribuer">
-                Proposer une source
-              </Link>
-            </div>
-          </div>
-
-          <div className="grid gap-3 rounded-[18px] border border-line bg-surface p-4">
-            <div className="grid grid-cols-3 gap-3">
-              <Stat label="Madrassas" value={madrassas.length} />
-              <Stat label="Savants" value={scholars.length} />
-              <Stat label="Articles" value={articles.length} />
-            </div>
-            <div className="rounded-[14px] bg-subtle p-4">
-              <div className="flex items-center gap-2 text-sm font-medium text-ink">
-                <Network className="h-4 w-4 text-brand" aria-hidden="true" />
-                Base relationnelle
-              </div>
-              <p className="mt-2 text-sm leading-6 text-muted">
-                Le projet n'est pas un simple annuaire : les contenus sont penses pour etre croises, verifies et enrichis.
+    <div className="overflow-hidden">
+      <section className="relative isolate min-h-[calc(100vh-4rem)] overflow-hidden bg-ink text-white">
+        <div
+          aria-hidden="true"
+          className="hero-pan absolute inset-0 z-0 bg-cover bg-center"
+          style={{ backgroundImage: `url("${heroImage}")` }}
+        />
+        <div className="absolute inset-0 z-[1] bg-[linear-gradient(90deg,rgba(23,18,13,0.9),rgba(23,18,13,0.63)_46%,rgba(23,18,13,0.24)),linear-gradient(0deg,rgba(23,18,13,0.78),rgba(23,18,13,0.08)_46%,rgba(23,18,13,0.38))]" />
+        <div className="relative z-[2] flex min-h-[calc(100vh-4rem)] items-center">
+          <div className="container-page py-12 md:py-16">
+            <div className="w-full max-w-[22rem] overflow-hidden sm:max-w-xl md:max-w-4xl">
+              <p className="ui-sans text-[11px] font-semibold uppercase tracking-[0.08em] text-white/78">Atlas documentaire</p>
+              <p className="brand-arabic mt-6 max-w-full overflow-hidden text-center text-[2.35rem] leading-[1.35] text-white drop-shadow-[0_10px_32px_rgba(0,0,0,0.55)] sm:text-5xl md:text-right md:text-7xl" dir="rtl" lang="ar">المغرب العالِم</p>
+              <h1 className="mt-3 max-w-5xl text-[2.45rem] font-medium leading-[1.02] text-white drop-shadow-[0_14px_40px_rgba(0,0,0,0.5)] sm:text-[3.6rem] md:text-[6.2rem]">
+                <span className="block">Al-Maghrib</span>
+                <span className="block">al-ʿĀlim.</span>
+              </h1>
+              <p className="mt-6 max-w-full text-xl leading-8 text-white sm:text-2xl sm:leading-9 md:max-w-3xl">
+                Atlas documentaire du patrimoine savant marocain.
               </p>
+              <p className="mt-4 max-w-full text-base leading-7 text-white/74 md:max-w-2xl">
+                Madrassas, savants, textes, sources et territoires sont presentes comme un corpus relie, a consulter comme une archive vivante.
+              </p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Link className="button-primary bg-white text-ink hover:bg-white/90" href="/madrassas">Explorer l'atlas</Link>
+                <Link className="ui-sans inline-flex min-h-10 items-center justify-center border-b border-white/45 px-1 text-sm font-medium text-white transition hover:border-white" href="/contribuer">
+                  Proposer une source
+                </Link>
+              </div>
             </div>
           </div>
         </div>
@@ -73,14 +68,25 @@ export default async function HomePage() {
       </section>
 
       <section className="container-page py-10 md:py-14">
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        <div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr]">
+          <div>
+            <p className="page-kicker">Corpus</p>
+            <h2 className="section-title mt-2">Entrer par les lieux, les personnes et les preuves.</h2>
+            <p className="body-copy mt-4">
+              Chaque notice est concue pour etre reliee a d'autres objets documentaires : une madrassa mene vers ses savants, un savant vers ses textes, une source vers les fiches qu'elle atteste.
+            </p>
+          </div>
+          <div className="grid border-t border-line md:grid-cols-2">
           {pillars.map(([title, text, Icon, href]) => (
-            <Link className="group rounded-[18px] border border-line bg-surface p-5 transition hover:-translate-y-0.5 hover:border-brand/40 hover:shadow-[0_24px_60px_rgba(37,45,48,0.10)]" href={href} key={title}>
-              <Icon className="h-5 w-5 text-brand" aria-hidden="true" />
-              <h2 className="mt-5 text-lg font-semibold text-ink">{title}</h2>
+            <Link className="group border-b border-line py-5 transition hover:bg-subtle/45 md:px-5 md:odd:border-r" href={href} key={title}>
+              <div className="flex items-center justify-between gap-4">
+                <h2 className="text-xl font-medium text-ink">{title}</h2>
+                <Icon className="h-4 w-4 text-brand" aria-hidden="true" />
+              </div>
               <p className="mt-2 text-sm leading-6 text-muted">{text}</p>
             </Link>
           ))}
+          </div>
         </div>
       </section>
 
@@ -146,15 +152,6 @@ export default async function HomePage() {
           ))}
         </div>
       </section>
-    </div>
-  );
-}
-
-function Stat({ label, value }: { label: string; value: number }) {
-  return (
-    <div className="rounded-[14px] border border-line bg-background p-4">
-      <p className="metadata-label">{label}</p>
-      <p className="mt-2 text-3xl font-semibold text-ink">{value}</p>
     </div>
   );
 }

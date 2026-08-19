@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Map, { Marker, NavigationControl, Popup } from "react-map-gl/maplibre";
@@ -30,9 +30,9 @@ type MadrassaMapProps = {
 };
 
 const statusStyles: Record<VerificationStatus, string> = {
-  sourced: "border-emerald-200 text-emerald-700",
-  to_verify: "border-amber-200 text-amber-700",
-  example: "border-neutral-200 text-neutral-700"
+  sourced: "border-brand text-brand",
+  to_verify: "border-brand-line text-muted",
+  example: "border-line text-muted"
 };
 
 const statusLabels: Record<VerificationStatus, string> = {
@@ -65,6 +65,7 @@ const lightMapStyle: StyleSpecification = {
 export function MadrassaMap({ madrassas, className = "" }: MadrassaMapProps) {
   const [selected, setSelected] = useState<MadrassaMapItem | null>(null);
   const [loaded, setLoaded] = useState(false);
+  const [supportsWebGl, setSupportsWebGl] = useState<boolean | null>(null);
 
   const validMapPoints = useMemo(
     () => madrassas.filter((school) => Number.isFinite(school.latitude) && Number.isFinite(school.longitude)),
@@ -82,8 +83,44 @@ export function MadrassaMap({ madrassas, className = "" }: MadrassaMapProps) {
     };
   }, [validMapPoints]);
 
+  useEffect(() => {
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext("webgl2") ?? canvas.getContext("webgl");
+    setSupportsWebGl(Boolean(context));
+  }, []);
+
+  if (supportsWebGl === null) {
+    return (
+      <div className={`flex items-center justify-center overflow-hidden border border-line bg-subtle text-sm text-muted ${className}`}>
+        Verification de la carte...
+      </div>
+    );
+  }
+
+  if (supportsWebGl === false) {
+    return (
+      <div className={`min-w-0 overflow-hidden border border-line bg-surface ${className}`}>
+        <div className="border-b border-line p-4">
+          <p className="metadata-label">Carte indisponible</p>
+          <p className="mt-2 break-words text-sm leading-6 text-muted">
+            Le navigateur ne fournit pas WebGL pour afficher la carte interactive. Les notices restent accessibles par l'index.
+          </p>
+        </div>
+        <div className="divide-y divide-line">
+          {madrassas.slice(0, 6).map((madrassa) => (
+            <Link className="grid min-w-0 gap-1 p-4 transition hover:bg-subtle/55" href={`/madrassas/${madrassa.slug}`} key={madrassa.slug}>
+              {madrassa.nameAr ? <span className="break-words text-right text-lg text-ink" dir="rtl" lang="ar">{madrassa.nameAr}</span> : null}
+              <span className="break-words text-sm font-medium text-ink">{madrassa.name}</span>
+              <span className="ui-sans break-words text-xs text-muted">{[madrassa.city, madrassa.province].filter(Boolean).join(" · ")}</span>
+            </Link>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className={`relative w-full overflow-hidden rounded-[18px] border border-line bg-[#eef0ee] ${className}`}>
+    <div className={`relative w-full overflow-hidden border border-line bg-subtle ${className}`}>
       <Map
         initialViewState={{
           longitude: center.longitude,
@@ -120,15 +157,15 @@ export function MadrassaMap({ madrassas, className = "" }: MadrassaMapProps) {
             <Marker key={madrassa.id} longitude={madrassa.longitude} latitude={madrassa.latitude} anchor="bottom">
               <button
                 aria-label={`Voir ${madrassa.name}`}
-                className={`group relative flex h-10 w-10 items-center justify-center rounded-full border bg-white shadow-[0_2px_10px_rgba(0,0,0,0.16)] transition duration-150 hover:scale-110 hover:shadow-[0_4px_14px_rgba(0,0,0,0.22)] focus:outline-none focus:ring-4 focus:ring-brand/20 ${colorClass}`}
+                className={`group relative flex h-7 w-7 items-center justify-center rounded-full border bg-surface shadow-[0_1px_6px_rgba(0,0,0,0.14)] transition duration-150 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-brand/20 ${colorClass}`}
                 onClick={(event) => {
                   event.stopPropagation();
                   setSelected(madrassa);
                 }}
                 type="button"
               >
-                <School size={18} strokeWidth={2} />
-                <span className="absolute -bottom-[5px] h-3 w-3 rotate-45 border-b border-r border-neutral-200 bg-white" />
+                <School size={14} strokeWidth={2} />
+                <span className="absolute -bottom-[3px] h-2 w-2 rotate-45 border-b border-r border-line bg-surface" />
               </button>
             </Marker>
           );
@@ -142,66 +179,62 @@ export function MadrassaMap({ madrassas, className = "" }: MadrassaMapProps) {
             offset={52}
             closeButton={false}
             closeOnClick={false}
-            maxWidth="320px"
+            maxWidth="250px"
             className="madrassa-popup"
           >
-            <div className="relative min-w-[250px]">
+            <div className="relative min-w-[208px] max-w-[226px]">
               <button
                 aria-label="Fermer"
-                className="absolute right-0 top-0 z-20 flex h-7 w-7 items-center justify-center rounded-full bg-neutral-100 text-neutral-600 transition hover:bg-neutral-200"
+                className="absolute right-0 top-0 z-20 flex h-6 w-6 items-center justify-center border border-line bg-surface text-muted transition hover:bg-subtle"
                 onClick={() => setSelected(null)}
                 type="button"
               >
-                <X size={15} />
+                <X size={13} />
               </button>
 
               {selected.image ? (
                 <Image
                   alt={selected.name}
-                  className="mb-3 h-32 w-full rounded-[14px] object-cover"
-                  height={128}
+                  className="mb-2.5 h-20 w-full object-cover"
+                  height={80}
                   src={publicAsset(selected.image) ?? ""}
                   unoptimized
-                  width={288}
+                  width={226}
                 />
               ) : null}
 
-              <div className="pr-8">
+              <div className="pr-7">
                 {selected.nameAr ? (
-                  <div className="mb-1 text-right text-[15px] font-semibold leading-6 text-neutral-900" dir="rtl" lang="ar">
+                  <div className="mb-1 text-right text-[14px] font-medium leading-5 text-ink" dir="rtl" lang="ar">
                     {selected.nameAr}
                   </div>
                 ) : null}
 
-                <h3 className="text-[15px] font-semibold leading-tight text-neutral-950">{selected.name}</h3>
+                <h3 className="text-[14px] font-medium leading-tight text-ink">{selected.name}</h3>
 
                 {selected.city || selected.province ? (
-                  <div className="mt-2 flex items-start gap-1.5 text-[13px] text-neutral-500">
-                    <MapPin className="mt-[1px] shrink-0" size={14} />
+                  <div className="ui-sans mt-1.5 flex items-start gap-1.5 text-[12px] text-muted">
+                    <MapPin className="mt-[1px] shrink-0" size={13} />
                     <span>{[selected.city, selected.province].filter(Boolean).join(" · ")}</span>
                   </div>
                 ) : null}
 
-                {selected.description ? <p className="mt-3 line-clamp-3 text-[13px] leading-5 text-neutral-600">{selected.description}</p> : null}
-
                 {selected.specialties?.length ? (
-                  <div className="mt-3 flex flex-wrap gap-1.5">
-                    {selected.specialties.slice(0, 4).map((specialty) => (
-                      <span className="rounded-full bg-neutral-100 px-2 py-1 text-[11px] text-neutral-600" key={specialty}>
-                        {specialty}
-                      </span>
+                  <div className="ui-sans mt-2 flex flex-wrap gap-x-2.5 gap-y-1 text-[10.5px] text-faint">
+                    {selected.specialties.slice(0, 3).map((specialty) => (
+                      <span key={specialty}>{specialty}</span>
                     ))}
                   </div>
                 ) : null}
 
                 {selected.status ? (
-                  <div className="mt-3">
+                  <div className="mt-2.5">
                     <MapStatusBadge status={selected.status} />
                   </div>
                 ) : null}
 
-                <Link className="mt-4 flex w-full items-center justify-center rounded-[12px] bg-neutral-950 px-4 py-2.5 text-[13px] font-medium text-white transition hover:bg-neutral-800" href={`/madrassas/${selected.slug}`}>
-                  Voir la madrassa
+                <Link className="ui-sans mt-3 flex min-h-8 w-full items-center justify-center bg-brand px-3 py-1.5 text-xs font-medium text-white transition duration-150 hover:bg-brand-hover focus:outline-none focus:ring-2 focus:ring-brand/25 focus:ring-offset-2" href={`/madrassas/${selected.slug}`}>
+                  Voir la notice
                 </Link>
               </div>
             </div>
@@ -209,12 +242,12 @@ export function MadrassaMap({ madrassas, className = "" }: MadrassaMapProps) {
         ) : null}
       </Map>
 
-      <div className="pointer-events-none absolute left-4 top-4 z-10 rounded-[12px] border border-white/60 bg-white/90 px-3 py-2 text-sm font-medium text-neutral-900 shadow-sm backdrop-blur-md">
+      <div className="ui-sans pointer-events-none absolute left-4 top-4 z-10 border border-line bg-surface px-3 py-2 text-sm font-medium text-ink shadow-sm">
         {madrassas.length} madrassas
       </div>
 
       {!loaded ? (
-        <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-[#eef0ee] text-sm text-muted">
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-subtle text-sm text-muted">
           Chargement de la carte...
         </div>
       ) : null}
@@ -224,10 +257,10 @@ export function MadrassaMap({ madrassas, className = "" }: MadrassaMapProps) {
 
 function MapStatusBadge({ status }: { status: VerificationStatus }) {
   const styles: Record<VerificationStatus, string> = {
-    sourced: "border-emerald-100 bg-emerald-50 text-emerald-700",
-    to_verify: "border-amber-100 bg-amber-50 text-amber-700",
-    example: "border-neutral-200 bg-neutral-100 text-neutral-600"
+    sourced: "border-brand-line text-brand",
+    to_verify: "border-brand-line text-muted",
+    example: "border-line text-muted"
   };
 
-  return <span className={`inline-flex rounded-full border px-2.5 py-1 text-[11px] font-medium ${styles[status]}`}>{statusLabels[status]}</span>;
+  return <span className={`ui-sans inline-flex border-b text-[11px] font-medium ${styles[status]}`}>{statusLabels[status]}</span>;
 }

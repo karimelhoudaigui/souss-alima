@@ -308,36 +308,74 @@ async function markSupabaseReadAsDynamic() {
   noStore();
 }
 
+function mergeBySlug<T extends { slug: string }>(...groups: T[][]) {
+  const merged = new Map<string, T>();
+
+  for (const group of groups) {
+    for (const item of group) {
+      merged.set(item.slug, item);
+    }
+  }
+
+  return Array.from(merged.values());
+}
+
+function articleIdentity(article: Article) {
+  return slugify(article.title.trim()) || article.slug;
+}
+
+function articleTimestamp(article: Article) {
+  const parsed = Date.parse(article.publishedAt);
+  return Number.isFinite(parsed) ? parsed : 0;
+}
+
+function mergeArticles(...groups: Article[][]) {
+  const bySlug = mergeBySlug(...groups);
+  const seen = new Set<string>();
+
+  return bySlug
+    .sort((a, b) => articleTimestamp(b) - articleTimestamp(a))
+    .filter((article) => {
+      const identity = articleIdentity(article);
+      if (seen.has(identity)) return false;
+      seen.add(identity);
+      return true;
+    });
+}
+
 export async function getAllMadrassas() {
+  const store = await readStore();
+
   if (hasSupabasePublicConfig() && process.env.GITHUB_ACTIONS !== "true") {
     await markSupabaseReadAsDynamic();
     const madrassas = await getSupabaseMadrassas();
-    if (madrassas) return madrassas;
+    if (madrassas) return mergeBySlug(madrassas, staticMadrassas, store.madrassas);
   }
 
-  const store = await readStore();
   return [...staticMadrassas, ...store.madrassas];
 }
 
 export async function getAllArticles() {
+  const store = await readStore();
+
   if (hasSupabasePublicConfig() && process.env.GITHUB_ACTIONS !== "true") {
     await markSupabaseReadAsDynamic();
     const articles = await getSupabaseArticles();
-    if (articles) return articles;
+    if (articles) return mergeArticles(staticArticles, store.articles, articles);
   }
 
-  const store = await readStore();
-  return [...staticArticles, ...store.articles];
+  return mergeArticles(staticArticles, store.articles);
 }
 
 export async function getAllScholars() {
+  const store = await readStore();
+
   if (hasSupabasePublicConfig() && process.env.GITHUB_ACTIONS !== "true") {
     await markSupabaseReadAsDynamic();
     const scholars = await getSupabaseScholars();
-    if (scholars) return scholars;
+    if (scholars) return mergeBySlug(scholars, staticScholars, store.scholars ?? []);
   }
 
-  const store = await readStore();
   return [...staticScholars, ...(store.scholars ?? [])];
 }
 

@@ -5,7 +5,7 @@ export default function ContactPage() {
     <div>
       <PageHeader
         kicker="Contact"
-        title="Ecrire a Souss Alima"
+        title="Ecrire a Al-Maghrib al-'Alim"
         description="Pour une source, une visite, un partenariat de recherche ou une correction editoriale."
         narrow
       />

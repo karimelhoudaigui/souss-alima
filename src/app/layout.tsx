@@ -5,8 +5,8 @@ import "./globals.css";
 import { Nav } from "@/components/nav";
 
 export const metadata: Metadata = {
-  title: "Souss Alima",
-  description: "Plateforme numerique dediee au patrimoine scientifique traditionnel du Souss."
+  title: "Al-Maghrib al-ʿĀlim",
+  description: "Plateforme numerique dediee au patrimoine scientifique traditionnel du Maroc savant."
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -18,8 +18,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <footer className="border-t border-line bg-surface">
           <div className="container-page grid gap-8 py-10 md:grid-cols-[1fr_1fr_1fr]">
             <div>
-              <p className="text-base font-semibold text-ink">Souss Alima</p>
-              <p className="mt-2 max-w-xs text-sm leading-6 text-muted">Memoire, sources et transmission du Souss savant.</p>
+              <p className="text-base font-semibold text-ink">Al-Maghrib al-ʿĀlim</p>
+              <p className="mt-2 max-w-xs text-sm leading-6 text-muted">Memoire, sources et transmission du Maroc savant.</p>
             </div>
             <nav aria-label="Explorer" className="grid gap-2 text-sm text-muted">
               <Link className="hover:text-ink" href="/madrassas">Madrassas</Link>
@@ -31,7 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Link className="hover:text-ink" href="/a-propos">A propos</Link>
               <Link className="hover:text-ink" href="/contribuer">Contribuer</Link>
               <Link className="hover:text-ink" href="/contact">Contact</Link>
-              <span className="pt-2 text-xs text-faint">© 2026 Souss Alima</span>
+              <span className="pt-2 text-xs text-faint">© 2026 Al-Maghrib al-ʿĀlim</span>
             </nav>
           </div>
         </footer>

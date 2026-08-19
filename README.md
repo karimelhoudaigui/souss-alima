@@ -1,4 +1,4 @@
-# Souss Alima
+# Al-Maghrib al-'Alim
 
 Plateforme documentaire Next.js consacree aux madrassas, savants et publications editoriales autour du patrimoine scientifique traditionnel du Souss.
 

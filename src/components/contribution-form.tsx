@@ -21,7 +21,7 @@ async function sendEmail(payload: Record<string, string>) {
       Accept: "application/json"
     },
     body: JSON.stringify({
-      _subject: `[Souss savant] Contribution - ${payload.entity || payload.contribution_type}`,
+      _subject: `[Al-Maghrib al-'Alim] Contribution - ${payload.entity || payload.contribution_type}`,
       _template: "table",
       ...payload
     })

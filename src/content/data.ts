@@ -149,8 +149,90 @@ export const scholars: Scholar[] = [
       "Notice fournie : reseau de maitres de Qur'an et de qiraat dans le Souss et le pays Ait Baamrane.",
       "Temoignage public d'Abd al-Sadiq al-Nasiri mentionnant une khatma accomplie sous sa direction."
     ],
-    image: "/images/scholars/mohammed-amgour-hq.jpg",
-    imageCredit: "Photo fournie : Sidi al-Hajj Mohammed Amgour al-Baamrani, version optimisee haute qualite.",
+    image: "/images/scholars/mohammed-amgour-hq.png",
+    imageCredit: "Photo fournie : Sidi al-Hajj Mohammed Amgour al-Baamrani, version restauree et optimisee haute qualite.",
+    status: "sourced",
+    featured: true
+  },
+  {
+    slug: "mouloud-al-sariri",
+    nameFr: "Mouloud al-Sariri",
+    nameAr: "مولود السريري",
+    nisba: "Abu al-Tayyib Mouloud ibn al-Hasan al-Sariri al-Susi",
+    period: "Ne en 1963 - actif",
+    places: "Ta'lat, Chtouka Ait Baha, Tanger, Tinkert",
+    specialties: ["fiqh malikite", "usul al-fiqh", "hermeneutique juridique", "hadith", "tafsir", "philosophie", "litterature", "poesie"],
+    madrassas: ["madrassa-tinkert"],
+    teachers: [
+      "al-Hasan al-Sariri",
+      "Hasan al-Shalhi",
+      "Idris al-Tuzuwini",
+      "Muhammad al-Kummathri",
+      "al-Hajj Salih al-Salih al-Ilghi",
+      "Abd Allah al-Talidi",
+      "Abd Allah ibn al-Siddiq al-Ghumari",
+      "Muhammad al-Zamzami"
+    ],
+    students: ["Etudiants, fuqaha et imams formes a la Madrassa Tinkert"],
+    works: [
+      "Tajdid ilm usul al-fiqh",
+      "Mu'jam al-usuliyyin",
+      "al-Qanun fi tafsir al-nusus",
+      "al-Sina'a al-fiqhiyya",
+      "Sharh Miftah al-Wusul",
+      "Sharh Nayl al-Muna fi Nazm al-Muwafaqat",
+      "Masadir al-tashri' al-islami wa-turuq istithmariha inda al-Imam Ibn Hazm al-Zahiri",
+      "Naqd al-qawl al-almani fi al-ma'rifa al-diniyya"
+    ],
+    biography:
+      "Abu al-Tayyib Mouloud ibn al-Hasan al-Sariri al-Susi est un faqih malikite et specialiste marocain des usul al-fiqh, ne en 1963 dans le Souss. Les notices biographiques le rattachent a la madrassa de Ta'lat, dans la province de Chtouka Ait Baha ; une date precise est egalement rapportee : 3 aout 1963 / 12 Rabi' al-Awwal 1383 H.\n\nSa premiere formation se deroule aupres de son pere, al-Hasan al-Sariri, avec la memorisation du Coran et l'acquisition des premiers elements des sciences religieuses, linguistiques et litteraires. Il poursuit ensuite son apprentissage dans plusieurs madrassas du Souss, notamment aupres de Hasan al-Shalhi, Idris al-Tuzuwini, Muhammad al-Kummathri et al-Hajj Salih al-Salih al-Ilghi.\n\nIl effectue ensuite une seconde phase de formation dans le nord du Maroc, principalement a Tanger, aupres de savants tels que Abd Allah al-Talidi, Abd Allah ibn al-Siddiq al-Ghumari et Muhammad al-Zamzami. Cette circulation entre le Souss et le nord marocain donne a son parcours une place importante dans la cartographie des reseaux de transmission.\n\nAl-Sariri rejoint ensuite la Madrassa traditionnelle de Tinkert, ou il devient enseignant puis responsable scientifique. Les sources divergent legerement sur la date de son arrivee : le site officiel indique 1994, tandis que certaines notices donnent 1411 H / 1991. La fiche conserve donc l'indication prudente d'une arrivee vers 1991-1994.\n\nSon enseignement a Tinkert est associe au fiqh malikite, au Mukhtasar Khalil, aux usul al-fiqh, a la theorie de l'interpretation des textes, au hadith, a la theologie et a des questions contemporaines de methodologie juridique. Sa production ecrite est particulierement riche pour un savant rattache a une madrassa rurale : elle porte notamment sur le renouvellement des usul, la signification linguistique, l'hermeneutique juridique, la relation entre fiqh et usul, ainsi que la critique de certaines approches modernes de la connaissance religieuse.\n\nPour Al-Maghrib al-ʿĀlim, Mouloud al-Sariri constitue un noeud documentaire majeur : sa trajectoire relie formation familiale, madrassas du Souss, rihla vers Tanger, retour a Tinkert, enseignement prolonge et production intellectuelle contemporaine.",
+    sources: [
+      "Notice fournie : biographie de Mouloud al-Sariri et synthese des sources publiques.",
+      "Site officiel assariry.com / Nafais Ulama al-Maghrib : naissance, formation, maitres, bibliographie et fonction a Tinkert.",
+      "IslamOnline : elements sur la formation initiale et la memorisation du Coran.",
+      "Aima Maroc : maitres du Souss et periode de formation a Tanger.",
+      "Sources publiques de la Madrassa Tinkert : enseignement, direction scientifique et activite contemporaine."
+    ],
+    image: "/images/scholars/mouloud-al-sariri-hq.png",
+    imageCredit: "Photo fournie : Mouloud al-Sariri, version restauree et optimisee haute qualite.",
+    status: "sourced",
+    featured: true
+  },
+  {
+    slug: "abdallah-rais-al-rasmuki",
+    nameFr: "Sidi al-Hajj Abd Allah Rais al-Rasmuki",
+    nameAr: "سيدي الحاج عبد الله بن إبراهيم ريس الرسموكي السوسي",
+    nisba: "Abd Allah ibn Ibrahim Rais al-Rasmuki al-Susi",
+    period: "Ne en 1968 - actif",
+    places: "Akrad Ouabdi, Anzi, Ikdi, Fes, Chinguetti",
+    specialties: ["fiqh malikite", "usul al-fiqh", "Qur'an", "Warsh", "rasm", "tafsir", "enseignement traditionnel", "litterature", "poesie"],
+    madrassas: ["madrassa-ikdi"],
+    teachers: [
+      "al-Hajj Ibrahim Rais",
+      "Abd al-Karim al-Dawudi",
+      "Muhammad al-Tawil",
+      "Abd al-Hayy al-Imrawi",
+      "Muhammad al-Imrani"
+    ],
+    students: ["Etudiants de la Madrassa scientifique traditionnelle d'Ikdi"],
+    works: [
+      "Min tarikh Madrasat Ikdi",
+      "Nazm Asbab al-Ikhtilaf al-Fiqhi ma'a sharhihi",
+      "Ida'at wa-Imla'at fi Sharh al-Waraqat",
+      "Sharh Mabniyyat al-Burji"
+    ],
+    biography:
+      "Sidi al-Hajj Abd Allah ibn Ibrahim Rais al-Rasmuki al-Susi est un faqih malikite, enseignant, homme de lettres et poete du Souss, ne en 1968 a Akrad Ouabdi, dans la commune d'Anzi, province de Tiznit.\n\nSa formation commence a la Madrassa scientifique traditionnelle d'Ikdi, aupres de son pere, Sidi al-Hajj Ibrahim Rais, longtemps connu comme le grand faqih de l'etablissement. Il y memorise le Coran selon la riwaya de Warsh, avec apprentissage du rasm uthmani, puis etudie un cursus traditionnel large : nahw, fiqh, balagha, usul al-fiqh, mustalah al-hadith, tafsir, arud et mantiq.\n\nEn 1992, il rejoint Jami' al-Qarawiyyin a Fes, ou il frequente pendant environ deux annees les cercles de plusieurs enseignants marocains, notamment Abd al-Karim al-Dawudi, Muhammad al-Tawil, Abd al-Hayy al-Imrawi et Muhammad al-Imrani. Son parcours dessine ainsi une circulation Ikdi - Qarawiyyin - Ikdi, importante pour comprendre la continuite savante contemporaine du Souss.\n\nApres son retour, il participe a partir de 1994 a la gestion scientifique de l'ecole d'Ikdi. Les sources indiquent une transmission progressive avec son pere : en 2021, la madrassa est encore presentee sous la supervision d'Ibrahim Rais et de son fils Abd Allah ; les publications recentes presentent Abd Allah Rais comme faqih, directeur ou amid actuel de l'ecole.\n\nIl est egalement rattache a la Rabita Mohammedia des Oulemas et intervient dans des rencontres scientifiques au Maroc et a l'etranger. En 2022, il obtient un master a l'Universite de Chinguetti en Mauritanie, autour d'un travail consacre au patrimoine savant du Souss : Sharh Mabniyyat al-Burji du savant Iburk al-Ya'qubi al-Samlali.\n\nParmi ses travaux figurent notamment Min tarikh Madrasat Ikdi, un ouvrage essentiel a rechercher pour documenter l'histoire interne d'Ikdi, ainsi que des textes consacres aux causes de la divergence juridique et aux usul al-fiqh. Le 27 mars 2025, lors de Laylat al-Qadr, il recoit le Prix Mohammed VI des ecoles coraniques dans la categorie du rendement pedagogique. Cet evenement constitue un marqueur institutionnel fort de son role actuel.",
+    sources: [
+      "Notice fournie : biographie de Sidi al-Hajj Abd Allah Rais al-Rasmuki et synthese des sources publiques.",
+      "Publications recentes de la Madrassa Ikdi : direction actuelle et succession avec Sidi al-Hajj Ibrahim Rais.",
+      "Tiznit 24 : formation, passage a al-Qarawiyyin, master a Chinguetti et travaux attribues.",
+      "Ministere des Habous : Prix Mohammed VI des ecoles coraniques, categorie rendement, 1446 H / 2025.",
+      "Fondation Faail Khair : inauguration de la bibliotheque d'Ikdi en mai 2024 et mention du directeur de l'ecole.",
+      "Sources publiques liees a la Rabita Mohammedia des Oulemas et aux activites scientifiques contemporaines."
+    ],
+    image: "/images/scholars/abdallah-rais-hq.png",
+    imageCredit: "Photo fournie : Sidi al-Hajj Abd Allah Rais al-Rasmuki, version restauree et optimisee haute qualite.",
     status: "sourced",
     featured: true
   }

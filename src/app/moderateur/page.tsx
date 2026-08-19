@@ -3,7 +3,7 @@ import { getAllArticles, getAllMadrassas, getAllScholars } from "@/content/store
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Administration | Souss Alima",
+  title: "Administration | Al-Maghrib al-'Alim",
   robots: {
     index: false,
     follow: false
