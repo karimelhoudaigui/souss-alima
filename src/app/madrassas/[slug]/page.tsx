@@ -6,7 +6,7 @@ import { MetadataItem } from "@/components/ui";
 import { getAllMadrassas, getAllScholars } from "@/content/store";
 import { publicAsset } from "@/lib/assets";
 
-export const dynamicParams = true;
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const madrassas = await getAllMadrassas();
