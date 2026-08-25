@@ -29,13 +29,13 @@ export default async function ScholarPage({ params }: { params: Promise<{ slug: 
         <div className="mt-8 grid gap-6 lg:grid-cols-[1fr_340px] lg:items-end">
           <div>
             <p className="arabic-title" dir="rtl" lang="ar">{scholar.nameAr}</p>
-            <h1 className="mt-3 text-4xl font-medium text-ink md:text-6xl">{scholar.nameFr}</h1>
+            <h1 className="mt-3 break-words text-[clamp(2.15rem,11vw,3rem)] font-medium text-ink md:text-6xl">{scholar.nameFr}</h1>
             <p className="ui-sans mt-4 text-base text-muted">{scholar.nisba}</p>
             <div className="mt-5">
               <StatusBadge status={scholar.status} />
             </div>
           </div>
-          <dl className="grid grid-cols-2 gap-5 border-t border-line pt-5 lg:border-t-0 lg:pt-0">
+          <dl className="grid gap-5 border-t border-line pt-5 sm:grid-cols-2 lg:border-t-0 lg:pt-0">
             <MetadataItem label="Periode" value={scholar.period} />
             <MetadataItem label="Region" value={scholar.places} />
             <MetadataItem label="Portrait" value={scholar.image ? "Renseigne" : "Non renseigne"} />
@@ -112,7 +112,7 @@ export default async function ScholarPage({ params }: { params: Promise<{ slug: 
         </main>
 
         <aside className="h-fit border-t border-line pt-6 lg:sticky lg:top-24 lg:border-t-0 lg:pt-0">
-          <dl className="grid gap-6 border-l border-line pl-5">
+          <dl className="grid gap-6 lg:border-l lg:border-line lg:pl-5">
             <MetadataItem label="Specialites" value={scholar.specialties.join(" · ")} />
             <MetadataItem label="Lieux" value={scholar.places} />
             <MetadataItem label="Verification" value={<StatusBadge status={scholar.status} />} />

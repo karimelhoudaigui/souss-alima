@@ -13,6 +13,7 @@
 html {
   background: #f5f3ee;
   overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -25,6 +26,37 @@ body {
   letter-spacing: 0;
   overflow-x: hidden;
   text-rendering: optimizeLegibility;
+}
+
+main,
+section,
+article,
+aside,
+header,
+footer,
+p,
+h1,
+h2,
+h3,
+h4,
+li,
+dd {
+  min-width: 0;
+}
+
+a,
+button,
+input,
+select,
+textarea {
+  min-width: 0;
+}
+
+img,
+svg,
+canvas,
+video {
+  max-width: 100%;
 }
 
 [lang="ar"],
@@ -68,16 +100,16 @@ body {
 @layer components {
   .container-page {
     @apply mx-auto w-full max-w-[1360px] px-4 sm:px-6 lg:px-8;
-    width: auto;
+    max-width: min(1360px, 100vw);
   }
 
   .container-text {
     @apply mx-auto w-full max-w-[760px] px-4 sm:px-6 lg:px-8;
-    width: auto;
+    max-width: min(760px, 100vw);
   }
 
   .page-block {
-    @apply py-8 md:py-12;
+    @apply py-7 md:py-12;
   }
 
   .page-kicker {
@@ -85,7 +117,7 @@ body {
   }
 
   .page-title {
-    @apply mt-3 max-w-4xl text-[2.45rem] font-medium leading-[1.04] text-ink md:text-[4.4rem];
+    @apply mt-3 max-w-4xl break-words text-[clamp(2.1rem,12vw,2.75rem)] font-medium leading-[1.04] text-ink md:text-[4.4rem];
   }
 
   .page-description {
@@ -105,11 +137,11 @@ body {
   }
 
   .button-primary {
-    @apply ui-sans inline-flex min-h-10 items-center justify-center bg-brand px-4 py-2 text-sm font-medium text-white transition duration-150 hover:bg-brand-hover focus:outline-none focus:ring-2 focus:ring-brand/25 focus:ring-offset-2;
+    @apply ui-sans inline-flex min-h-11 items-center justify-center bg-brand px-4 py-2 text-sm font-medium text-white transition duration-150 hover:bg-brand-hover focus:outline-none focus:ring-2 focus:ring-brand/25 focus:ring-offset-2;
   }
 
   .button-secondary {
-    @apply ui-sans inline-flex min-h-10 items-center justify-center border border-line bg-surface px-4 py-2 text-sm font-medium text-ink transition duration-150 hover:border-brand-line hover:bg-subtle focus:outline-none focus:ring-2 focus:ring-brand/20 focus:ring-offset-2;
+    @apply ui-sans inline-flex min-h-11 items-center justify-center border border-line bg-surface px-4 py-2 text-sm font-medium text-ink transition duration-150 hover:border-brand-line hover:bg-subtle focus:outline-none focus:ring-2 focus:ring-brand/20 focus:ring-offset-2;
   }
 
   .input {
@@ -121,7 +153,7 @@ body {
   }
 
   .entity-row {
-    @apply block border-b border-line py-5 pr-4 transition duration-150 hover:bg-subtle/55 md:px-3;
+    @apply block min-w-0 border-b border-line py-5 transition duration-150 hover:bg-subtle/55 md:px-3;
   }
 
   .metadata-label {
@@ -176,6 +208,65 @@ body {
     @apply ui-sans inline-flex border-b border-line py-1 text-sm text-ink transition duration-150 hover:border-brand hover:text-brand focus:outline-none focus:ring-2 focus:ring-brand/20;
   }
 
+  .article-title-fr {
+    @apply max-w-[900px] break-words text-[clamp(2.05rem,8.5vw,2.75rem)] font-medium leading-[1.08] text-ink md:text-[3.45rem];
+  }
+
+  .article-title-ar {
+    font-family: "Noto Naskh Arabic", "KFGQPC Uthman Taha Naskh", "Scheherazade New", "Geeza Pro", serif;
+    @apply max-w-[900px] text-right text-[clamp(1.9rem,8vw,2.5rem)] font-semibold leading-[1.55] text-brand md:text-[3.2rem];
+  }
+
+  .article-summary {
+    @apply mt-6 max-w-[760px] text-lg leading-8 text-muted md:text-[1.35rem] md:leading-9;
+  }
+
+  .article-reader {
+    @apply max-w-[800px];
+  }
+
+  .article-body {
+    @apply text-[1.08rem] leading-8 text-ink md:text-[1.22rem] md:leading-10;
+  }
+
+  .article-body p {
+    @apply mb-7 break-words;
+  }
+
+  .article-body p:first-child::first-letter {
+    color: #16604f;
+    float: left;
+    font-size: 4.15em;
+    line-height: 0.86;
+    margin: 0.08em 0.12em 0 0;
+  }
+
+  .article-arabic-paragraph {
+    font-family: "Noto Naskh Arabic", "KFGQPC Uthman Taha Naskh", "Scheherazade New", "Geeza Pro", serif;
+    @apply border-y border-brand-line/60 bg-surface px-4 py-5 text-right text-[1.45rem] font-medium leading-[2.25] text-ink md:px-6 md:text-[1.8rem];
+  }
+
+  .article-body .article-arabic-paragraph:first-child::first-letter {
+    color: inherit;
+    float: none;
+    font-size: inherit;
+    line-height: inherit;
+    margin: 0;
+  }
+
+  .article-arabic-inline {
+    font-family: "Noto Naskh Arabic", "KFGQPC Uthman Taha Naskh", "Scheherazade New", "Geeza Pro", serif;
+    @apply inline-block px-1 text-[1.18em] font-medium leading-none text-brand;
+  }
+
+  .article-title-fr .article-arabic-inline {
+    @apply mx-1 px-0 text-[0.86em] leading-[1.2] text-brand;
+  }
+
+  .article-sidebar {
+    @apply ui-sans text-muted;
+  }
+
   .map-surface {
     background:
       linear-gradient(135deg, rgba(255, 253, 248, 0.82), rgba(238, 227, 211, 0.28)),
@@ -216,4 +307,25 @@ body {
   width: 36px !important;
   height: 36px !important;
   background-color: rgba(255, 253, 248, 0.96) !important;
+}
+
+@media (max-width: 767px) {
+  .nav-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .nav-inner details {
+    justify-self: end;
+  }
+
+  .hero-copy {
+    width: min(100%, calc(100vw - 2rem));
+    max-width: calc(100vw - 2rem);
+  }
+
+  .hero-copy h1,
+  .hero-copy p {
+    overflow-wrap: anywhere;
+  }
 }

@@ -111,12 +111,12 @@ export function ArticlesLiveList({ initialArticles }: { initialArticles: Article
       <div className="grid gap-6 border-b border-line pb-6 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-end">
         <div>
           <p className="page-kicker">Revue editoriale</p>
-          <h1 className="mt-3 text-4xl font-medium text-ink md:text-6xl">Articles</h1>
+          <h1 className="mt-3 break-words text-[clamp(2.25rem,12vw,3rem)] font-medium text-ink md:text-6xl">Articles</h1>
           <p className="mt-4 max-w-2xl text-base leading-7 text-muted md:text-lg md:leading-8">
             Etudes, notes et dossiers relies aux madrassas, aux savants, aux sources et aux textes du Maroc savant.
           </p>
         </div>
-        <div className="border-l border-line pl-5">
+        <div className="border-t border-line pt-5 lg:border-l lg:border-t-0 lg:pl-5 lg:pt-0">
           <p className="metadata-label">Corpus</p>
           <p className="mt-1 text-3xl font-medium text-ink">{filteredArticles.length}</p>
           <p className="ui-sans mt-2 text-xs text-muted">{loading ? "Synchronisation Supabase..." : "Articles publics disponibles"}</p>
@@ -145,7 +145,7 @@ export function ArticlesLiveList({ initialArticles }: { initialArticles: Article
         ) : null}
       </div>
 
-      <div className="flex gap-5 overflow-x-auto border-b border-line py-4">
+      <div className="scroll-area -mx-4 flex gap-5 overflow-x-auto border-b border-line px-4 py-4 sm:mx-0 sm:px-0">
         <button className={`filter-chip shrink-0 ${activeTheme === "all" ? "border-brand text-ink" : ""}`} onClick={() => setActiveTheme("all")} type="button">
           Tous les themes
         </button>
@@ -165,8 +165,8 @@ export function ArticlesLiveList({ initialArticles }: { initialArticles: Article
         <section className="grid gap-8 border-b border-line py-8 lg:grid-cols-[0.42fr_1fr]">
           <ArticleMeta article={featured} />
           <Link className="group block" href={`/articles/${featured.slug}`}>
-            {featured.titleAr ? <p className="text-right text-3xl leading-[1.45] text-ink md:text-4xl" dir="rtl" lang="ar">{featured.titleAr}</p> : null}
-            <h2 className="mt-3 max-w-4xl text-3xl font-medium leading-tight text-ink md:text-5xl">{featured.title}</h2>
+            {featured.titleAr ? <p className="break-words text-right text-2xl leading-[1.45] text-ink md:text-4xl" dir="rtl" lang="ar">{featured.titleAr}</p> : null}
+            <h2 className="mt-3 max-w-4xl break-words text-[clamp(1.85rem,9vw,2.5rem)] font-medium leading-tight text-ink md:text-5xl">{featured.title}</h2>
             <p className="mt-5 max-w-3xl text-base leading-8 text-muted md:text-lg md:leading-9">{featured.summary}</p>
             <span className="ui-sans mt-6 inline-flex border-b border-brand text-sm font-medium text-brand transition group-hover:text-brand-hover">
               Lire l'article
@@ -179,7 +179,7 @@ export function ArticlesLiveList({ initialArticles }: { initialArticles: Article
 
       {remaining.length ? (
         <section className="py-8">
-          <div className="mb-5 flex items-end justify-between gap-4">
+          <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <p className="page-kicker">Chronologie</p>
               <h2 className="section-title mt-2">Toutes les publications</h2>

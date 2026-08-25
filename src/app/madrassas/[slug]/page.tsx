@@ -29,13 +29,13 @@ export default async function MadrassaPage({ params }: { params: Promise<{ slug:
         <div className="mt-8 grid gap-6 lg:grid-cols-[1fr_360px] lg:items-end">
           <div>
             <p className="arabic-title" dir="rtl" lang="ar">{madrassa.nameAr}</p>
-            <h1 className="mt-3 text-4xl font-medium text-ink md:text-6xl">{madrassa.name}</h1>
+            <h1 className="mt-3 break-words text-[clamp(2.15rem,11vw,3rem)] font-medium text-ink md:text-6xl">{madrassa.name}</h1>
             <p className="ui-sans mt-4 text-base text-muted">{madrassa.commune} · Province de {madrassa.province}</p>
             <div className="mt-5">
               <StatusBadge status={madrassa.status} />
             </div>
           </div>
-          <dl className="grid grid-cols-2 gap-5 border-t border-line pt-5 lg:border-t-0 lg:pt-0">
+          <dl className="grid gap-5 border-t border-line pt-5 sm:grid-cols-2 lg:border-t-0 lg:pt-0">
             <MetadataItem label="Localisation" value={`${madrassa.village}, ${madrassa.commune}`} />
             <MetadataItem label="Statut" value={madrassa.currentStatus} />
             <MetadataItem label="Contact" value={<LinkedText value={madrassa.contact} />} />
@@ -107,7 +107,7 @@ export default async function MadrassaPage({ params }: { params: Promise<{ slug:
         </main>
 
         <aside className="h-fit border-t border-line pt-6 lg:sticky lg:top-24 lg:border-t-0 lg:pt-0">
-          <dl className="grid gap-6 border-l border-line pl-5">
+          <dl className="grid gap-6 lg:border-l lg:border-line lg:pl-5">
             <MetadataItem label="Province" value={madrassa.province} />
             <MetadataItem label="Commune" value={madrassa.commune} />
             <MetadataItem label="Village" value={madrassa.village} />

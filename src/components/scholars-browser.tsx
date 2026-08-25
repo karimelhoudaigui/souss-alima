@@ -94,7 +94,7 @@ export function ScholarsBrowser({ scholars }: ScholarsBrowserProps) {
         <div className="grid min-w-0 gap-8 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-end">
           <div className="min-w-0 max-w-full">
             <p className="page-kicker">Dictionnaire biographique</p>
-            <h1 className="mt-3 max-w-4xl break-words text-4xl font-medium leading-[1.03] text-ink md:text-6xl">Savants et maitres de transmission</h1>
+            <h1 className="mt-3 max-w-4xl break-words text-[clamp(2.2rem,11vw,3rem)] font-medium leading-[1.03] text-ink md:text-6xl">Savants et maitres de transmission</h1>
             <p className="page-description max-w-2xl break-words">
               Des fiches reliees aux madrassas, aux chaines d'enseignement, aux textes et aux sources documentaires.
             </p>
@@ -141,11 +141,11 @@ export function ScholarsBrowser({ scholars }: ScholarsBrowserProps) {
           ) : null}
         </div>
 
-        <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2">
+        <div className="scroll-area -mx-4 mt-5 flex gap-5 overflow-x-auto px-4 pb-2 sm:mx-0 sm:flex-wrap sm:px-0">
           {domains.map((item) => (
             <button
               aria-pressed={domain === item.id}
-              className={`filter-chip ${domain === item.id ? "border-brand text-ink" : ""}`}
+              className={`filter-chip shrink-0 ${domain === item.id ? "border-brand text-ink" : ""}`}
               key={item.id}
               onClick={() => setDomain(item.id)}
               type="button"
@@ -180,7 +180,7 @@ export function ScholarsBrowser({ scholars }: ScholarsBrowserProps) {
 function ScholarCard({ scholar }: { scholar: Scholar }) {
   return (
     <Link
-      className="group flex min-h-[560px] min-w-0 flex-col overflow-hidden border border-line bg-surface transition duration-200 hover:-translate-y-0.5 hover:border-brand-line hover:bg-white hover:shadow-[0_18px_55px_rgba(35,28,21,0.08)]"
+      className="group flex min-w-0 flex-col overflow-hidden border border-line bg-surface transition duration-200 hover:-translate-y-0.5 hover:border-brand-line hover:bg-white hover:shadow-[0_18px_55px_rgba(35,28,21,0.08)] sm:min-h-[560px]"
       href={`/savants/${scholar.slug}`}
     >
       <div className="relative aspect-[4/3] w-full shrink-0 overflow-hidden bg-subtle">

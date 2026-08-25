@@ -23,31 +23,31 @@ export default async function HomePage() {
 
   return (
     <div className="overflow-hidden">
-      <section className="relative isolate min-h-[calc(100vh-4rem)] overflow-hidden bg-ink text-white">
+      <section className="relative isolate min-h-[calc(100svh-4rem)] overflow-hidden bg-ink text-white">
         <div
           aria-hidden="true"
-          className="hero-pan absolute inset-0 z-0 bg-cover bg-center"
+          className="hero-pan absolute inset-0 z-0 bg-cover bg-[58%_50%] md:bg-center"
           style={{ backgroundImage: `url("${heroImage}")` }}
         />
-        <div className="absolute inset-0 z-[1] bg-[linear-gradient(90deg,rgba(23,18,13,0.9),rgba(23,18,13,0.63)_46%,rgba(23,18,13,0.24)),linear-gradient(0deg,rgba(23,18,13,0.78),rgba(23,18,13,0.08)_46%,rgba(23,18,13,0.38))]" />
-        <div className="relative z-[2] flex min-h-[calc(100vh-4rem)] items-center">
-          <div className="container-page py-12 md:py-16">
-            <div className="w-full max-w-[22rem] overflow-hidden sm:max-w-xl md:max-w-4xl">
+        <div className="absolute inset-0 z-[1] bg-[linear-gradient(90deg,rgba(23,18,13,0.92),rgba(23,18,13,0.68)_54%,rgba(23,18,13,0.34)),linear-gradient(0deg,rgba(23,18,13,0.82),rgba(23,18,13,0.12)_46%,rgba(23,18,13,0.42))] md:bg-[linear-gradient(90deg,rgba(23,18,13,0.9),rgba(23,18,13,0.63)_46%,rgba(23,18,13,0.24)),linear-gradient(0deg,rgba(23,18,13,0.78),rgba(23,18,13,0.08)_46%,rgba(23,18,13,0.38))]" />
+        <div className="relative z-[2] flex min-h-[calc(100svh-4rem)] items-center">
+          <div className="container-page py-10 md:py-16">
+            <div className="hero-copy w-full max-w-[22rem] overflow-hidden sm:max-w-xl md:max-w-4xl">
               <p className="ui-sans text-[11px] font-semibold uppercase tracking-[0.08em] text-white/78">Atlas documentaire</p>
-              <p className="brand-arabic mt-6 max-w-full overflow-hidden text-center text-[2.35rem] leading-[1.35] text-white drop-shadow-[0_10px_32px_rgba(0,0,0,0.55)] sm:text-5xl md:text-right md:text-7xl" dir="rtl" lang="ar">المغرب العالِم</p>
-              <h1 className="mt-3 max-w-5xl text-[2.45rem] font-medium leading-[1.02] text-white drop-shadow-[0_14px_40px_rgba(0,0,0,0.5)] sm:text-[3.6rem] md:text-[6.2rem]">
+              <p className="brand-arabic mt-5 max-w-full overflow-hidden text-center text-[clamp(2rem,13vw,2.8rem)] leading-[1.35] text-white drop-shadow-[0_10px_32px_rgba(0,0,0,0.55)] sm:text-5xl md:text-right md:text-7xl" dir="rtl" lang="ar">المغرب العالِم</p>
+              <h1 className="mt-3 max-w-5xl break-words text-[clamp(2.3rem,13vw,3.25rem)] font-medium leading-[1.02] text-white drop-shadow-[0_14px_40px_rgba(0,0,0,0.5)] sm:text-[3.6rem] md:text-[6.2rem]">
                 <span className="block">Al-Maghrib</span>
                 <span className="block">al-ʿĀlim.</span>
               </h1>
-              <p className="mt-6 max-w-full text-xl leading-8 text-white sm:text-2xl sm:leading-9 md:max-w-3xl">
+              <p className="mt-6 max-w-[21rem] text-lg leading-7 text-white sm:max-w-full sm:text-2xl sm:leading-9 md:max-w-3xl">
                 Atlas documentaire du patrimoine savant marocain.
               </p>
-              <p className="mt-4 max-w-full text-base leading-7 text-white/74 md:max-w-2xl">
+              <p className="mt-4 max-w-[21rem] text-base leading-7 text-white/74 sm:max-w-full md:max-w-2xl">
                 Madrassas, savants, textes, sources et territoires sont presentes comme un corpus relie, a consulter comme une archive vivante.
               </p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Link className="button-primary bg-white text-ink hover:bg-white/90" href="/madrassas">Explorer l'atlas</Link>
-                <Link className="ui-sans inline-flex min-h-10 items-center justify-center border-b border-white/45 px-1 text-sm font-medium text-white transition hover:border-white" href="/contribuer">
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                <Link className="button-primary w-full bg-white text-ink hover:bg-white/90 sm:w-auto" href="/madrassas">Explorer l'atlas</Link>
+                <Link className="ui-sans inline-flex min-h-11 w-full items-center justify-center border-b border-white/45 px-1 text-sm font-medium text-white transition hover:border-white sm:w-auto" href="/contribuer">
                   Proposer une source
                 </Link>
               </div>

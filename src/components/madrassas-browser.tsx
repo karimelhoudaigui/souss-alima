@@ -100,20 +100,20 @@ export function MadrassasBrowser({ madrassas }: MadrassasBrowserProps) {
 
   return (
     <>
-      <header className="grid min-w-0 max-w-[calc(100vw-2rem)] gap-8 border-b border-line pb-8 sm:max-w-none lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+      <header className="grid min-w-0 gap-8 border-b border-line pb-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
         <div>
           <p className="page-kicker">Index territorial</p>
-          <h1 className="mt-3 text-4xl font-medium text-ink md:text-6xl">Madrassas</h1>
+          <h1 className="mt-3 break-words text-[clamp(2.25rem,12vw,3rem)] font-medium text-ink md:text-6xl">Madrassas</h1>
           <p className="mt-4 max-w-xl text-base leading-7 text-muted">
             Rechercher, comparer et localiser les etablissements documentes sur la carte.
           </p>
         </div>
-        <form className="min-w-0 max-w-[calc(100vw-2rem)] sm:max-w-none lg:justify-self-end lg:w-full lg:max-w-2xl" role="search">
+        <form className="min-w-0 lg:justify-self-end lg:w-full lg:max-w-2xl" role="search">
           <label className="sr-only" htmlFor="madrassa-search">Rechercher une madrassa</label>
           <div className="relative">
             <Search className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-faint" aria-hidden="true" />
             <input
-              className="input min-h-12 max-w-[calc(100vw-2rem)] pl-12 sm:max-w-full"
+              className="input min-h-12 pl-12"
               id="madrassa-search"
               onChange={(event) => setQuery(event.target.value)}
               placeholder="Nom, ville, province, cheikh, source..."
@@ -145,7 +145,7 @@ export function MadrassasBrowser({ madrassas }: MadrassasBrowserProps) {
                 </select>
               </label>
             </div>
-            <div className="flex max-w-[calc(100vw-2rem)] gap-5 overflow-x-auto pb-2 sm:max-w-full">
+            <div className="scroll-area -mx-4 flex gap-5 overflow-x-auto px-4 pb-2 sm:mx-0 sm:px-0">
               {axes.map((item) => (
                 <button
                   aria-pressed={axis === item.id}
@@ -168,8 +168,8 @@ export function MadrassasBrowser({ madrassas }: MadrassasBrowserProps) {
         </div>
       </section>
 
-      <div className="mt-6 grid min-h-[680px] min-w-0 max-w-[calc(100vw-2rem)] gap-6 sm:max-w-none lg:grid-cols-[minmax(360px,0.78fr)_1.22fr]">
-        <section className="order-2 min-w-0 max-w-[calc(100vw-2rem)] sm:max-w-none lg:order-1">
+      <div className="mt-6 grid min-w-0 gap-6 lg:min-h-[680px] lg:grid-cols-[minmax(360px,0.78fr)_1.22fr]">
+        <section className="order-2 min-w-0 lg:order-1">
           <div className="mb-3 flex items-center justify-between">
             <p className="ui-sans text-sm text-muted">
               {filteredMadrassas.length} etablissement{filteredMadrassas.length > 1 ? "s" : ""}
@@ -181,7 +181,7 @@ export function MadrassasBrowser({ madrassas }: MadrassasBrowserProps) {
               <Link className="entity-row group min-w-0" href={`/madrassas/${madrassa.slug}`} key={madrassa.slug}>
                 <div className="grid min-w-0 gap-4 sm:grid-cols-[200px_minmax(0,1fr)]">
                   {madrassa.image ? (
-                    <div className="relative aspect-[4/3] w-full max-w-[calc(100vw-3rem)] overflow-hidden bg-subtle sm:max-w-none">
+                    <div className="relative aspect-[4/3] w-full overflow-hidden bg-subtle">
                       <Image
                         alt=""
                         className="object-cover transition duration-500 group-hover:scale-[1.015]"
@@ -192,7 +192,7 @@ export function MadrassasBrowser({ madrassas }: MadrassasBrowserProps) {
                       />
                     </div>
                   ) : null}
-                  <div className="min-w-0 max-w-[calc(100vw-3rem)] sm:max-w-none">
+                  <div className="min-w-0">
                     <div className="grid min-w-0 gap-3 md:grid-cols-[minmax(0,1fr)_auto] md:items-start">
                       <div className="min-w-0">
                         <p className="break-words text-right text-lg leading-8 text-ink" dir="rtl" lang="ar">{madrassa.nameAr}</p>
@@ -212,8 +212,8 @@ export function MadrassasBrowser({ madrassas }: MadrassasBrowserProps) {
           </div>
         </section>
 
-        <section className="order-1 hidden min-w-0 max-w-[calc(100vw-2rem)] sm:max-w-none lg:sticky lg:top-24 lg:order-2 lg:block lg:h-[min(720px,calc(100vh-7rem))]">
-          <MadrassaMap className="h-[560px] lg:h-full" madrassas={mapMadrassas} />
+        <section className="order-1 min-w-0 lg:sticky lg:top-24 lg:order-2 lg:h-[min(720px,calc(100vh-7rem))]">
+          <MadrassaMap className="h-[360px] sm:h-[440px] lg:h-full" madrassas={mapMadrassas} />
         </section>
       </div>
     </>

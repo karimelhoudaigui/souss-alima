@@ -144,7 +144,7 @@ export function MadrassaMap({ madrassas, className = "" }: MadrassaMapProps) {
           }
           setLoaded(true);
         }}
-        style={{ width: "100%", height: "100%", minHeight: 520 }}
+        style={{ width: "100%", height: "100%" }}
         attributionControl={{ compact: true }}
         cooperativeGestures={false}
       >

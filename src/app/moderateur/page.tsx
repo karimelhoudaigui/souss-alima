@@ -34,12 +34,12 @@ export default async function ModeratorPage() {
         <div className="grid gap-8 lg:grid-cols-[1fr_420px] lg:items-end">
           <div>
             <p className="page-kicker">Espace editorial</p>
-            <h1 className="mt-3 text-4xl font-semibold tracking-[-0.025em] text-ink md:text-6xl">Moderation</h1>
+            <h1 className="mt-3 break-words text-[clamp(2.15rem,11vw,3rem)] font-semibold text-ink md:text-6xl">Moderation</h1>
             <p className="page-description">
               Ajouter, verifier et publier les contenus qui alimentent la carte, les fiches madrassas et l'espace editorial.
             </p>
           </div>
-          <dl className="grid grid-cols-3 gap-4 rounded-[18px] border border-line bg-surface p-4">
+          <dl className="grid gap-4 rounded-lg border border-line bg-surface p-4 sm:grid-cols-3">
             <div>
               <dt className="metadata-label">Madrassas</dt>
               <dd className="mt-1 text-3xl font-semibold text-ink">{madrassas.length}</dd>
